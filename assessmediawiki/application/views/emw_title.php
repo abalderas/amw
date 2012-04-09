@@ -1,1 +1,1 @@
-<h1>EvalMediaWiki</h1>
+<h1>AssessMediaWiki</h1>

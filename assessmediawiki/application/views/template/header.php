@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>EvalMediaWiki</title>
+<title>AssessMediaWiki</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <style type="text/css">
 
@@ -82,5 +82,5 @@ p.description {
 </head>
 <body>
 <div id="header"> <!--<img src="<?php echo base_url() . "images/uca.gif"; ?>" />--> EVALMEDIAWIKI </div>
-<div id="footer"> @copyright EvalMediaWiki <?php echo date("Y"); ?>  </div>
+<div id="footer"> @copyright AssessMediaWiki <?php echo date("Y"); ?>  </div>
 <div id="content"> 

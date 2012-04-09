@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>EvalMediaWiki</title>
+<title>AssessMediaWiki</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <style type="text/css">
 body { background-color:#fff; margin:40px; font-family:Lucida Grande,Verdana,Sans-serif; font-size:14px; color:#4F5155; }
