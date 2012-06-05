@@ -8,6 +8,6 @@
 				echo ", the entry of the wiki is in the next url:  ";
 		}
 		else
-			echo ", there are not revisions pending for an assessment:  ";
+			echo ", there are no revisions pending for an assessment:  ";
 ?>
 </p>
