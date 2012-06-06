@@ -19,9 +19,9 @@
 		<td><?php echo $tests[$key]; ?></td>
 		<td><?php echo anchor(site_url("params/edit/" . $key), "Edit"); ?>
 			<?php 
-			// echo anchor(site_url("params/delete/" . $key), "Del"); 
+			echo anchor(site_url("params/delete/" . $key), "Del"); 
 			?>
-			<a href="http://localhost/evalmediawiki/index.php/params/delete/<?php echo $key . '"'; ?> class="delete-link">Del</a>
+			<!-- <a href="http://localhost/evalmediawiki/index.php/params/delete/<?php echo $key . '"'; ?> class="delete-link">Del</a> -->
 			</td>
 	</tr>
 	<?php
