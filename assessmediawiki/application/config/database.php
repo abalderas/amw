@@ -42,9 +42,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'emwuser';
-$db['default']['password'] = '3v4lm3d14';
-$db['default']['database'] = 'emw2012iw';
+$db['default']['username'] = 'usuario_de_amw';
+$db['default']['password'] = 'clave_de_usuario_de_amw';
+$db['default']['database'] = 'base_de_datos_utilizada_para_amw';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
