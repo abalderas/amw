@@ -2,7 +2,7 @@
 <?php	
 	if (!isset($evaluaciones_pendientes) || $evaluaciones_pendientes>0)
 	{	
-		echo anchor_popup("http://osl2.uca.es/wikiIW/index.php?oldid=" . $entrada . "&diff=prev", "url to assess");
+		echo anchor_popup("http://wikis.uca.es/wikiASO/index.php?oldid=" . $entrada . "&diff=prev", "url to assess");
 ?>
 <br />
 <br />

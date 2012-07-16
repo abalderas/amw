@@ -12,7 +12,6 @@ class Usuarios_model extends CI_Model {
 		$this->link = $this->bd->conectar_wiki();
 		$this->listado();
     }
-	
 	function listado()
 	{
 		
@@ -26,6 +25,20 @@ class Usuarios_model extends CI_Model {
 		}
 		
 	}
+
+	function users()
+	{
+		$usuarios = array();
+		
+		$sql    = 'SELECT user_id, user_name "
+			. "FROM user';
+		$result = mysql_query($sql, $this->link);
+
+		while ($row = mysql_fetch_array($result, MYSQL_NUM)) {
+			$usuarios[$row[0]] = $row[1];
+		}
+		return $usuarios;
+	}
 	
 	function admin($userid)
 	{
@@ -38,7 +51,7 @@ class Usuarios_model extends CI_Model {
 		*/
 		$admin = 2;
 		
-		if ($userid == $admin || $userid == 24)
+		if ($userid == $admin || $userid == 38)
 			return 1;
 		else
 			return 0;

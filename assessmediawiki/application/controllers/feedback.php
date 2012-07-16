@@ -38,12 +38,17 @@ class Feedback extends CI_Controller {
 	
 	function informe($id)
 	{
+		if (!$this->session->userdata('logged_in'))
+			redirect('acceso/index');
+
 		$this->index($id);
 	}
 	
 	function csv($id)
 	{
-		
+		if (!$this->session->userdata('logged_in'))
+			redirect('acceso/index');
+	
 		$this->load->model('Csv_model', 'csv');
 		
 		$data = $this->csv->datos($id);
@@ -62,7 +67,32 @@ class Feedback extends CI_Controller {
 		*/
 	}
 
+	function csv_sheet($sheet)
+	{
+		if (!$this->session->userdata('logged_in'))
+			redirect('acceso/index');
 
+		$this->load->model('Csv_model', 'csv');
+		$this->load->model('Usuarios_model','wiki_users');
+
+		$data['wikiu'] = $this->wiki_users->users();
+
+		// Listado usuarios
+		$data['users'] = $this->csv->users();
+
+		// Listado competencias
+		$data['competencies'] = $this->csv->entregables('ent_id');
+
+		if ($sheet==1) // Suma notas
+			$data['sumas'] = $this->csv->suma_notas($data['users'], $data['competencies']);
+		else if ($sheet==2) // Cuenta notas
+			$data['sumas'] = $this->csv->cuenta_notas($data['users'], $data['competencies']);
+		else if ($sheet==3)
+			$data['sumas'] = $this->csv->resumen_notas($data['users'], $data['competencies']);
+
+
+		$this->load->view('csv_sheet', $data);
+	}
 }
 
 /* End of file feedback.php */

@@ -54,7 +54,8 @@ class Revisiones_model extends CI_Model {
 		$sql_fin    = 'FROM revision, categorylinks '
 			. 'WHERE rev_user <> ' . $user
 			. ' AND rev_user <> 0 '
-			//. ' AND rev_timestamp > ' . $this->fecha()
+			. ' AND rev_timestamp  BETWEEN 20120301000000 AND 20120605000000'
+			// . $this->fecha()
 			. ' AND rev_id NOT IN (';
 		// Tampoco puede ser el usuario 0
 		// porque es el user x defecto del wiki
@@ -71,13 +72,13 @@ class Revisiones_model extends CI_Model {
 		
 		// Primero contamos cuántas hay:
 		$sql = $sql_count . $sql_fin;
-		
+		// echo $sql;
 		$result = mysql_query($sql, $this->link);
 		
 		while ($row = mysql_fetch_array($result)) {
 			$cantidad = $row[0];
 		}
-
+		
 		$cantidad = floor($cantidad*0.3+1);
 	
 		$sql = $sql_select . $sql_fin . 

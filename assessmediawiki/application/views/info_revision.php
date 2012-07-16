@@ -9,7 +9,7 @@
 		<td></td>
 	</tr>
     <?php
-    if ($revisor == 'Admin' || $revisor == $usuario)
+    if ($this->usuarios->admin($usuario_id) || $revisor == 'Admin' || $revisor == $usuario)
     {
     ?>
     
@@ -23,7 +23,7 @@
     ?>
 	<tr>
 		<td>Link</td>
-		<td><?php echo $entrada; ?></td>
+		<td><?php echo anchor_popup('http://wikis.uca.es/wikiASO/index.php?oldid='.$entrada.'&diff=prev', 'url'); ?></td>
 		<td></td>
 	</tr>
 	<tr class="head">

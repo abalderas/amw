@@ -1,4 +1,4 @@
-<h1>AssessMediaWiki</h1>
+<h1>EvalMediaWiki</h1>
 
 <?php if($this->session->flashdata('message')) : ?>
     <p><?=$this->session->flashdata('message')?></p>

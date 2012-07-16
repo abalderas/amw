@@ -14,10 +14,10 @@ class Evaluar extends CI_Controller {
 		$this->load->model('Entregable_model', 'entregables');
 		$this->load->model('Evaluaciones_model', 'evaluaciones');
 		$this->load->model('Revisiones_model', 'revisiones');
-		
+			
 		// Máximo número de evaluaciones por alumno
 		//  Si es 0 no se tiene en cuenta.
-		$max_eval = 0;
+		$max_eval = 10;
 		
 		/* 
 			Buscar una entrada válida:		
@@ -107,12 +107,15 @@ class Evaluar extends CI_Controller {
 	{				
 		$colors = array("#99C68E", "#F9966B", "#FDD017", "#EBDDE2", "#5CB3FF", "#736F6E");
 		$this->load->model('Reply_model', 'reply');		
+		$this->load->model('Usuarios_model', 'usuarios');
+		
 		
 		
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
 		
 		$data = $this->evaluation_data($eval);
+		$data['usuario_id'] = $this->session->userdata('userid');
 		$this->load->view('info_revision', $data);
 		
 		 // Replies
@@ -132,12 +135,14 @@ class Evaluar extends CI_Controller {
 	}
 
 	function reply($evaluacion)
-	{
 
+	{
+		$this->load->model('Usuarios_model','usuarios');
 		$data = $this->evaluation_data($evaluacion);
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
 		$data['msg'] = "Please give us your assessment about your revision.";
+		$data['usuario_id'] = $this->session->userdata('userid');
 		$this->load->view('info_revision', $data);
 
 		$this->load->view('reply_title');
