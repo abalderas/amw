@@ -1,5 +1,167 @@
-<HTML>
-<BODY>
-Welcome to AssessMediaWiki homesite. We are under construction. Check <a href="https://forja.rediris.es/projects/assessmediawiki/">our forge to get information of the project</a>.
-</BODY>
-</HTML>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>AssessMediaWiki</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AssessMediaWiki es un sistema para evaluar las aportaciones de los usuarios a un wiki MediaWiki. Esta evaluación la realizarán los usuarios registrados en el wiki.">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+    body{
+        padding-top: 20px;
+        text-align: justify;
+    }
+    #nav{
+        margin-top: 5px;
+        margin-bottom: 15px;
+    }
+
+    #nav .btn-group{
+        clear: both;
+        float: right;
+        margin-bottom: 10px;
+    }
+
+    h1{
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
+
+    #capturas .row{
+    }
+    </style>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+
+  </head>
+
+  <body>
+
+    <div class="container">
+        <div class="row">
+            <div class="span5">
+                <img src="img/logo.png">
+            </div>
+            <div id="nav" class="span6 offset1">
+                <div class="btn-group">
+                    <a href="index_en.html" class="btn">English</a>
+                    <a href="index.html" class="btn">Español</a>
+                </div>
+
+                <div class="btn-group">
+                    <a href="#tag_introduccion" class="btn">Introducción</a>
+                    <a href="#tag_referencias" class="btn">Referencias</a>
+                    <a href="#tag_acceso" class="btn">Acceso a la aplicación</a>
+                    <a href="#tag_capturas" class="btn">Capturas</a>
+                </div>
+
+            </div>
+        </div>
+
+        <h1 id="tag_introduccion">Introducción</h1>
+
+        <p>Los wikis son un sistema muy popular como ayuda a la docencia. Cuando
+            el número de estudiantes y la cantidad de información almacenada en un wiki
+            aumentan, evaluar el trabajo de cada estudiante resulta difícil.
+            Los wikis mantienen un registro con las diferencias entre las revisiones
+            consecutivas de los artículos, que pueden ser usadas para la evaluación
+            del aprendizaje. Esta información puede evaluarse a lo largo de la vida
+            del wiki para obtener datos sobre la actividad de los estudiantes..</p>
+
+        <p><strong>AssessMediaWiki</strong> es una aplicación web de código abierto que, al conectarse a una instalación MediaWiki,
+            proporciona procedimientos de autoevaluación, hetero evaluación y evaluación entre
+            iguales, a la vez que mantiene información sobre esas evaluaciones. Los supervisores
+            pueden obtener informes que ayudan en la evaluación de los estudiantes.</p>
+
+        <p>Aunque hay un gran número de extensiones para el sistema MediaWiki, no hemos encontrado
+            ninguna que permitiera evaluar contribuciones individuales a un wiki. La mayoría de
+            las aproximaciones solo ofrecen formas de evaluar una versión en particular de un
+            artículo (normalmente la más reciente), siendo ineficaces en este caso.
+            Por ello, para evaluar la calidad de las contribuciones creamos AssessMediaWiki.</p>
+
+        <p>AssessMediaWiki implementa dos roles de usuario distintos: supervisores y estudiantes.
+            Los estudiantes pueden elegir entre distintas opciones: evaluar una revisión, comprobar
+            sus propias aportaciones evaluadas y verificar las evaluaciones ya enviadas. Por otro
+            lado, los supervisores tienen un mayor número de opciones, como modificar los parámetros
+            de los programas o vigilar las evaluaciones que los alumnos vayan haciendo.</p>
+
+        <p>Este trabajo ha sido parcialmente financiado por el Proyecto de
+            Innovación Docente <strong>"La Heteroevaluación como Apoyo a la Sostenibilidad
+            en Evaluaciones Complejas de Trabajos Colaborativos en Wikis</strong> (Código
+            PI2_12_029) de la <a href="http://www.uca.es">Universidad de Cádiz</a></p>
+
+        <h2 id="tag_referencias">Referencias</h2>
+
+        <p>El trabajo de AssessMediaWiki fue presentado en el congreso <a href="http://transducens.dlsi.ua.es/congress/spdece2012/doku.php/start">SPEDECE 2012</a>
+            a través del artículo <em>"Qualitative assessment of wiki-based learning processes"</em>.</p>
+
+        <h1 id="tag_acceso">Acceso a la aplicación</h1>
+        <p>Al tratarse de un proyecto open-source, todo el desarrollo de AssessMediaWiki se ha llevado
+        a cabo utilizando una forja de código libre, en particular la
+        <a href="https://forja.rediris.es/about/">Forja de Conocimiento Libre de la Comunidad RedIRIS</a>.</p>
+
+        <p>Puede aceder a todo el código y descargarse la aplicación a través de la dirección oficial
+            de la forja del proyecto:</p>
+
+        <code><a href="https://forja.rediris.es/projects/assessmediawiki/">https://forja.rediris.es/projects/assessmediawiki/</a></code>
+
+        <h1 id="tag_capturas">Capturas de pantalla</h1>
+        <div id="capturas">
+            <div class="row">
+                <div class="span7">
+                    <img src="img/01-login.jpg" alt="">
+                </div>
+                <div class="span5">
+                    <h3>Pantalla de login</h3>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="span7">
+                    <img src="img/02-main.jpg" alt="">
+                </div>
+                <div class="span5">
+                    <h3>Pantalla de login</h3>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="span7">
+                    <img src="img/03-myassessment.jpg" alt="">
+                </div>
+                <div class="span5">
+                    <h3>Lista de revisiones asignadas</h3>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="span7">
+                    <img src="img/05-params.jpg" alt="">
+                </div>
+                <div class="span5">
+                    <h3>Lista de posibles criterios de evaluación</h3>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="span7">
+                    <img src="img/06-reply.jpg" alt="">
+                </div>
+                <div class="span5">
+                    <h3>Pantalla de login</h3>
+                </div>
+            </div>
+            <hr>
+        </div>
+
+        <script src="/js/jquery.js"></script>
+
+    </body>
+    </html>
