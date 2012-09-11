@@ -42,9 +42,12 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'usuario_de_amw';
-$db['default']['password'] = 'clave_de_usuario_de_amw';
-$db['default']['database'] = 'base_de_datos_utilizada_para_amw';
+
+// Datos de acceso a la BD de la aplicación
+$db['default']['username'] = 'root';
+$db['default']['password'] = '';
+$db['default']['database'] = 'datos_amw';
+
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

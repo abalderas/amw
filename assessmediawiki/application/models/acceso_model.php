@@ -17,11 +17,12 @@ class Acceso_model extends CI_Model {
 	function conectar_wiki()
 	{
 		
-		$link =  mysql_connect('localhost', 'usuario_bd_wiki', 'clave_usuario_bd_wiki');
+		$link =  mysql_connect('localhost', $this->config->item('usuario_bd_wiki'), $this->config->item('clave_usuario_bd_wiki'));
+
 		if (!$link) {
 			die('No pudo conectarse: ' . mysql_error());
 		}
-		if (!mysql_select_db('nombre_bd_wiki', $link)) {
+		if (!mysql_select_db($this->config->item('nombre_bd_wiki'), $link)) {
 			echo 'No pudo seleccionar la base de datos';
 			exit;
 		}
