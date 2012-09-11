@@ -1,0 +1,172 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+% \usepackage{graphicx}
+% \usepackage{longtable}
+% \usepackage{float}
+% \usepackage{wrapfig}
+% \usepackage{float}
+% \usepackage{soul}
+% \usepackage{amssymb}
+
+% Colores
+\usepackage{color}
+\definecolor{prueba}{rgb}{.1,.1,.4}
+
+% Resaltado de URL
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=prueba,citecolor=prueba, filecolor=prueba, menucolor=prueba, urlcolor=prueba}
+
+% Control de la separación entre párrafos
+\usepackage[parfill]{parskip}
+
+\title{Guía del desarrollador de AssessMediaWiki}
+\author{José Tomás Tocino García - \texttt{josetomas.tocino@uca.es}}
+\date{Marzo de 2012}
+
+% Resaltado de código
+\usepackage{minted}
+
+% Definición de márgenes
+\usepackage[top=2cm,bottom=3cm,left=2cm,right=2cm]{geometry}
+
+% Interlineado
+\usepackage{setspace}
+\onehalfspacing
+
+% Entorno propio para código de php
+\newminted{php}{startinline=true}
+\newminted{sql}{}
+
+%%
+%% INICIO DEL DOCUMENTO
+%%
+\begin{document}
+
+\begin{titlepage}
+\maketitle  
+\end{titlepage}
+
+\section{Introducción a AssessMediaWiki}
+
+\textbf{AssessMediaWiki} es una aplicación web de código abierto capaz de
+conectarse a una instalación de MediaWiki y proporcionar una serie de
+herramientas de autoevaluación, heteroevaluación y evaluación entre
+iguales. Todas esas evaluaciones se mantienen registradas y es posible
+supervisarlas. 
+
+AssessMediaWiki implementa dos roles de usuario distintos: supervisores y
+estudiantes. Los estudiantes pueden elegir entre distintas opciones: evaluar una
+revisión, comprobar sus propias aportaciones evaluadas y verificar las
+evaluaciones ya enviadas. Por otro lado, los supervisores tienen un mayor número
+de opciones, como modificar los parámetros de los programas o vigilar las
+evaluaciones que los alumnos vayan haciendo.
+
+Este trabajo ha sido parcialmente financiado por el Proyecto de Innovación
+Docente \textbf{``La Heteroevaluación como Apoyo a la Sostenibilidad en Evaluaciones
+Complejas de Trabajos Colaborativos en Wikis''} (Código PI2\_12\_029) de la
+Universidad de Cádiz
+
+\section{Vista general técnica}
+
+\subsection{Bases tecnológicas}
+
+AssessMediaWiki está desarrollado en el lenguaje de programación
+\textbf{PHP}\footnote{\url{http://www.php.net}} y utilizando el framework
+\textbf{CodeIgniter}\footnote{\url{http://codeigniter.com}}. Se trata de un
+framework de desarrollo web que utiliza el patrón
+\textbf{Modelo-Vista-Controlador}\footnote{\url{http://es.wikipedia.org/wiki/Modelo_vista_controlador}},
+que divide las aplicaciones web en tres partes, de forma que el mantenimiento y
+las actualizaciones posteriores sean más sencillas:
+
+\begin{itemize}
+\item Los \textbf{modelos} representan los datos de la aplicación. Por regla
+  general un modelo corresponde a una entidad (por ejemplo, un
+  \textit{usuario}), y se le suele asignar una tabla en la base de datos. Los
+  modelos también albergan métodos para el trabajo con los datos, abstrayendo
+  los pormenores del acceso al usuario.
+\item Las \textbf{vistas} son las formas en las que se presentan los datos al
+  usuario. En la mayoría de los casos, las vistas son plantillas web hechas en
+  HTML y CSS, pero también es posible representar los datos utilizando vistas en
+  otros formatos, como XML o JSON.
+\item Los \textbf{controladores} se sitúan entre los modelos y las vistas, y
+  ejecutan la lógica de la aplicación. Reciben las peticiones del navegador,
+  deciden qué operaciones deben realizar y qué datos necesitan, y cargan las
+  vistas apropiados con los datos necesarios. La mayor parte de la programación
+  se ubica en los controladores.
+\end{itemize}
+
+\subsection{Orígenes de datos}
+
+Para poder trabajar, AssessMediaWiki hace uso de dos orígenes de datos. En
+primer lugar, la aplicación tiene su \textbf{propia base de datos}, en la que se
+guardan las evaluaciones de las aportaciones del wiki, las revisiones de las
+evaluaciones y los comentarios, así como diversos parámetros de evaluación.
+
+Por otro lado, la aplicación debe tener acceso a la \textbf{base de datos del
+  wiki} sobre el que se van a hacer las evaluaciones. Además, toda la
+autenticación se hace sobre la base de usuarios del wiki, por lo que evitamos
+que haya que hacer dos registros.
+
+\section{Instalación}
+
+La instalación de AssessMediaWiki parte de una \textbf{instalación previa de
+  MediaWiki}. Es importante que el usuario conozca los datos de acceso a la base
+de datos de MediaWiki. Para más información sobre cómo instalar MediaWiki u
+obtener las credenciales de la base de datos, visite la web de
+MediaWiki\footnote{\url{http://www.mediawiki.org/wiki/MediaWiki}}.
+
+El primer paso es crear una base de datos para AMW, y un usuario que tendrá
+todos los privilegios sobre ella. Se reflejarán los pasos a seguir desde la
+línea de comandos de un sistema GNU/Linux, aunque el procedimiento también puede
+hacerse de manera visual mediante asistentes como \textit{PhpMyAdmin}. Para
+acceder a la terminal de mysql utilizaremos:
+
+\begin{sqlcode}
+% mysql -u root -p
+\end{sqlcode}
+
+Una vez dentro, ejecutaremos el siguiente comando para crear la base de datos
+\texttt{datos\_amw}.
+
+\begin{sqlcode}
+CREATE DATABASE datos_amw;   
+\end{sqlcode}
+
+Seguidamente, crearemos el usuario \texttt{'usuario\_amw'} y le daremos permisos sobre la base de datos.
+
+\begin{sqlcode}
+GRANT ALL ON datos_amw.* TO usuario_amw@localhost IDENTIFIED BY 'clave_amw';  
+\end{sqlcode}
+
+Hecho esto, iremos al fichero \texttt{application/config/database.php} y
+cambiaremos los parámetros de acceso, de forma que coincidan con los que hemos
+utilizado:
+
+\begin{phpcode}
+$db['default']['username'] = 'usuario_amw';
+$db['default']['password'] = 'clave_amw';
+$db['default']['database'] = 'datos_amw';  
+\end{phpcode}
+%$
+
+El siguiente paso es configurar el acceso a la base de datos de MediaWiki. Para
+ello, editamos el fichero \texttt{application/config/amw.php} con los datos de acceso:
+
+\begin{phpcode}
+$config["database_mw"] = "bd_mw";
+$config["username_mw"] = "usuario_mw";
+$config["password_mw"] = "clave_mw";
+\end{phpcode}
+%$
+
+Con esto ya podremos acceder a la aplicación, para lo que habrá que usar las
+credenciales de acceso al wiki. Inicialmente AMW se encontrará en \textit{modo
+  desarrollo}, de forma que al hacer login no hará falta meter la contraseña
+exacta del usuario con el que queramos acceder, cualquier contraseña
+valdrá. Esto nos permitirá probar los diferentes roles de usuario a la hora de
+hacer pruebas.
+
+\end{document}
