@@ -162,11 +162,34 @@ $config["password_mw"] = "clave_mw";
 \end{phpcode}
 %$
 
+El siguiente paso es indicar qué usuarios tendrán permisos de administrador. Por
+regla general, los profesores de la asignatura y el desarrollador deberían tener
+acceso de administrador. Previamente es necesario conocer los ID numéricos de
+cada uno de los usuarios administradores, que podremos encontrar en la tabla
+\texttt{users} de MediaWiki. Seguidamente, iremos al fichero
+\texttt{application/config/amw.php} e incluiremos en la clave
+\textit{usuarios\_admin} los ID de los usuarios administradores:
+
+\begin{phpcode}
+// Administradores los usuarios con ID = 1 y ID = 2
+$config["usuarios_admin"] = array(1, 2);  
+\end{phpcode}
+%$
+
 Con esto ya podremos acceder a la aplicación, para lo que habrá que usar las
 credenciales de acceso al wiki. Inicialmente AMW se encontrará en \textit{modo
   desarrollo}, de forma que al hacer login no hará falta meter la contraseña
 exacta del usuario con el que queramos acceder, cualquier contraseña
 valdrá. Esto nos permitirá probar los diferentes roles de usuario a la hora de
 hacer pruebas.
+
+\textbf{ES INDISPENSABLE} que al poner la aplicación a disposición de los
+usuarios se desactive el modo desarrollo. Para ello, accederemos al fichero
+\texttt{application/config/amw.php} y pondremos el valor a \texttt{FALSE}.
+
+\begin{phpcode}
+$config["modo_desarrollo"] = FALSE; 
+\end{phpcode}
+%$
 
 \end{document}

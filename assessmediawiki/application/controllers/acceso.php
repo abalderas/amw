@@ -33,7 +33,6 @@ class Acceso extends CI_Controller {
 		// Carga del modelo de acceso
 		$this->load->model('acceso_model', 'acceso');
 		
-		
 		// has the form been submitted and with valid form info (not empty values)
 		if($this->input->post('login'))
 		{
@@ -51,11 +50,13 @@ class Acceso extends CI_Controller {
 					
 					$hash = $this->acceso->userpass($user_name);
 					$m = false;
-					$type = substr( $hash, 0, 3 );
-					
+					$type = substr( $hash, 0, 3 );					
 					$acceso = 0;
 
-					if ( $type == ':A:' ) {
+					// Bypass de la contraseña en modo de desarrollo
+					if ($this->config->item('modo_desarrollo') == TRUE) {
+						$acceso = 1;
+					} elseif ( $type == ':A:' ) {
 						# Unsalted
 						if (md5( $user_pass ) === substr( $hash, 3 ))
 							$acceso = 1;

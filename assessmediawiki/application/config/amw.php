@@ -1,10 +1,20 @@
 <?php
 
 // Nombre de la BD de MediaWiki
-$config["nombre_bd_wiki"] = "root";
+$config["database_mw"] = "wikiasodb";
 
 // Nombre de usuario de la BD de MediaWiki
-$config["usuario_bd_wiki"] = "";
+$config["username_mw"] = "root";
 
 // Contraseña de la BD de MediaWiki
-$config["clave_usuario_bd_wiki"] = "";
+$config["password_mw"] = "";
+
+// Cuando modo_desarrollo == TRUE, se puede hacer login con
+// cualquier nombre de usuario sin importar la contraseña
+// 
+// IMPORTANTE: DESACTIVAR ANTES DE IR A PRODUCCIÓN
+//
+$config["modo_desarrollo"] = TRUE;
+
+// ID del usuario correspondiente al profesor/revisor
+$config["usuarios_admin"] = array(1, 2);

@@ -42,19 +42,17 @@ class Usuarios_model extends CI_Model {
 	
 	function admin($userid)
 	{
-		// De momento el admin será un usuario
-		//  cuya id corresponda con ésta.
-		// Más adelante se mejorará ésto.
-		/* IW:
-		usuario dodero = 2
-		mi usuario = 24
-		*/
-		$admin = 2;
+		// Los usuarios que son ADMIN se definen en el fichero
+		// application/config/amw.php
+
+		return in_array($userid, $this->config->item("usuarios_admin"));
 		
+		/*
 		if ($userid == $admin || $userid == 38)
 			return 1;
 		else
 			return 0;
+		//*/
 	}
     
 

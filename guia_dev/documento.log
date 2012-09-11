@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.9.1)  11 SEP 2012 19:30
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.9.1)  11 SEP 2012 20:12
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -684,17 +684,39 @@ runsystem(rm documento.out.pyg)...executed.
 
 runsystem(rm documento.pyg)...executed.
 
- [2] [3] (./documento.aux) ) 
+ [2]
+\openout3 = `documento.pyg'.
+
+runsystem(pygmentize -l php -f latex -F tokenmerge        -P startinline     -P
+ "verboptions= " -o documento.out.pyg documento.pyg)...executed.
+
+ (./documento.out.pyg)
+runsystem(rm documento.out.pyg)...executed.
+
+runsystem(rm documento.pyg)...executed.
+
+\openout3 = `documento.pyg'.
+
+runsystem(pygmentize -l php -f latex -F tokenmerge        -P startinline     -P
+ "verboptions= " -o documento.out.pyg documento.pyg)...executed.
+
+
+(./documento.out.pyg)
+runsystem(rm documento.out.pyg)...executed.
+
+runsystem(rm documento.pyg)...executed.
+
+ [3] (./documento.aux) ) 
 Here is how much of TeX's memory you used:
- 6475 strings out of 495061
- 90917 string characters out of 1182622
+ 6482 strings out of 495061
+ 91024 string characters out of 1182622
  179530 words of memory out of 3000000
- 9526 multiletter control sequences out of 15000+50000
- 10573 words of font info for 38 fonts, out of 3000000 for 9000
+ 9528 multiletter control sequences out of 15000+50000
+ 10741 words of font info for 39 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  38i,8n,37p,377b,344s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{Hfootnote.4} has been r
-eferenced but does not exist, replaced by a fixed one
+pdfTeX warning (dest): name{Hfootnote.4} has been refer
+enced but does not exist, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exist
 , replaced by a fixed one
@@ -707,17 +729,18 @@ pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
 
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share
 /texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texl
-ive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/ty
-pe1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/a
-msfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
-mr6.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr
-/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texm
-f-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-texlive/f
-onts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-texlive/fonts/type1/
-public/amsfonts/cm/cmtt9.pfb>
-Output written on documento.pdf (4 pages, 148942 bytes).
+ive/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/share/texmf-texlive/fonts/
+type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public
+/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm
+/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr6.pfb></
+usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/tex
+mf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/
+fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-texlive/fonts/type1
+/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
+fonts/cm/cmtt9.pfb>
+Output written on documento.pdf (4 pages, 157614 bytes).
 PDF statistics:
- 102 PDF objects out of 1000 (max. 8388607)
+ 106 PDF objects out of 1000 (max. 8388607)
  13 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
