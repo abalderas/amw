@@ -13,18 +13,22 @@ class Acceso extends CI_Controller {
 		// Indicamos los campos del formulario y las reglas de validación sobre el mismo
 		$this->form_validation->set_rules('user_name', 'username', 'required');
 		$this->form_validation->set_rules('user_pass', 'password', 'required');
-		$this->form_validation->set_error_delimiters('<em>','</em>');
+		$this->form_validation->set_error_delimiters('<span class="inline-help">','</span>');
 
-		// Carga del modelo de acceso, nos dará la información de los usuarios de MediaWiki
+		// Carga del modelo de acceso
 		$this->load->model('acceso_model', 'acceso');
+
+		$this->load->model('usuarios_model', 'usuarios');
 		
 		// Si junto a la petición se reciben datos del formulario
 		if($this->input->post('login'))
 		{
+			log_message('error','Hay datos de formulario');
 
 			// Si el formulario pasa la validación (ambos campos rellenos)
 			if($this->form_validation->run())
 			{
+				log_message('error','La validación es correcta');
 				try {				
 					
 			    	// Leemos usuario y contraseña
@@ -83,7 +87,8 @@ class Acceso extends CI_Controller {
 						$newdata = array(
 							'username'  => $user_name,
 							'userid'  => $user_id,   
-							'logged_in' => TRUE
+							'logged_in' => TRUE,
+							'is_admin' => $this->usuarios->admin($user_id)
 							);
 
 						// Guardamos los datos en la cookie de sesión
@@ -100,6 +105,10 @@ class Acceso extends CI_Controller {
 					$this->session->set_flashdata('message', $e->getMessage());
 					redirect('acceso/index/');
 				}				
+			}
+			else
+			{
+				log_message('error','La validación del formulario no fue bien');
 			}
 		}
 

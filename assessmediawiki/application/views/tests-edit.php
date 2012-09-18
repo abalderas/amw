@@ -1,7 +1,7 @@
 	<?php
 		echo heading('Introduce the new value of the criteria:', 1);
 		echo br();
-		echo form_open('params/update');
+		echo form_open('parametros/update');
 		echo heading('Criteria:', 4);		
 		echo form_input($test);
 		echo br();

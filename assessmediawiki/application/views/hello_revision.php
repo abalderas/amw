@@ -1,13 +1,13 @@
 
-<p>Hi <?php echo $usuario; ?>
+<p>Hi <strong><?php echo $usuario; ?></strong>
 <?php
-		if (isset($evaluaciones_pendientes))
-		{
-			echo ", there are " . $evaluaciones_pendientes . " revisions pending for an assessment";
-			if ($evaluaciones_pendientes > 0)
-				echo ", the entry of the wiki is in the next url:  ";
-		}
-		else
-			echo ", there are 0 revisions pending for an assessment:  ";
+
+if (!isset($evaluaciones_pendientes))
+{
+	$evaluaciones_pendientes = "no";
+}
+
+echo ", there are $evaluaciones_pendientes revisions pending for an assessment.";
+
 ?>
 </p>

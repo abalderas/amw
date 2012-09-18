@@ -1,25 +1,30 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Params extends CI_Controller {
+class Parametros extends CI_Controller {
 
 	function __construct()
     {
         // Call the Controller constructor
         parent::__construct();
 		
+		// Comprobamos que el usuario ha hecho login
 		if (!$this->session->userdata('logged_in'))
 			redirect('acceso/index');
-		 // LOAD LIBRARIES
+
+		// Cargamos las bibliotecas necesarias
         $this->load->library(array('encrypt', 'form_validation'));
 		
-		// LOAD MODEL
+		// Cargamos el modelo de usuarios
 		$this->load->model('Usuarios_model', 'usuarios');
 		$usuario_id = $this->session->userdata('userid');
-		//$usuario_id = 2;
+		
+		// Restringimos el acceso a administradores
 		if (!$this->usuarios->admin($usuario_id))
 			redirect('evaluar');
 
+		// Cargamos los modelos de los datos
 		$this->load->model('Test_model', 'tests');
+		$this->load->model('Parametros_model', 'parametros');
 		
     }
 	
@@ -27,19 +32,45 @@ class Params extends CI_Controller {
 	{
 		$this->load->helper('url');
 		$this->load->helper('html');		
+
 		$data['tests'] = $this->tests->tests;
+
+		// Si se han recibido datos del formulario de parámetros
+		if ($this->input->post('categoria'))
+		{
+			$this->parametros->set_categoria($this->input->post('categoria'));
+			$this->parametros->set_fecha_inicio($this->input->post('fecha_inicio'));
+			$this->parametros->set_fecha_fin($this->input->post('fecha_fin'));
+			$this->parametros->set_evaluaciones_por_alumno($this->input->post('evaluaciones_por_alumno'));
+
+			$wiki_url = $this->input->post('wiki_url');
+			// Añade una barra invertida si no la trae
+			if (substr($wiki_url, -1) != "/") 
+			{
+				$wiki_url .= "/";
+			}
+
+			$this->parametros->set_wiki_url($wiki_url);
+		}
+
+		// Leemos la categoría
+		$data['categoria'] = $this->parametros->get_categoria();
+		$data['fecha_inicio'] = $this->parametros->get_fecha_inicio();
+		$data['fecha_fin'] = $this->parametros->get_fecha_fin();
+		$data['evaluaciones_por_alumno'] = $this->parametros->get_evaluaciones_por_alumno();
+		$data['wiki_url'] = $this->parametros->get_wiki_url();
 		
 		$this->load->view('template/header');
 		$this->load->view('template/header-delete');
 		$this->load->view('template/menu');
-		$this->load->view('tests', $data);
+		$this->load->view('parametros', $data);
 		$this->load->view('template/footer');
 	}
 	
 	public function delete($id)
 	{		
 		$this->tests->delete($id);
-		redirect('params');
+		redirect('parametros');
 	}
 	
 	public function edit($id)
@@ -79,7 +110,7 @@ class Params extends CI_Controller {
 	{
 		$data = $this->input->post();
 		$this->tests->update($data);
-		redirect('params/index');
+		redirect('parametros/index');
 	}
 	
 	public function add()
@@ -115,7 +146,7 @@ class Params extends CI_Controller {
 	{
 		$data = $this->input->post();
 		$this->tests->insert($data);
-		redirect('params/index');
+		redirect('parametros/index');
 	}
 
 	function csv()
@@ -126,7 +157,7 @@ class Params extends CI_Controller {
 		$data['id'] = $this->csv->entregables('ent_id');
 		$data['ent'] = $this->csv->entregables('ent_entregable');
 		
-		$this->load->view('csv_params_view', $data);		
+		$this->load->view('csv_parametros_view', $data);		
 		
 	}
 

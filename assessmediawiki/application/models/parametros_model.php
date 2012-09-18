@@ -2,16 +2,24 @@
 
 class Parametros_model extends CI_Model {
 
+	private $valores_defecto = array(
+		"categoria" => "",
+		"fecha_inicio" => "19900101000000",
+		"fecha_fin" => "29900101000000",
+		"evaluaciones_por_alumno" => "10",
+		"wiki_url" => "http://localhost"
+		);
+
 	/// Lee la categoría asignada desde la tabla de configuración
 	function get_categoria ()
 	{
-		return $this->get_value('category');		
+		return $this->get_value('categoria');		
 	}
 
 	/// Asigna la categoría indicada
 	function set_categoria ($value)
 	{
-		$this->set_value('category', $value);
+		$this->set_value('categoria', $value);
 	}
 
 	function get_fecha_inicio()
@@ -44,6 +52,16 @@ class Parametros_model extends CI_Model {
 		$this->set_value('evaluaciones_por_alumno', $value);
 	}
 
+	function get_wiki_url()
+	{
+		return $this->get_value('wiki_url');
+	}
+
+	function set_wiki_url($value)
+	{
+		$this->set_value('wiki_url', $value);
+	}
+
 	/// Asigna el valor al parámetro indicado
 	private function set_value ($parameter, $value)
 	{
@@ -68,9 +86,12 @@ class Parametros_model extends CI_Model {
 		{
 			return $query->first_row()->value;
 		}
+
+		// Si no existe la clave en la base de datos, metemos un valor por defecto
 		else
 		{
-			return false;
+			$this->db->insert('config', array("parameter" => $parameter, "value" => $this->valores_defecto[$parameter]));
+			return $this->valores_defecto($parameter);
 		}
 	}
 }

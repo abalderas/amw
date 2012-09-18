@@ -37,7 +37,7 @@ class Evaluar extends CI_Controller {
 		$entradas_validas = $this->revisiones->listado_validas($entradas_existentes, $usuario_id);
 
 		// Si el numero de revisiones evaluables es mayor que 0
-		if (sizeof($entradas_validas)>0)
+		if (sizeof($entradas_validas) > 0)
 		{
 			// Elegimos una de las entradas de forma aleatoria
 			$aleatorio = rand(0, (sizeof($entradas_validas)-1));
@@ -53,7 +53,7 @@ class Evaluar extends CI_Controller {
 			$data['descriptions'] = $this->entregables->descriptions;
 		}
 		
-		if ($max_eval>0)
+		if ($max_eval > 0)
 		{
 			// Calculamos el número de evaluaciones que aún debe hacer el usuario
 			$data['evaluaciones_pendientes'] = $max_eval - $this->revisiones->realizadas($usuario_id);
@@ -62,13 +62,15 @@ class Evaluar extends CI_Controller {
 		$data['usuario'] = $this->session->userdata('username');
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
-		$this->load->view('emw_title');
 
 		// Si finalmente hay alguna entrada a evaluar
 		if (isset($data['entrada']))
 		{
+			log_message('error',$data["entrada"]);
+
 			$data['msg'] = "You may grade the revision here below.";
 			$data['post_url'] = 'evaluar/procesar';
+
 			$this->load->view('hello_revision', $data);
 			$this->load->view('previa_revision');
 		}
@@ -150,29 +152,41 @@ class Evaluar extends CI_Controller {
 			$data['reply_number'] = $i+1;
 			$this->load->view('info_revision', $data);
 		}
-		$this->load->view('emw_reply');
+		
 		$this->load->view('template/footer');
 	}
 
 	/// Muestra el formulario para añadir meta-evaluaciones (replies)
 	function reply($evaluacion)
-
 	{
+		// Cargamos los modelos necesarios
 		$this->load->model('Usuarios_model','usuarios');
-		$data = $this->evaluation_data($evaluacion);
-		$this->load->view('template/header');
-		$this->load->view('template/menu');
-		$data['msg'] = "Please give us your assessment about your revision.";
-		$data['usuario_id'] = $this->session->userdata('userid');
-		$this->load->view('info_revision', $data);
-
-		$this->load->view('reply_title');
 		$this->load->model('Revisiones_model', 'revisiones');
-		$data['usuario_a_revisar'] = $this->revisiones->usuarioArticulo($data['entrada']);  // Poner bien documento a evaluar (2874, no id de la evaluacion
 		$this->load->model('Entregable_model', 'entregables');
+
+		// Cargamos los datos de evaluación
+		$data = $this->evaluation_data($evaluacion);
+
+		// Mensaje a mostrar
+		$data['msg'] = "Please give us your assessment about your revision.";
+
+		// ID del usuario logueado
+		$data['usuario_id'] = $this->session->userdata('userid');
+
+		// ID del usuario a ser evaluado		
+		$data['usuario_a_revisar'] = $this->revisiones->usuarioArticulo($data['entrada']);  // Poner bien documento a evaluar (2874, no id de la evaluacion
+		
+		// Campos entregables
 		$data['campos'] = $this->entregables->entregables;
 		$data['descriptions'] = $this->entregables->descriptions;
+
+		// Destino del formulario
 		$data['post_url'] = 'evaluar/reply_submit';
+
+		// Cargamos las vistas
+		$this->load->view('template/header');
+		$this->load->view('template/menu');
+		$this->load->view('info_revision', $data);
 		$this->load->view('previa_revision', $data);
 		$this->load->view('template/footer');
 	}
