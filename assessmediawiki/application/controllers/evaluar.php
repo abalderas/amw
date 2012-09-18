@@ -129,9 +129,7 @@ class Evaluar extends CI_Controller {
 	{				
 		$colors = array("#99C68E", "#F9966B", "#FDD017", "#EBDDE2", "#5CB3FF", "#736F6E");
 		$this->load->model('Reply_model', 'reply');		
-		$this->load->model('Usuarios_model', 'usuarios');
-		
-		
+		$this->load->model('Acceso_model', 'acceso');
 		
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
@@ -160,7 +158,7 @@ class Evaluar extends CI_Controller {
 	function reply($evaluacion)
 	{
 		// Cargamos los modelos necesarios
-		$this->load->model('Usuarios_model','usuarios');
+		$this->load->model('acceso_model','acceso');
 		$this->load->model('Revisiones_model', 'revisiones');
 		$this->load->model('Entregable_model', 'entregables');
 
@@ -203,8 +201,8 @@ class Evaluar extends CI_Controller {
         $this->load->library(array('encrypt', 'form_validation'));
 		
 		$this->load->model('evaluaciones_model', 'evaluacion');
-		$this->load->model('acceso_model', 'usuario');				
-		$this->load->model('Usuarios_model', 'admin'); // Para ver si admin
+		$this->load->model('acceso_model', 'acceso');				
+		$this->load->model('acceso_model', 'admin'); // Para ver si admin
 		
 		// id user logueado
 		$usuario_id = $this->session->userdata('userid');
@@ -221,9 +219,9 @@ class Evaluar extends CI_Controller {
 				redirect('evaluar');
 		
 		// A partir del id de usuario obtengo el nombre.
-		$data['usuario'] = $this->usuario->username($data['usuario']);
+		$data['usuario'] = $this->acceso->username($data['usuario']);
 		$data['evaluacion'] = $evaluacion;
-        $data['revisor'] = $this->usuario->username($data['revisor']);
+        $data['revisor'] = $this->acceso->username($data['revisor']);
         //echo $data['revisor'];
 		
 		return $data;

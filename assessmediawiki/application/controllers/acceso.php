@@ -18,8 +18,6 @@ class Acceso extends CI_Controller {
 		// Carga del modelo de acceso
 		$this->load->model('acceso_model', 'acceso');
 
-		$this->load->model('usuarios_model', 'usuarios');
-		
 		// Si junto a la petición se reciben datos del formulario
 		if($this->input->post('login'))
 		{
@@ -88,7 +86,7 @@ class Acceso extends CI_Controller {
 							'username'  => $user_name,
 							'userid'  => $user_id,   
 							'logged_in' => TRUE,
-							'is_admin' => $this->usuarios->admin($user_id)
+							'is_admin' => $this->acceso->admin($user_id)
 							);
 
 						// Guardamos los datos en la cookie de sesión

@@ -15,11 +15,11 @@ class Parametros extends CI_Controller {
         $this->load->library(array('encrypt', 'form_validation'));
 		
 		// Cargamos el modelo de usuarios
-		$this->load->model('Usuarios_model', 'usuarios');
+		$this->load->model('acceso_model', 'acceso');
 		$usuario_id = $this->session->userdata('userid');
 		
 		// Restringimos el acceso a administradores
-		if (!$this->usuarios->admin($usuario_id))
+		if (!$this->acceso->admin($usuario_id))
 			redirect('evaluar');
 
 		// Cargamos los modelos de los datos

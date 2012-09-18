@@ -13,14 +13,14 @@ class Feedback extends CI_Controller {
 		
 		// LOAD MODEL
 		$this->load->model('revisiones_model', 'revisiones');
-		$this->load->model('evaluaciones_model', 'evaluaciones');
-		$this->load->model('Usuarios_model', 'usuarios');
+		$this->load->model('evaluaciones_model', 'evaluaciones');		
+		$this->load->model('acceso_model', 'acceso');
 		$this->load->model('Reply_model', 'replies');
 		
 		$usuario_id = $this->session->userdata('userid');		
 
 		if ($id!=0)
-			if (!$this->usuarios->admin($usuario_id))
+			if (!$this->acceso->admin($usuario_id))
 				$id = 0; // Si no es admin sólo puede ver lo suyo.
 
 		if ($id == 0)

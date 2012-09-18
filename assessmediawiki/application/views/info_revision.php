@@ -6,7 +6,7 @@
 			<li>Author:
 			<?php echo $usuario; ?></li>
 		
-		<?php if ($this->usuarios->admin($usuario_id) || $revisor == 'Admin' || $revisor == $usuario) { ?>
+		<?php if ($this->acceso->admin($usuario_id) || $revisor == 'Admin' || $revisor == $usuario) { ?>
 			<li>Revisor:
 			<?php echo $revisor; ?></li>
 		<?php } ?>
