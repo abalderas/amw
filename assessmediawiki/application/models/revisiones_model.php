@@ -52,20 +52,24 @@ class Revisiones_model extends CI_Model {
 		// Generamos las posibilidades SQL.
 		$sql_count = 'SELECT count(*) ';
 		$sql_select = 'SELECT rev_id ';
+
+		// La siguiente consulta busca en la tabla de revisiones aquellas 
+		// cuyo autor no sea el usuario indicado o el usuario por defecto del wiki (ID = 0)
+		// que se encuentren en el periodo de tiempo indicado
+		// y que no se encuentren entre las revisiones ya evaluadas
+
 		$sql_fin    = 'FROM revision, categorylinks '
 			. 'WHERE rev_user <> ' . $user
 			. ' AND rev_user <> 0 '
-			. ' AND rev_timestamp  BETWEEN 20120301000000 AND 20120605000000'
-			// . $this->fecha()
+			. ' AND rev_timestamp  BETWEEN ' . $this->config->item('fecha_inicio') . ' AND ' . $this->config->item('fecha_fin') 
 			. ' AND rev_id NOT IN (';
-		// Tampoco puede ser el usuario 0
-		// porque es el user x defecto del wiki
+
 		foreach ($existentes as $e)
 			$sql_fin .= $e . ', ';
 			
 		$sql_fin .= '0)';
 
-		// Incluimos categories
+		// Filtramos las revisiones para que solo se incluyan los artículos en la categoría indicada
 		// Ademas de estas lineas se incluye en from tabla categorylinks
 		$sql_fin .= "AND cl_to = '" . $this->category->category() . "'";
 		$sql_fin .= "AND cl_from = rev_page";
@@ -73,7 +77,7 @@ class Revisiones_model extends CI_Model {
 		
 		// Primero contamos cuántas hay:
 		$sql = $sql_count . $sql_fin;
-		// echo $sql;
+		//echo $sql;
 		$result = mysql_query($sql, $this->link);
 		
 		while ($row = mysql_fetch_array($result)) {
@@ -109,6 +113,7 @@ class Revisiones_model extends CI_Model {
 		return $curso;
 	}
 	
+	/// Devuelve el número de evaluaciones realizadas por un usuario
 	function realizadas($user)
 	{
 		$articulos = array();

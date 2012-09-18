@@ -162,6 +162,15 @@ $config["usuarios_admin"] = array(1, 2);
 \end{phpcode}
 %$
 
+En AMW solo se tendrán en cuenta las ediciones realizadas en un cierto periodo
+de tiempo. Éste se definirá indicando la fecha de inicio y la fecha de fin en el
+fichero de configuración previamente indicado:
+
+\begin{phpcode}
+$config["fecha_inicio"] = "20120301000000";
+$config["fecha_fin"]    = "20120605000000";
+\end{phpcode}
+
 Con esto ya podremos acceder a la aplicación, para lo que habrá que usar las
 credenciales de acceso al wiki. Inicialmente AMW se encontrará en \textit{modo
   desarrollo}, de forma que al hacer login no hará falta meter la contraseña
@@ -271,6 +280,24 @@ varias funciones para guardar replies y obtener las replies asociadas a una
 evaluación.
 
 \subsubsection{Revisión}
+
+AssessMediaWiki no trabaja sobre artículos directamente, sino sobre las
+distintas ediciones, o \textbf{revisiones}, que han ido haciéndose sobre cada
+artículo. El modelo \textit{Revisiones}
+(\texttt{application/models/revisiones\_model.php}) permite obtener información
+sobre revisiones de los artículos. En particular:
+\begin{itemize}
+\item El método \texttt{articulos} devuelve las revisiones de artículos
+  relacionadas por un usuario particular, cuyo ID se debe proveer.
+\item El método \texttt{usuarioArticulo} devuelve el ID del usuario autor de una
+  revisión particular, cuyo ID se debe proveer.
+\item El método \texttt{listado\_validas} devuelve un listado de revisiones que
+  podrían ser sujeto de evaluación. Este método recibe un conjunto de revisiones
+  ya evaluadas y un usuario, y busca entre todas las revisiones no evaluadas y
+  que no pertenezcan al usuario indicado. Además, filtra las revisiones para que
+  solo se incluyan los artículos de la categoría indicada, y que se hayan
+  realizado en el periodo de tiempo indicado.
+\end{itemize}
 
 \subsubsection{Usuarios}
 
