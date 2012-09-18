@@ -20,7 +20,7 @@ class Feedback extends CI_Controller {
 		$usuario_id = $this->session->userdata('userid');		
 
 		if ($id!=0)
-			if (!$this->acceso->admin($usuario_id))
+			if (!$this->acceso->es_admin($usuario_id))
 				$id = 0; // Si no es admin sólo puede ver lo suyo.
 
 		if ($id == 0)
@@ -72,12 +72,12 @@ class Feedback extends CI_Controller {
 			redirect('acceso/index');
 
 		$this->load->model('Csv_model', 'csv');
-		$this->load->model('Usuarios_model','wiki_users');
+		$this->load->model('acceso_model', 'acceso');
 
-		$data['wikiu'] = $this->wiki_users->users();
+		$data['wikiu'] = $this->acceso->usuarios();
 
 		// Listado usuarios
-		$data['users'] = $this->csv->users();
+		$data['users'] = $this->csv->usuarios();
 
 		// Listado competencias
 		$data['competencies'] = $this->csv->entregables('ent_id');

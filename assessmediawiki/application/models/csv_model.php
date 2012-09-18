@@ -70,7 +70,7 @@ class Csv_model extends CI_Model {
 		return $notas;		
 	}
 
-	function users()
+	function usuarios()
 	{
 		$users = array();
 

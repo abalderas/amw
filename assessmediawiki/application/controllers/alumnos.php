@@ -18,7 +18,7 @@ class Alumnos extends CI_Controller
 		$usuario_id = $this->session->userdata('userid');
 		
 		// Si el usuario no es administrador, lo sacamos de aquí
-		if (!$this->acceso->admin($usuario_id))
+		if (!$this->acceso->es_admin($usuario_id))
 			redirect('evaluar');
 
 		// Leemos los datos de los alumnos

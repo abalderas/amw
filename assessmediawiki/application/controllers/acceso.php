@@ -86,7 +86,7 @@ class Acceso extends CI_Controller {
 							'username'  => $user_name,
 							'userid'  => $user_id,   
 							'logged_in' => TRUE,
-							'is_admin' => $this->acceso->admin($user_id)
+							'is_admin' => $this->acceso->es_admin($user_id)
 							);
 
 						// Guardamos los datos en la cookie de sesión

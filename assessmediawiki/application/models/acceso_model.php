@@ -17,9 +17,9 @@ class Acceso_model extends CI_Model {
 		$this->listado();
     }
 	
+	/// Realiza la conexión a la BD de MediaWiki y devuelve el enlace MySQL
 	function conectar_wiki()
-	{
-		
+	{		
 		$link =  mysql_connect('localhost', $this->config->item('username_mw'), $this->config->item('password_mw'));
 
 		if (!$link) {
@@ -33,7 +33,8 @@ class Acceso_model extends CI_Model {
 		return $link;
 	}
 	
-	function userid($user)
+	/// Devuelve el ID del usuario con el nombre indicado
+	function userid ($user)
 	{		
 		$this->user = $user;
 		
@@ -54,6 +55,7 @@ class Acceso_model extends CI_Model {
 		
 	}
 	
+	/// Devuelve el nombre del usuario con el ID indicado
 	function username($userid)
 	{		
 		$this->userid = $userid;
@@ -71,7 +73,8 @@ class Acceso_model extends CI_Model {
 		
 	}
 	
-	function userpass($user)
+	/// Devuelve el hash del usuario con el nombre indicado
+	function userpass ($user)
 	{		
 		$this->user = $user;
 		
@@ -88,7 +91,8 @@ class Acceso_model extends CI_Model {
 		
 	}
     
-    function listado()
+    /// Lee la lista de usuarios de la BD de mediawiki
+    private function listado()
 	{
 		
 		// Construimos la sentencia SQL para leer todos los usuarios
@@ -103,17 +107,13 @@ class Acceso_model extends CI_Model {
 		}		
 	}
 
-	function users()
-	{
-		return $this->usuarios;
-	}
-
+	/// Devuelev la lista de usuarios
 	function usuarios()
 	{
 		return $this->usuarios;
 	}
-	
-	function admin($userid)
+
+	function es_admin($userid)
 	{
 		// Los usuarios que son ADMIN se definen en el fichero
 		// application/config/amw.php

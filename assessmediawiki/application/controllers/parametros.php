@@ -19,7 +19,7 @@ class Parametros extends CI_Controller {
 		$usuario_id = $this->session->userdata('userid');
 		
 		// Restringimos el acceso a administradores
-		if (!$this->acceso->admin($usuario_id))
+		if (!$this->acceso->es_admin($usuario_id))
 			redirect('evaluar');
 
 		// Cargamos los modelos de los datos

@@ -202,27 +202,19 @@ class Evaluar extends CI_Controller {
 		
 		$this->load->model('evaluaciones_model', 'evaluacion');
 		$this->load->model('acceso_model', 'acceso');				
-		$this->load->model('acceso_model', 'admin'); // Para ver si admin
 		
 		// id user logueado
 		$usuario_id = $this->session->userdata('userid');
 		
 		$data = $this->evaluacion->consultar_entregables($evaluacion);
-		// print_r($data);	
-		// echo $evaluacion . "--ev<br>";
-		
-		// Si no es una evaluación propia
-		//  Y no es el admin
-		//   Lo echo.
-		if ($data['usuario']!=$usuario_id&&$data['revisor']!=$usuario_id)
-			if(!$this->admin->admin($usuario_id))
-				redirect('evaluar');
+
+		if ($data['usuario'] != $usuario_id && $data['revisor'] != $usuario_id && !$this->acceso->es_admin($usuario_id))
+			redirect('evaluar');
 		
 		// A partir del id de usuario obtengo el nombre.
 		$data['usuario'] = $this->acceso->username($data['usuario']);
 		$data['evaluacion'] = $evaluacion;
         $data['revisor'] = $this->acceso->username($data['revisor']);
-        //echo $data['revisor'];
 		
 		return $data;
 	}

@@ -6,14 +6,14 @@
 			<li>Author:
 			<?php echo $usuario; ?></li>
 		
-		<?php if ($this->acceso->admin($usuario_id) || $revisor == 'Admin' || $revisor == $usuario) { ?>
+		<?php if ($this->acceso->es_admin($usuario_id) || $revisor == 'Admin' || $revisor == $usuario) { ?>
 			<li>Revisor:
 			<?php echo $revisor; ?></li>
 		<?php } ?>
 		
 			<li>Revision ID: <?php echo $entrada; ?></li>
 			<li>Revision link:
-			<?php echo anchor_popup('http://wikis.uca.es/wikiASO/index.php?oldid='.$entrada.'&diff=prev', 'url'); ?></li>
+			<?php echo anchor_popup(wiki_revision_url($entrada), 'url'); ?></li>
 		
 		</ul>
 	</div>

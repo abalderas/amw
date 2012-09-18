@@ -3,7 +3,7 @@
 	{	
 		
 ?>
-<p><?php echo $msg . " " . anchor_popup("http://wikis.uca.es/wikiASO/index.php?oldid=" . $entrada . "&diff=prev", "This is the url to assess");?>.</p>
+<p><?php echo $msg . " " . anchor_popup(wiki_revision_url($entrada), "This is the url to assess");?>.</p>
 
 <?php echo form_open($post_url); ?>
     <div class="textfield">           
