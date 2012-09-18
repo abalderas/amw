@@ -8,7 +8,7 @@ class Revisiones_model extends CI_Model {
         // Call the Model constructor
         parent::__construct();
 		$this->load->model('acceso_model', 'bd');
-		$this->load->model('category_model', 'category');
+		$this->load->model('parametros_model', 'parametros');
 		$this->link = $this->bd->conectar_wiki();
     }
 	
@@ -61,7 +61,7 @@ class Revisiones_model extends CI_Model {
 		$sql_fin    = 'FROM revision, categorylinks '
 			. 'WHERE rev_user <> ' . $user
 			. ' AND rev_user <> 0 '
-			. ' AND rev_timestamp  BETWEEN ' . $this->config->item('fecha_inicio') . ' AND ' . $this->config->item('fecha_fin') 
+			. ' AND rev_timestamp  BETWEEN ' . $this->parametros->get_fecha_inicio() . ' AND ' . $this->parametros->get_fecha_fin()
 			. ' AND rev_id NOT IN (';
 
 		foreach ($existentes as $e)
@@ -71,7 +71,7 @@ class Revisiones_model extends CI_Model {
 
 		// Filtramos las revisiones para que solo se incluyan los artículos en la categoría indicada
 		// Ademas de estas lineas se incluye en from tabla categorylinks
-		$sql_fin .= "AND cl_to = '" . $this->category->category() . "'";
+		$sql_fin .= "AND cl_to = '" . $this->parametros->get_categoria() . "'";
 		$sql_fin .= "AND cl_from = rev_page";
 		// terminamos categories
 		

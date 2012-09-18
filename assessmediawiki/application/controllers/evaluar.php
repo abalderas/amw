@@ -35,28 +35,35 @@ class Evaluar extends CI_Controller {
 		// Obtenemos las entradas desterrando las que ya no valen.
 		$entradas_validas = $this->revisiones->listado_validas($entradas_existentes, $usuario_id);
 
+		// Si el numero de revisiones evaluables es mayor que 0
 		if (sizeof($entradas_validas)>0)
 		{
-			//echo "Entradas validas: " . sizeof($entradas_validas) . "<br />";
-			//print_r($entradas_validas);
+			// Elegimos una de las entradas de forma aleatoria
 			$aleatorio = rand(0, (sizeof($entradas_validas)-1));
-			//echo "<br />Aleatorio: " . $aleatorio . "<br />";
+			
+			// Guardamos la entrada elegida 
 			$data['entrada'] = $entradas_validas[$aleatorio];
 		
+			// Leemos el autor de la entrada a revisar
 			$data['usuario_a_revisar'] = $this->revisiones->usuarioArticulo($data['entrada']);
-			//echo $data['usuario_a_revisar'];
+			
+			// Pasamos los títulos y las descripciones de los campos a evaluar
 			$data['campos'] = $this->entregables->entregables;
 			$data['descriptions'] = $this->entregables->descriptions;
 		}
 		
 		if ($max_eval>0)
 		{
+			// Calculamos el número de evaluaciones que aún debe hacer el usuario
 			$data['evaluaciones_pendientes'] = $max_eval - $this->revisiones->realizadas($usuario_id);
 		}
+
 		$data['usuario'] = $this->session->userdata('username');
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
 		$this->load->view('emw_title');
+
+		// Si finalmente hay alguna entrada a evaluar
 		if (isset($data['entrada']))
 		{
 			$data['msg'] = "You may grade the revision here below.";
@@ -64,11 +71,17 @@ class Evaluar extends CI_Controller {
 			$this->load->view('hello_revision', $data);
 			$this->load->view('previa_revision');
 		}
+
+		// Si no hay ninguna revisión a evaluar
 		else
+		{			
 			$this->load->view('no_revision', $data);
+		}
+
 		$this->load->view('template/footer');
 	}
 
+	/// Recibe los datos provenientes del formulario de evaluación y los añade a la base de datos
 	public function procesar()
 	{
 		if (!$this->session->userdata('logged_in'))
@@ -108,6 +121,7 @@ class Evaluar extends CI_Controller {
 
 	}
 	
+	/// Muestra la información relacionada con una evaluación
 	function mostrar_evaluacion($eval = 0)
 	{				
 		$colors = array("#99C68E", "#F9966B", "#FDD017", "#EBDDE2", "#5CB3FF", "#736F6E");
@@ -139,6 +153,7 @@ class Evaluar extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
+	/// Muestra el formulario para añadir meta-evaluaciones (replies)
 	function reply($evaluacion)
 
 	{
@@ -161,7 +176,7 @@ class Evaluar extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 	
-	function evaluation_data($evaluacion)
+	private function evaluation_data($evaluacion)
 	{
 		if (!$this->session->userdata('logged_in'))
 			redirect('acceso/index');

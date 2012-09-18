@@ -17,8 +17,12 @@ $config["modo_desarrollo"] = TRUE;
 // ID del usuario correspondiente al profesor/revisor
 $config["usuarios_admin"] = array(1, 2);
 
+
+/*
 // Fecha desde la que se tendrán en cuenta los artículos a revisar
 $config["fecha_inicio"] = "20120301000000";
 
 // Fecha hasta la que se tendrán en cuenta los artículos a revisar
 $config["fecha_fin"] = "20120605000000";
+
+//*/

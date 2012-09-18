@@ -7,20 +7,24 @@ class Params extends CI_Controller {
         // Call the Controller constructor
         parent::__construct();
 		
+		// Comprobamos que el usuario ha hecho login
 		if (!$this->session->userdata('logged_in'))
 			redirect('acceso/index');
-		 // LOAD LIBRARIES
+
+		// Cargamos las bibliotecas necesarias
         $this->load->library(array('encrypt', 'form_validation'));
 		
-		// LOAD MODEL
+		// Cargamos el modelo de usuarios
 		$this->load->model('Usuarios_model', 'usuarios');
 		$usuario_id = $this->session->userdata('userid');
-		//$usuario_id = 2;
+		
+		// Restringimos el acceso a administradores
 		if (!$this->usuarios->admin($usuario_id))
 			redirect('evaluar');
 
+		// Cargamos los modelos de los datos
 		$this->load->model('Test_model', 'tests');
-		$this->load->model('Category_model', 'category');
+		$this->load->model('Parametros_model', 'parametros');
 		
     }
 	
@@ -28,17 +32,21 @@ class Params extends CI_Controller {
 	{
 		$this->load->helper('url');
 		$this->load->helper('html');		
+
 		$data['tests'] = $this->tests->tests;
 
-		// Category
-		// Any post?
-		$data_new_category = $this->input->post();
-		if ($data_new_category)
+		// Si se han recibido datos del formulario de parámetros
+		if ($this->input->post('categoria'))
 		{
-			// Modify category de categoria
-			$this->category->update($data_new_category['category']);
+			$this->parametros->set_categoria($this->input->post('categoria'));
+			$this->parametros->set_fecha_inicio($this->input->post('fecha_inicio'));
+			$this->parametros->set_fecha_fin($this->input->post('fecha_fin'));
 		}
-		$data['category'] = $this->category->category();
+
+		// Leemos la categoría
+		$data['categoria'] = $this->parametros->get_categoria();
+		$data['fecha_inicio'] = $this->parametros->get_fecha_inicio();
+		$data['fecha_fin'] = $this->parametros->get_fecha_fin();
 		
 		$this->load->view('template/header');
 		$this->load->view('template/header-delete');

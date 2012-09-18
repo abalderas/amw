@@ -29,10 +29,25 @@
 	?>
 </table>
  
-<h1>Category</h1>
+<h1>Other parameters</h1>
 <form method="POST" action="params">
-	<input type="text" name="category" value="<?php echo $category; ?>" />
-	<input type="submit" value="Modificar categoría" />
+
+	<div>
+		<label>Category
+			<input type="text" name="categoria" value="<?php echo $categoria; ?>" /></label>
+	</div>
+
+	<div>
+		<label>Start date (format is yyyymmddhhmmss)
+			<input type="text" name="fecha_inicio" value="<?php echo $fecha_inicio; ?>"></label>
+	</div>
+
+	<div>
+		<label>End date (format is yyyymmddhhmmss)
+			<input type="text" name="fecha_fin" value="<?php echo $fecha_fin; ?>"></label>
+	</div>
+
+	<input type="submit" value="Modify parameters" />
 </form>
  
 <div id="question" style="display:none; cursor: default"> 
