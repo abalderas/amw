@@ -14,14 +14,9 @@
 			<th>Actions</th>
 		</tr>
 	</tbody>
-	<?php
-		
-		//for ($i=0; $i<sizeof($alumnos); $i++)
-		foreach ($tests as $key => $value)
-		{
-	?>
+	<?php foreach ($entregables as $key => $value) { ?>
 	<tr>
-		<td><?php echo $tests[$key]; ?></td>
+		<td><?php echo $value; ?></td>
 		<td>
 			<div class="btn-group">
 				<?php echo anchor(site_url("parametros/edit/" . $key), "Edit", array("class" => "btn btn-small btn-primary")); ?>
@@ -29,9 +24,7 @@
 			</div>			
 		</td>
 	</tr>
-	<?php
-		}
-	?>
+	<?php } ?>
 </table>
  
 <h2>Other parameters</h2>

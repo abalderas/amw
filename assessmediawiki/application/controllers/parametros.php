@@ -4,7 +4,6 @@ class Parametros extends CI_Controller {
 
 	function __construct()
     {
-        // Call the Controller constructor
         parent::__construct();
 		
 		// Comprobamos que el usuario ha hecho login
@@ -23,17 +22,14 @@ class Parametros extends CI_Controller {
 			redirect('evaluar');
 
 		// Cargamos los modelos de los datos
-		$this->load->model('Test_model', 'tests');
-		$this->load->model('Parametros_model', 'parametros');
-		
+		$this->load->model('Entregable_model', 'entregable');
+		$this->load->model('Parametros_model', 'parametros');		
     }
 	
 	public function index()
 	{
-		$this->load->helper('url');
-		$this->load->helper('html');		
-
-		$data['tests'] = $this->tests->tests;
+		// Leemos todos los entregables
+		$data['entregables'] = $this->entregable->entregables;
 
 		// Si se han recibido datos del formulario de parámetros
 		if ($this->input->post('categoria'))
@@ -44,7 +40,7 @@ class Parametros extends CI_Controller {
 			$this->parametros->set_evaluaciones_por_alumno($this->input->post('evaluaciones_por_alumno'));
 
 			$wiki_url = $this->input->post('wiki_url');
-			// Añade una barra invertida si no la trae
+			// Añade una barra invertida si no la trae al final
 			if (substr($wiki_url, -1) != "/") 
 			{
 				$wiki_url .= "/";
@@ -67,85 +63,71 @@ class Parametros extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 	
+	/// Borra el entregable indicado
 	public function delete($id)
 	{		
-		$this->tests->delete($id);
+		$this->entregable->delete($id);
 		redirect('parametros');
 	}
 	
+	/// Lanza el formulario de edición de entregable
 	public function edit($id)
 	{
-		$data['id'] = array(
-              'ent_id'  => $id);
-		
-		$this->load->helper('form');
-		$this->load->helper('html');		
-		
-		$data['test'] = array(
-              'name'        => 'ent_entregable',
-              'id'          => 'ent_entregable',
-              'value'       => $this->tests->edit($id)->ent_entregable,
-              'maxlength'   => '100',
-              'size'        => '30',
-              'style'       => 'width:30%',
-            );	
-		$data['description'] = array(
-              'name'        => 'ent_description',
-              'id'          => 'ent_description',
-              'value'       => $this->tests->edit($id)->ent_description,
-              'maxlength'   => '100',
-              'size'        => '30',
-              'style'       => 'width:30%',
-            );	
-      $data['submit'] = array(
-      		'value' => 'Submit');	
+		// Poblamos los campos de la vista
+		$data['modo'] = 'update';
+		$data['titulo'] = 'Input the new data for the criteria';
+
+		$data['ent_id'] = $id;
+
+		$data['ent_entregable'] = array(
+			'name' => 'ent_entregable', 
+			'value' => $this->entregable->entregables[$id]);
+
+		$data['ent_description'] = array(
+			'name' => 'ent_description',
+			'class' => 'input-xxlarge',
+			'value' => $this->entregable->descriptions[$id]);
 		
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
-		$this->load->view('tests-edit', $data);
+		$this->load->view('entregable_formulario', $data);
 		$this->load->view('template/footer');
 	}
 	
+	/// Confirma la modificación del entregable
 	public function update()
 	{
 		$data = $this->input->post();
-		$this->tests->update($data);
+		$this->entregable->update($data);
 		redirect('parametros/index');
 	}
 	
 	public function add()
 	{
-		$this->load->helper('form');
-		$this->load->helper('html');		
-		
-		$data['test'] = array(
+		// Poblamos los campos de la vista
+		$data['modo'] = 'insert';
+		$data['titulo'] = 'Input the data for the new criteria';
+
+		$data['ent_entregable'] = array(
               'name'        => 'ent_entregable',
               'id'          => 'ent_entregable',
-              'maxlength'   => '100',
-              'size'        => '30',
-              'style'       => 'width:30%',
             );			
 		
-		$data['description'] = array(
+		$data['ent_description'] = array(
               'name'        => 'ent_description',
               'id'          => 'ent_description',
-              'maxlength'   => '100',
-              'size'        => '30',
-              'style'       => 'width:30%',
             );	
-      $data['submit'] = array(
-      		'value' => 'Submit');	
 		
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
-		$this->load->view('tests-new', $data);
+		$this->load->view('entregable_formulario', $data);
 		$this->load->view('template/footer');
 	}
 	
 	public function insert()
 	{
 		$data = $this->input->post();
-		$this->tests->insert($data);
+		$this->entregable->insert($data);
 		redirect('parametros/index');
 	}
 
@@ -160,8 +142,6 @@ class Parametros extends CI_Controller {
 		$this->load->view('csv_parametros_view', $data);		
 		
 	}
-
-
 }
 
 /* End of file evaluar.php */
