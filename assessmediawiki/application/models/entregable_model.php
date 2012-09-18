@@ -1,4 +1,5 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 class Entregable_model extends CI_Model {
 
     var $entregables = array();
@@ -25,21 +26,8 @@ class Entregable_model extends CI_Model {
 			$this->entregables[$row->ent_id] = $row->ent_entregable;
 			$this->descriptions[$row->ent_id] = $row->ent_description;
 		}
-		
-		/*
-		$this ->entregables = array(
-								'Calificación global', 
-								'Análisis', 
-								'Diseño',
-								'Casos de prueba',
-								'Persistencia de datos',
-								'Implementación',
-								'Wiki de desarrollo',
-								'Instrucciones de instalación',
-								'Configuración');
-*/
 	}
     
 
 }
-?>
+
