@@ -14,10 +14,11 @@ class Evaluar extends CI_Controller {
 		$this->load->model('Entregable_model', 'entregables');
 		$this->load->model('Evaluaciones_model', 'evaluaciones');
 		$this->load->model('Revisiones_model', 'revisiones');
+		$this->load->model('Parametros_model', 'parametros');
 			
 		// Máximo número de evaluaciones por alumno
 		//  Si es 0 no se tiene en cuenta.
-		$max_eval = 10;
+		$max_eval = $this->parametros->get_evaluaciones_por_alumno();
 		
 		/* 
 			Buscar una entrada válida:		

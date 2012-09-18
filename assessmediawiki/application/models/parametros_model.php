@@ -34,6 +34,16 @@ class Parametros_model extends CI_Model {
 		$this->set_value('fecha_fin', $value);
 	}
 
+	function get_evaluaciones_por_alumno()
+	{
+		return intval($this->get_value('evaluaciones_por_alumno'));
+	}
+
+	function set_evaluaciones_por_alumno ($value)
+	{
+		$this->set_value('evaluaciones_por_alumno', $value);
+	}
+
 	/// Asigna el valor al parámetro indicado
 	private function set_value ($parameter, $value)
 	{

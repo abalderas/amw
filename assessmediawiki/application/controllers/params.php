@@ -41,12 +41,14 @@ class Params extends CI_Controller {
 			$this->parametros->set_categoria($this->input->post('categoria'));
 			$this->parametros->set_fecha_inicio($this->input->post('fecha_inicio'));
 			$this->parametros->set_fecha_fin($this->input->post('fecha_fin'));
+			$this->parametros->set_evaluaciones_por_alumno($this->input->post('evaluaciones_por_alumno'));
 		}
 
 		// Leemos la categoría
 		$data['categoria'] = $this->parametros->get_categoria();
 		$data['fecha_inicio'] = $this->parametros->get_fecha_inicio();
 		$data['fecha_fin'] = $this->parametros->get_fecha_fin();
+		$data['evaluaciones_por_alumno'] = $this->parametros->get_evaluaciones_por_alumno();
 		
 		$this->load->view('template/header');
 		$this->load->view('template/header-delete');

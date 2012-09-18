@@ -47,6 +47,11 @@
 			<input type="text" name="fecha_fin" value="<?php echo $fecha_fin; ?>"></label>
 	</div>
 
+	<div>
+		<label>Evals per student
+			<input type="text" name="evaluaciones_por_alumno" value="<?php echo $evaluaciones_por_alumno;?>"></label>
+	</div>
+
 	<input type="submit" value="Modify parameters" />
 </form>
  

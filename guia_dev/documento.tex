@@ -302,17 +302,17 @@ aplicación, haciendo uso de la tabla de usuarios de MediaWiki. El
 \textbf{controlador de acceso} hará uso de estas capacidades para gestionar el
 login.
 
-\subsubsection{Category}
+\subsubsection{Parámetros}
+
+El modelo \textit{Parámetros}
+(\texttt{application/models/parametros\_model.php}) lee y gestiona varios
+parámetros configurables de la aplicación, como la categoría de los artículos o
+el rango de fechas para la revisión. Estos parámetros se encuentran en la tabla
+\texttt{config} de la base de datos.
 
 AssessMediaWiki trabaja sobre un subconjunto de los artículos presentes en el
 wiki MediaWiki. En particular, la revisión se produce sobre los artículos de una
-categoría en particular, que el administrador puede configurar desde la pestaña
-\textit{Params} de la aplicación.
-
-El modelo \textit{Category} (\texttt{application/models/category\_model.php})
-lee y gestiona esta categoría, que se encuentra almacenada en la BD de AMW como
-un registro de la tabla \texttt{config} cuyo campo \texttt{parameter} tiene el
-valor \texttt{category}.
+categoría en concreto.
 
 \subsubsection{CSV}
 
@@ -549,7 +549,9 @@ intervalo de edición desde la propia aplicación. Para ello:
 \item En el panel \textit{Params} se añadirían dos controles de fecha, uno para
   la fecha de inicio y otro para la fecha final.
 \item En el controlador \texttt{Params} se añadirían los dos valores de fecha
-  como dos filas de la tabla \texttt{config}. 
+  como dos filas de la tabla \texttt{config}.
+\item En el modelo \textit{Revisiones}, al hacer la consulta SQL para las
+  revisiones, se leerían los dos parámetros previamente comentados
 \end{enumerate}
 
 
