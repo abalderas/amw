@@ -12,6 +12,7 @@ class Revisiones_model extends CI_Model {
 		$this->link = $this->bd->conectar_wiki();
     }
 	
+	/// Devuelve la lista de revisiones asociadas a un usuario
 	function articulos($user)
 	{
 		$articulos = array();
@@ -29,7 +30,7 @@ class Revisiones_model extends CI_Model {
 		
 	}
 	
-	// Funcion que devuelve el usuario de un articulo
+	/// Devuelve el usuario autor de la revisión de un artículo
 	function usuarioArticulo($articulo)
 	{
 		$sql    = 'SELECT rev_user '

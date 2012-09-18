@@ -11,9 +11,7 @@ $config["password_mw"] = "";
 
 // Cuando modo_desarrollo == TRUE, se puede hacer login con
 // cualquier nombre de usuario sin importar la contraseña
-// 
 // IMPORTANTE: DESACTIVAR ANTES DE IR A PRODUCCIÓN
-//
 $config["modo_desarrollo"] = TRUE;
 
 // ID del usuario correspondiente al profesor/revisor

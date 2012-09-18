@@ -1,4 +1,4 @@
-<?php
+	<?php
 class Acceso_model extends CI_Model {
 
     private $user;
@@ -39,6 +39,10 @@ class Acceso_model extends CI_Model {
 			. 'WHERE user_name like \''. $user . '\'';
 			
 		$result = mysql_query($sql, $this->link);
+
+		// Si no existe ningún usuario con ese ID, devolvemos falso
+		if (mysql_num_rows($result) == 0)
+			return FALSE;
 
 		while ($row = mysql_fetch_array($result)) {
 			$this->id= $row[0];

@@ -1,5 +1,21 @@
 \BOOKMARK [1][-]{section.1}{Introducci\363n a AssessMediaWiki}{}
-\BOOKMARK [1][-]{section.2}{Vista general t\351cnica}{}
-\BOOKMARK [2][-]{subsection.2.1}{Bases tecnol\363gicas}{section.2}
-\BOOKMARK [2][-]{subsection.2.2}{Or\355genes de datos}{section.2}
-\BOOKMARK [1][-]{section.3}{Instalaci\363n}{}
+\BOOKMARK [2][-]{subsection.1.1}{Bases tecnol\363gicas}{section.1}
+\BOOKMARK [1][-]{section.2}{Instalaci\363n}{}
+\BOOKMARK [1][-]{section.3}{Componentes }{}
+\BOOKMARK [2][-]{subsection.3.1}{Or\355genes de datos}{section.3}
+\BOOKMARK [2][-]{subsection.3.2}{Modelos}{section.3}
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Acceso}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Category}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.3}{CSV}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.4}{Entregable}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.5}{Evaluaci\363n}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.6}{Reply}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.7}{Revisi\363n}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.8}{Usuarios}{subsection.3.2}
+\BOOKMARK [2][-]{subsection.3.3}{Controladores}{section.3}
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Acceso}{subsection.3.3}
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Alumnos}{subsection.3.3}
+\BOOKMARK [3][-]{subsubsection.3.3.3}{Evaluar}{subsection.3.3}
+\BOOKMARK [3][-]{subsubsection.3.3.4}{Feedback}{subsection.3.3}
+\BOOKMARK [3][-]{subsubsection.3.3.5}{Params}{subsection.3.3}
+\BOOKMARK [1][-]{section.4}{Mejoras}{}

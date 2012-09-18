@@ -13,6 +13,7 @@ class Reply_model extends CI_Model {
         parent::__construct();
     }
 	
+    // Guarda en variables privadas los datos recibidos por parámetros
 	function set($data)
 	{
 		$this->rep_id = $data['rep_id'];
@@ -20,12 +21,19 @@ class Reply_model extends CI_Model {
 		$this->rep_new = $data['rep_new'];
 	}
 	
+	/// Inserta en la BD una nueva corrección
 	function insert($data)
 	{
+		// Inserta en la BD los datos indicados
+		// TODO: Hacer alguna clase de comprobación de los datos recibidos
 		$this->db->insert($this->table, $data);
+
+		// TODO: Comprobar que se ha hecho la introducción correctamente
+
+		// Leemos la ID de la inserción realizada
 		$data['rep_id'] = $this->db->insert_id();
 		
-		// Set.
+		// Pasamos los datos a las variables privadas del modelo
 		$this->set($data);
 		
 		// Al insertar podemos comprobar si ya
@@ -33,6 +41,7 @@ class Reply_model extends CI_Model {
 		// no permitir una nueva.
 	}
 	
+	/// Devuelve el número de replies asociados a una evaluacion
 	function replies_amount($eval)
 	{
 		$c = 0;
@@ -51,6 +60,7 @@ class Reply_model extends CI_Model {
 		return $c;
 	}
 	
+	/// Devuelve la lista de replies asociadas a una evaluación
 	function replies_list($eval)
 	{
 		$re_list = array();

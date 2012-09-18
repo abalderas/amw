@@ -27,8 +27,7 @@ class Feedback extends CI_Controller {
 			$id = $usuario_id;
 		
 		$articulos = $this->revisiones->articulos($id);
-		$data['articulos'] = $this->evaluaciones->evaluados($articulos);
-		
+		$data['articulos'] = $this->evaluaciones->evaluados($articulos);		
 		
 		$this->load->view('template/header');
 		$this->load->view('template/menu');

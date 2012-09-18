@@ -1,4 +1,5 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 class Usuarios_model extends CI_Model {
 
     var $usuarios = array();
@@ -8,36 +9,34 @@ class Usuarios_model extends CI_Model {
     {
         // Call the Model constructor
         parent::__construct();
+
+        // Cargamos el modelo de acceso a la BD de MediaWiki
 		$this->load->model('acceso_model', 'bd');
+
+		// Conectamos al Wiki
 		$this->link = $this->bd->conectar_wiki();
+
+		// Lanzamos el método listado para cargar los usuarios
 		$this->listado();
     }
 	function listado()
 	{
 		
-		
-		$sql    = 'SELECT user_id, user_name "
-			. "FROM user';
+		// Construimos la sentencia SQL para leer todos los usuarios
+		$sql    = 'SELECT user_id, user_name FROM user';
+
+		// Lanzamos la sentencia
 		$result = mysql_query($sql, $this->link);
 
+		// Guardamos todos los usuarios leidos en el array $this->usuarios
 		while ($row = mysql_fetch_array($result, MYSQL_NUM)) {
 			$this->usuarios[$row[0]] = $row[1];
-		}
-		
+		}		
 	}
 
 	function users()
 	{
-		$usuarios = array();
-		
-		$sql    = 'SELECT user_id, user_name "
-			. "FROM user';
-		$result = mysql_query($sql, $this->link);
-
-		while ($row = mysql_fetch_array($result, MYSQL_NUM)) {
-			$usuarios[$row[0]] = $row[1];
-		}
-		return $usuarios;
+		return $this->usuarios;
 	}
 	
 	function admin($userid)
@@ -46,15 +45,5 @@ class Usuarios_model extends CI_Model {
 		// application/config/amw.php
 
 		return in_array($userid, $this->config->item("usuarios_admin"));
-		
-		/*
-		if ($userid == $admin || $userid == 38)
-			return 1;
-		else
-			return 0;
-		//*/
 	}
-    
-
 }
-?>

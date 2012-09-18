@@ -14,9 +14,14 @@ class Evaluaciones_model extends CI_Model {
         parent::__construct();
     }
 	
+	/// Inserta una evaluación en la base de datos
 	function insertar($datos)
 	{
+
+		// Inserta en la tabla la evaluación con los datos indicados
 		$this->db->insert($this->tabla, $datos);
+
+		// Guarda el ID de la evaluación recién insertada
 		$this->eva_id = $this->db->insert_id();
 		
 		// Al insertar podemos comprobar si ya
@@ -24,6 +29,7 @@ class Evaluaciones_model extends CI_Model {
 		// no permitir una nueva.
 	}
 	
+	// Inserta en la base de datos la información sobre los conceptos evaluados en una evaluación
 	function insertar_entregables($entregables, $notas, $comentarios)
 	{
 		if (!empty($entregables))
@@ -42,19 +48,27 @@ class Evaluaciones_model extends CI_Model {
 		}
 	}
 	
+	/// Devuelve el identificador de la última evaluación insertada en la BD
 	function id()
 	{
 		return $this->eva_id;
 	}
 	
+	/// Devuelve la información de los entregables relacionados con una evaluación particular
 	function consultar_entregables($evaluacion)
 	{
+
+		// Leemos la evaluación correspondiente a la ID indicada
 		$sql = 'SELECT eva_user, eva_revision, eva_revisor ' .
 			' FROM evaluaciones ' .
 			' where eva_id = ' . $evaluacion;
 			
+		// Lanzamos la consulta SQL
 		$query = $this->db->query($sql);
 			
+		// TO-DO: añadir comprobación si la ID indicada no es correcta, usando $query->	num_rows
+
+		// WTF? En teoría debería devolver un solo resultado
 		foreach ($query->result() as $row)
 		{
 			$data['usuario'] = $row->eva_user;
@@ -112,11 +126,18 @@ class Evaluaciones_model extends CI_Model {
 		return $revisados;
 	}
 	
+	/// Devuelve una lista de revisiones de artículos ya evaluadas
 	function listado()
 	{
 		$revisados = array();
+
+		// Aislamos el campo con el número de revisión evaluada
 		$this->db->select('eva_revision');
+
+		// Leemos los datos de la BD
 		$query = $this->db->get($this->tabla);
+
+		// Por cada fila, metemos en el array el ID de la revisión
 		foreach ($query->result() as $row)
 			array_push($revisados, $row->eva_revision);
 		

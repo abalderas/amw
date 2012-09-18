@@ -25,11 +25,16 @@ class Evaluar extends CI_Controller {
 			b) No debe haberse revisado ya.
 
 		*/
+
 		// Obtenemos las entradas ya revisadas.
 		$entradas_existentes = $this->evaluaciones->listado();
+
+		// Leemos el ID del usuario logueado
 		$usuario_id = $this->session->userdata('userid');
+
 		// Obtenemos las entradas desterrando las que ya no valen.
 		$entradas_validas = $this->revisiones->listado_validas($entradas_existentes, $usuario_id);
+
 		if (sizeof($entradas_validas)>0)
 		{
 			//echo "Entradas validas: " . sizeof($entradas_validas) . "<br />";
