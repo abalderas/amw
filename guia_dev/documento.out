@@ -1,21 +1,29 @@
 \BOOKMARK [1][-]{section.1}{Introducci\363n a AssessMediaWiki}{}
-\BOOKMARK [2][-]{subsection.1.1}{Bases tecnol\363gicas}{section.1}
+\BOOKMARK [2][-]{subsection.1.1}{Introducci\363n al trabajo colaborativo en wikis}{section.1}
+\BOOKMARK [2][-]{subsection.1.2}{Funcionalidades principales}{section.1}
+\BOOKMARK [3][-]{subsubsection.1.2.1}{Evaluaci\363n b\341sica}{subsection.1.2}
+\BOOKMARK [3][-]{subsubsection.1.2.2}{Conceptos evaluables}{subsection.1.2}
+\BOOKMARK [3][-]{subsubsection.1.2.3}{Revisi\363n de evaluaciones}{subsection.1.2}
+\BOOKMARK [3][-]{subsubsection.1.2.4}{Capacidades de administraci\363n}{subsection.1.2}
+\BOOKMARK [3][-]{subsubsection.1.2.5}{Financiaci\363n}{subsection.1.2}
 \BOOKMARK [1][-]{section.2}{Instalaci\363n}{}
-\BOOKMARK [1][-]{section.3}{Componentes }{}
-\BOOKMARK [2][-]{subsection.3.1}{Or\355genes de datos}{section.3}
-\BOOKMARK [2][-]{subsection.3.2}{Modelos}{section.3}
-\BOOKMARK [3][-]{subsubsection.3.2.1}{Acceso}{subsection.3.2}
-\BOOKMARK [3][-]{subsubsection.3.2.2}{Category}{subsection.3.2}
-\BOOKMARK [3][-]{subsubsection.3.2.3}{CSV}{subsection.3.2}
-\BOOKMARK [3][-]{subsubsection.3.2.4}{Entregable}{subsection.3.2}
-\BOOKMARK [3][-]{subsubsection.3.2.5}{Evaluaci\363n}{subsection.3.2}
-\BOOKMARK [3][-]{subsubsection.3.2.6}{Reply}{subsection.3.2}
-\BOOKMARK [3][-]{subsubsection.3.2.7}{Revisi\363n}{subsection.3.2}
-\BOOKMARK [3][-]{subsubsection.3.2.8}{Usuarios}{subsection.3.2}
-\BOOKMARK [2][-]{subsection.3.3}{Controladores}{section.3}
+\BOOKMARK [1][-]{section.3}{Informaci\363n de desarrollo}{}
+\BOOKMARK [2][-]{subsection.3.1}{Introducci\363n}{section.3}
+\BOOKMARK [2][-]{subsection.3.2}{Or\355genes de datos}{section.3}
+\BOOKMARK [2][-]{subsection.3.3}{Modelos}{section.3}
 \BOOKMARK [3][-]{subsubsection.3.3.1}{Acceso}{subsection.3.3}
-\BOOKMARK [3][-]{subsubsection.3.3.2}{Alumnos}{subsection.3.3}
-\BOOKMARK [3][-]{subsubsection.3.3.3}{Evaluar}{subsection.3.3}
-\BOOKMARK [3][-]{subsubsection.3.3.4}{Feedback}{subsection.3.3}
-\BOOKMARK [3][-]{subsubsection.3.3.5}{Params}{subsection.3.3}
-\BOOKMARK [1][-]{section.4}{Mejoras}{}
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Category}{subsection.3.3}
+\BOOKMARK [3][-]{subsubsection.3.3.3}{CSV}{subsection.3.3}
+\BOOKMARK [3][-]{subsubsection.3.3.4}{Entregable}{subsection.3.3}
+\BOOKMARK [3][-]{subsubsection.3.3.5}{Evaluaci\363n}{subsection.3.3}
+\BOOKMARK [3][-]{subsubsection.3.3.6}{Reply}{subsection.3.3}
+\BOOKMARK [3][-]{subsubsection.3.3.7}{Revisi\363n}{subsection.3.3}
+\BOOKMARK [3][-]{subsubsection.3.3.8}{Usuarios}{subsection.3.3}
+\BOOKMARK [2][-]{subsection.3.4}{Controladores}{section.3}
+\BOOKMARK [3][-]{subsubsection.3.4.1}{Acceso}{subsection.3.4}
+\BOOKMARK [3][-]{subsubsection.3.4.2}{Alumnos}{subsection.3.4}
+\BOOKMARK [3][-]{subsubsection.3.4.3}{Evaluar}{subsection.3.4}
+\BOOKMARK [3][-]{subsubsection.3.4.4}{Feedback}{subsection.3.4}
+\BOOKMARK [3][-]{subsubsection.3.4.5}{Params}{subsection.3.4}
+\BOOKMARK [1][-]{section.4}{Tareas pendientes}{}
+\BOOKMARK [2][-]{subsection.4.1}{Subcategor\355as}{section.4}
