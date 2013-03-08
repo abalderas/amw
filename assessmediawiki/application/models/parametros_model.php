@@ -91,7 +91,7 @@ class Parametros_model extends CI_Model {
 		else
 		{
 			$this->db->insert('config', array("parameter" => $parameter, "value" => $this->valores_defecto[$parameter]));
-			return $this->valores_defecto($parameter);
+			return $this->valores_defecto[$parameter];
 		}
 	}
 }

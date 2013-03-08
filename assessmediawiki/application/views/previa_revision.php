@@ -15,7 +15,8 @@
 		<table class="table table-striped table-hover table-condensed table-bordered">
 			<thead>
 				<tr class="head">
-					<th colspan='2'>Revision</th>
+					<th>Detected</th>
+					<th>Criterion</th>
 					<th>Grade</th>
 					<th>Description</th>
 				</tr>
@@ -23,7 +24,7 @@
 			<tbody>
 		<?php foreach ($campos as $i => $valor) { ?>
 			<tr>
-				<td>
+				<td title = "Check this box if the student has worked on this field">
 					<?php echo form_checkbox('campo['.$i.']'); ?>
 				</td>
 				<td>
@@ -35,7 +36,7 @@
 					</p>
 				</td>
 				<td>
-					<?php echo form_dropdown('puntuacion['.$i.']', $options); ?>
+					<?=form_dropdown('puntuacion['.$i.']', $options);?>
 				</td>
 				
 				<?php
@@ -44,7 +45,7 @@
 						'size' => '40',
 						'maxlength' => '250');
 				?>
-				<td><?php echo form_input($info_descripcion); ?></td>
+				<td><?php echo form_input($info_descripcion);?></td>
 			</tr>
 			<?php
 			}
