@@ -1,0 +1,565 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+% \usepackage{graphicx}
+% \usepackage{longtable}
+% \usepackage{float}
+% \usepackage{wrapfig}
+% \usepackage{float}
+% \usepackage{soul}
+% \usepackage{amssymb}
+
+% Colores
+\usepackage{color}
+\definecolor{prueba}{rgb}{.1,.1,.4}
+
+% Resaltado de URL
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=prueba,citecolor=prueba, filecolor=prueba, menucolor=prueba, urlcolor=prueba}
+
+% Control de la separación entre párrafos
+\usepackage[parfill]{parskip}
+
+\title{Guía del desarrollador de AssessMediaWiki}
+\author{José Tomás Tocino García - \texttt{josetomas.tocino@uca.es}}
+\date{}
+
+% Resaltado de código
+\usepackage{minted}
+
+% Definición de márgenes
+\usepackage[top=2cm,bottom=3cm,left=2cm,right=2cm]{geometry}
+
+% Interlineado
+\usepackage{setspace}
+\onehalfspacing
+
+% Entorno propio para código de php
+\newminted{php}{startinline=true}
+\newminted{sql}{}
+
+%%
+%% INICIO DEL DOCUMENTO
+%%
+\begin{document}
+
+\begin{titlepage}
+\maketitle  
+
+\begin{abstract}
+  Este documento tiene como objetivo familiarizar al desarrollador con
+  AssessMediaWiki (AMW), sus funcionalidades y la manera en la que ha sido
+  desarrollado, de forma que le sea más fácil entender y modificar el código
+  fuente. 
+\end{abstract}
+
+\end{titlepage}
+
+\section{Introducción a AssessMediaWiki}
+
+\textbf{AssessMediaWiki} - \url{http://assessmediawiki.forja.rediris.es/} es una
+aplicación web de código abierto capaz de conectarse a una instalación de
+MediaWiki y proporcionar una serie de herramientas para la evaluación de las
+aportaciones de los usuarios, ya sea en forma de autoevaluación,
+heteroevaluación o evaluación entre iguales. Todas esas evaluaciones se
+mantienen registradas y es posible supervisarlas.
+
+\subsection{Introducción al trabajo colaborativo en wikis}
+
+Un wiki es un entorno online de \textbf{trabajo colaborativo} en el que multitud
+de usuarios pueden \textbf{añadir y editar artículos} sobre una temática
+determinada, utilizando normalmente un navegador web como punto de acceso. El
+wiki más popular es\textbf{ Wikipedia}\footnote{\url{http://wikipedia.org}}, una
+enciclopedia online de libre acceso y edición.
+
+Los wikis están compuestos de \textbf{artículos en formato texto} que pueden
+incluir a su vez elementos multimedia, como imágenes. Por defecto cualquier
+usuario puede crear y editar un artículo, aunque es posible limitar estas
+capacidades según diferentes criterios. Cada edición de un artículo se conoce
+como una \textbf{revisión} y es almacenada en el sistema, junto al resto de
+revisiones anteriores. Esto supone una potente herramienta para poder observar
+la \textbf{evolución de un artículo} desde su concepción.
+
+Además, los artículos afines pueden \textbf{clasificarse en categorías},
+enlazarse entre ellos y muchas otras opciones. El sistema de gestión de wikis
+más famoso y en el que se basa AssessMediaWiki es
+\textbf{MediaWiki}\footnote{\url{http://mediawiki.org}}. Nació como base para la
+enciclopedia Wikipedia y es un proyecto de código abierto.
+
+En el ámbito educativo se están utilizando los wikis como \textbf{herramienta de
+  evaluación} de los conocimientos y el trabajo continuo de los alumnos. El
+problema surge por la falta de herramientas de análisis del contenido de los
+wikis, tanto de forma cuantitativa como cualitativa. En la Universidad de Cádiz
+se han desarrollado numerosos proyectos para satisfacer esta demanda, como
+\textbf{StatMediaWiki}\footnote{\url{http://statmediawiki.forja.rediris.es/}},
+que hace análisis estadístico de las aportaciones en un wiki, o el presente
+AssessMediaWiki.
+
+\subsection{Funcionalidades principales}
+
+\subsubsection{Evaluación básica}
+
+La principal funcionalidad de AssessMediaWiki es permitir a los usuarios
+\textbf{evaluar revisiones concretas de los artículos de un wiki}, a través de
+la pestaña \textbf{Assess}. No se evalúa el estado final de cada artículo, sino
+las modificaciones particulares que cada usuario ha llevado a cabo. Cuando un
+usuario accede a AMW, se le presenta un enlace a la revisión del artículo que
+debe evaluar, y una lista de conceptos evaluables. Una vez lista la evaluación,
+se envía y queda registrada en el sistema.
+
+\subsubsection{Conceptos evaluables}
+
+Los conceptos que el usuario tiene que tener en cuenta a la hora de evaluar se
+representan como \textbf{entregables}, con un título y una descripción, como por
+ejemplo \textit{``Ortografía''}. Se les puede asignar una calificación numérica
+y un comentario textual a uno o varios de estos conceptos. El profesor puede,
+desde la propia aplicación, añadir, editar y borrar estos parámetros de
+evaluación. Esto se hace a través de la pestaña \textbf{Params}.
+
+\subsubsection{Revisión de evaluaciones}
+
+Los usuarios del wiki pueden ver las evaluaciones que otros usuarios han hecho
+sobre sus aportaciones mediante la pestaña \textbf{My Assessments}. Desde el
+panel es posible ver los detalles de cada evaluación y, si el usuario no está de
+acuerdo con la misma, es posible añadir una réplica a través del botón
+\textbf{Reply}, que añadiría una nueva evaluación asociada a la anterior.
+
+Cabe notar que los alumnos no pueden ver quiénes han sido los autores de las
+evaluaciones para evitar posibles conflictos sociales. Sin embargo, el
+administrador sí tiene esta capacidad.
+
+\subsubsection{Capacidades de administración}
+
+AssessMediaWiki implementa dos roles de usuario distintos: supervisores y
+estudiantes. Los supervisores tienen ciertas capacidades administrativas con las
+que los alumnos no cuentan, como son:
+
+\begin{itemize}
+\item Edición de los conceptos evaluables y la categoría de artículos a evaluar
+  (pestaña \textit{Params}).
+\item Ver la lista de todos los alumnos y las evaluaciones de sus revisiones
+  (pestaña \textit{Students}).
+\item Ver información oculta, como los autores de las evaluaciones.
+\end{itemize}
+
+
+\subsubsection{Financiación}
+
+Este trabajo ha sido parcialmente financiado por el Proyecto de Innovación
+Docente \textbf{``La Heteroevaluación como Apoyo a la Sostenibilidad en Evaluaciones
+Complejas de Trabajos Colaborativos en Wikis''} (Código PI2\_12\_029) de la
+Universidad de Cádiz
+
+\section{Instalación}
+
+La instalación de AssessMediaWiki parte de una \textbf{instalación previa de
+  MediaWiki}. Es importante que el usuario conozca los datos de acceso a la base
+de datos de MediaWiki. Para más información sobre cómo instalar MediaWiki u
+obtener las credenciales de la base de datos, visite la web de
+MediaWiki\footnote{\url{http://www.mediawiki.org/wiki/MediaWiki}}.
+
+El primer paso es crear una base de datos para AMW, y un usuario que tendrá
+todos los privilegios sobre ella. Se reflejarán los pasos a seguir desde la
+línea de comandos de un sistema GNU/Linux, aunque el procedimiento también puede
+hacerse de manera visual mediante asistentes como \textit{PhpMyAdmin}. Para
+acceder a la terminal de mysql utilizaremos:
+
+\begin{sqlcode}
+% mysql -u root -p
+\end{sqlcode}
+
+Una vez dentro, ejecutaremos el siguiente comando para crear la base de datos
+\texttt{datos\_amw}.
+
+\begin{sqlcode}
+CREATE DATABASE datos_amw;   
+\end{sqlcode}
+
+Seguidamente, crearemos el usuario \texttt{'usuario\_amw'} y le daremos permisos sobre la base de datos.
+
+\begin{sqlcode}
+GRANT ALL ON datos_amw.* TO usuario_amw@localhost IDENTIFIED BY 'clave_amw';  
+\end{sqlcode}
+
+Hecho esto, iremos al fichero \texttt{application/config/database.php} y
+cambiaremos los parámetros de acceso, de forma que coincidan con los que hemos
+utilizado:
+
+\begin{phpcode}
+$db['default']['username'] = 'usuario_amw';
+$db['default']['password'] = 'clave_amw';
+$db['default']['database'] = 'datos_amw';  
+\end{phpcode}
+%$
+
+El siguiente paso es configurar el acceso a la base de datos de MediaWiki. Para
+ello, editamos el fichero \texttt{application/config/amw.php} con los datos de acceso:
+
+\begin{phpcode}
+$config["database_mw"] = "bd_mw";
+$config["username_mw"] = "usuario_mw";
+$config["password_mw"] = "clave_mw";
+\end{phpcode}
+%$
+
+El siguiente paso es indicar qué usuarios tendrán permisos de administrador. Por
+regla general, los profesores de la asignatura y el desarrollador deberían tener
+acceso de administrador. Previamente es necesario conocer los ID numéricos de
+cada uno de los usuarios administradores, que podremos encontrar en la tabla
+\texttt{users} de MediaWiki. Seguidamente, iremos al fichero
+\texttt{application/config/amw.php} e incluiremos en la clave
+\textit{usuarios\_admin} los ID de los usuarios administradores:
+
+\begin{phpcode}
+// Administradores los usuarios con ID = 1 y ID = 2
+$config["usuarios_admin"] = array(1, 2);  
+\end{phpcode}
+%$
+
+En AMW solo se tendrán en cuenta las ediciones realizadas en un cierto periodo
+de tiempo. Éste se definirá indicando la fecha de inicio y la fecha de fin en el
+fichero de configuración previamente indicado:
+
+\begin{phpcode}
+$config["fecha_inicio"] = "20120301000000";
+$config["fecha_fin"]    = "20120605000000";
+\end{phpcode}
+
+Con esto ya podremos acceder a la aplicación, para lo que habrá que usar las
+credenciales de acceso al wiki. Inicialmente AMW se encontrará en \textit{modo
+  desarrollo}, de forma que al hacer login no hará falta meter la contraseña
+exacta del usuario con el que queramos acceder, cualquier contraseña
+valdrá. Esto nos permitirá probar los diferentes roles de usuario a la hora de
+hacer pruebas.
+
+\textbf{ES INDISPENSABLE} que al poner la aplicación a disposición de los
+usuarios se desactive el modo desarrollo. Para ello, accederemos al fichero
+\texttt{application/config/amw.php} y pondremos el valor a \texttt{FALSE}.
+
+\begin{phpcode}
+$config["modo_desarrollo"] = FALSE; 
+\end{phpcode}
+%$
+
+\section{Información de desarrollo}
+
+\subsection{Introducción}
+
+AssessMediaWiki está desarrollado en el lenguaje de programación
+\textbf{PHP}\footnote{\url{http://www.php.net}} y utilizando el framework
+\textbf{CodeIgniter}\footnote{\url{http://codeigniter.com}}. Se trata de un
+framework de desarrollo web que utiliza el patrón
+\textbf{Modelo-Vista-Controlador}\footnote{\url{http://es.wikipedia.org/wiki/Modelo_vista_controlador}},
+que divide las aplicaciones web en tres partes, de forma que el mantenimiento y
+las actualizaciones posteriores sean más sencillas:
+
+\begin{itemize}
+\item Los \textbf{modelos} representan los datos de la aplicación. Por regla
+  general un modelo corresponde a una entidad (por ejemplo, un
+  \textit{usuario}), y se le suele asignar una tabla en la base de datos. Los
+  modelos también albergan métodos para el trabajo con los datos, abstrayendo
+  los pormenores del acceso al usuario.
+\item Las \textbf{vistas} son las formas en las que se presentan los datos al
+  usuario. En la mayoría de los casos, las vistas son plantillas web hechas en
+  HTML y CSS, pero también es posible representar los datos utilizando vistas en
+  otros formatos, como XML o JSON.
+\item Los \textbf{controladores} se sitúan entre los modelos y las vistas, y
+  ejecutan la lógica de la aplicación. Reciben las peticiones del navegador,
+  deciden qué operaciones deben realizar y qué datos necesitan, y cargan las
+  vistas apropiados con los datos necesarios. La mayor parte de la programación
+  se ubica en los controladores.
+\end{itemize}
+
+\subsection{Orígenes de datos}
+
+Para poder trabajar, AssessMediaWiki hace uso de dos orígenes de datos. En
+primer lugar, la aplicación tiene su \textbf{propia base de datos}, en la que se
+guardan las evaluaciones de las aportaciones del wiki, las revisiones de las
+evaluaciones y los comentarios, así como diversos parámetros de evaluación.
+
+Por otro lado, la aplicación debe tener acceso a la \textbf{base de datos del
+  wiki} sobre el que se van a hacer las evaluaciones. Además, toda la
+autenticación se hace sobre la base de usuarios del wiki, por lo que evitamos
+que haya que hacer dos registros.
+
+\subsection{Modelos}
+
+Se detallan ahora los diferentes modelos de datos con los que cuenta la
+aplicación para la gestión de la información.
+
+\subsubsection{Acceso}
+
+El modelo \textit{Acceso} (\texttt{application/models/acceso\_model.php}) se encarga
+de establecer la conexión a la base de datos de MediaWiki. Al utilizar este
+modelo, automáticamente establecerá una conexión con la base de datos MySQL de
+MediaWiki que se haya configurado en la aplicación (en el fichero
+\texttt{application/config/amw.php}).
+
+Otra de las tareas de este modelo es obtener la información de login a la
+aplicación, haciendo uso de la tabla de usuarios de MediaWiki. El
+\textbf{controlador de acceso} hará uso de estas capacidades para gestionar el
+login.
+
+\subsubsection{Parámetros}
+
+El modelo \textit{Parámetros}
+(\texttt{application/models/parametros\_model.php}) lee y gestiona varios
+parámetros configurables de la aplicación, como la categoría de los artículos o
+el rango de fechas para la revisión. Estos parámetros se encuentran en la tabla
+\texttt{config} de la base de datos.
+
+AssessMediaWiki trabaja sobre un subconjunto de los artículos presentes en el
+wiki MediaWiki. En particular, la revisión se produce sobre los artículos de una
+categoría en concreto.
+
+\subsubsection{CSV}
+
+Un fichero CSV (\textit{Comma separated values}) es un fichero de texto plano
+con datos tabulados mediante comas u otros caracteres que se utiliza,
+normalmente, para el análisis en masa de datos con fines estadísticos o de
+automatización.
+
+En AMW, el modelo \textit{CSV} (\texttt{application/models/csv\_model.php})
+ofrece funciones que procesan y devuelven datos sobre las evaluaciones de los
+usuarios, de forma que el controlador de \textit{Feedback} pueda generar
+listados CSV para descargar.
+
+\subsubsection{Entregable}
+
+A la hora de evaluar una edición en un artículo se definen una serie de
+\textbf{conceptos} a evaluar. Cada uno de estos conceptos es representado como
+un \textit{entregable}, con un título y una descripción.
+
+El modelo \textit{Entregable}
+(\texttt{application/models/entregable\_model.php}) se encarga de leer los
+entregables establecidos en la base de datos.
+
+\subsubsection{Evaluación}
+
+Cuando un usuario hace una evaluación sobre una revisión de un artículo, por
+cada uno de los conceptos evaluables que ha definido el profesor (representados
+por el modelo \textit{Entregable}) el usuario hace una evaluación numérica y
+tiene la posibilidad de dejar un comentario escrito. Para representar esta
+información en la base de datos existen dos tablas. 
+
+En primer lugar, la tabla \texttt{evaluaciones} indica quién está haciendo la
+evaluación, qué revisión se está evaluando y cuál fue su autor. Seguidamente, la
+tabla \texttt{evaluaciones\_entregables} asocia cada una de esas evaluaciones a
+los conceptos que han sido evaluados junto a la nota numérica y el comentario
+que el evaluador puede haber añadido.
+
+El modelo \textit{Evaluaciones}
+(\texttt{application/models/evaluaciones\_model.php}) se encarga de gestionar
+toda esta información en la base de datos. 
+
+\begin{itemize}
+\item El método \texttt{consultar\_entregables} devuelve la información sobre
+  los entregables evaluados relacionados con una evaluación en particular, cuya
+  ID se debe proveer.
+\item El método \texttt{listado} devuelve el conjunto de revisiones de artículos
+  que ya han sido evaluados.
+\item El método \texttt{evaluados}.
+\end{itemize}
+
+\subsubsection{Reply}
+
+Cuando un usuario no está conforme con una evaluación que han hecho sobre una
+aportación suya, o cuando un evaluador quiere modificar a posteriori una
+evaluación ya enviada, es posible añadir una réplica, que se añade como una
+evaluación más. Para representar la relación entre una evaluación y sus
+evaluaciones \textit{hijas} o \textit{replies}, se utiliza el modelo
+\textit{Reply} (\texttt{application/models/reply\_model.php}).
+
+Este modelo se enlaza con la tabla \texttt{replies}, que simplemente modela una
+relación 1:N entre evaluaciones \textit{padre} y sus réplicas. El modelo ofrece
+varias funciones para guardar replies y obtener las replies asociadas a una
+evaluación.
+
+\subsubsection{Revisión}
+
+AssessMediaWiki no trabaja sobre artículos directamente, sino sobre las
+distintas ediciones, o \textbf{revisiones}, que han ido haciéndose sobre cada
+artículo. El modelo \textit{Revisiones}
+(\texttt{application/models/revisiones\_model.php}) permite obtener información
+sobre revisiones de los artículos. En particular:
+\begin{itemize}
+\item El método \texttt{articulos} devuelve las revisiones de artículos
+  relacionadas por un usuario particular, cuyo ID se debe proveer.
+\item El método \texttt{usuarioArticulo} devuelve el ID del usuario autor de una
+  revisión particular, cuyo ID se debe proveer.
+\item El método \texttt{listado\_validas} devuelve un listado de revisiones que
+  podrían ser sujeto de evaluación. Este método recibe un conjunto de revisiones
+  ya evaluadas y un usuario, y busca entre todas las revisiones no evaluadas y
+  que no pertenezcan al usuario indicado. Además, filtra las revisiones para que
+  solo se incluyan los artículos de la categoría indicada, y que se hayan
+  realizado en el periodo de tiempo indicado.
+\end{itemize}
+
+\subsubsection{Usuarios}
+
+Este modelo (\texttt{application/models/usuarios\_model.php}) establece una
+conexión con la BD de MediaWiki y almacena el ID y nombre de todos los usuarios
+registrados.
+
+Además, dado un ID de un usuario se encarga de comprobar, mediante su método
+\texttt{admin}, si el usuario indicado es administrador o no.
+
+% ----------------------------------------------------------------------------------------------------
+
+\subsection{Controladores}
+
+Como se ha comentado previamente, los controladores dirigen la lógica de la
+aplicación, haciendo uso de los datos contenidos en los \textit{modelos} y
+mostrándolos mediantes las \textit{vistas}. Los controladores de los que dispone
+la aplicación son los siguientes:
+
+\subsubsection{Acceso}
+
+El controlador de acceso (\texttt{application/controllers/acceso.php}) se
+encarga de controlar el acceso de los usuarios a la aplicación. 
+
+Su método \texttt{index} muestra y gestiona el formulario de login a la
+aplicación. Los usuarios que se utilizan en el acceso a AMW son los presentes en
+la tabla de usuarios de MediaWiki, y esta lectura se hace a través de los
+métodos del modelo de acceso. Una vez superado el login, el usuario es
+redirigido a la acción principal del controlador \texttt{Evaluar}.
+
+Su método \texttt{salir} borra la información de login y redirige el usuario al
+panel de acceso inicial.
+
+El controlador de acceso está definido en el fichero de configuración de rutas
+(\texttt{application/config/routes.php}) como el \textbf{controlador por
+  defecto}, de forma que al acceder a la aplicación sin indicar ningún
+parámetro, será este controlador el que se haga cargo de la petición.
+
+\subsubsection{Alumnos}
+
+El controlador \textit{Alumnos} (\texttt{application/controllers/alumnos.php})
+muestra una lista de todos los alumnos presentes en el wiki (y, por extensión,
+en AMW), y permite acceder a información sobre las acciones de estos. En
+concreto, muestra enlaces a las revisiones hechas por cada alumno así como a un
+documento CSV\footnote{CSV - Comma Separated Values} con información que puede
+ser usada para minería de datos.
+
+Este controlador solo permite el acceso a los usuarios que sean
+administradores. El resto de usuarios es redirigido al panel principal de
+evaluación.
+
+\subsubsection{Evaluar}
+
+El controlador \textit{Evaluar} (\texttt{application/controllers/evaluar.php})
+es el más importante de toda la aplicación, ya que gestiona la funcionalidad
+principal de la misma: la emisión de evaluaciones.
+
+\paragraph{Método index}
+
+El método \texttt{index} es el primero al que accede el usuario. Se encarga de
+presentarle al usuario la revisión que debe hacer, o de informarle de que no
+tiene evaluaciones pendientes. Para ello:
+\begin{enumerate}
+\item Carga la lista de revisiones pendientes de evaluación.
+\item Comprueba si el usuario tiene evaluaciones pendientes de completar o si
+  por el contrario ya ha completado todas sus evaluaciones.
+\item Si hay revisiones por evaluar, elige una de ellas aleatoriamente, carga la
+  información y finalmente muestra al usuario el formulario de evaluación.
+\item Si no hay revisiones por evaluar, muestra un mensaje informativo.
+\end{enumerate}
+
+\paragraph{Método procesar}
+
+Este método recibe los datos procedientes del formulario de evaluación, los
+introduce de forma correcta en la base de datos y redirige al usuario a la
+revisión de la evaluación recién terminada.
+
+\paragraph{Método mostrar\_evaluacion}
+
+Se encarga de mostrar la información relacionada con una evaluación, como los
+conceptos evaluados, la calificación y comentarios realizados, así como las
+posibles respuestas (\textit{replies}) que se han añadido a la evaluación.
+
+\paragraph{Método reply}
+
+Muestra el formulario para añadir observaciones sobre una evaluación en forma de
+meta-evaluación.
+
+\paragraph{Método reply\_submit}
+
+Se encarga de trasladar a la base de datos los datos recibidos de un formulario
+de introducción de \textit{reply} (al que se accede desde el método anterior).
+
+\subsubsection{Feedback}
+
+El controlador \textit{Feedback} (\texttt{application/controllers/feedback.php})
+se encarga de mostrar información sobre las acciones que han realizado los
+usuarios en la aplicación. En su acción por defecto (tanto \texttt{index} como
+\texttt{informe}), muestra una lista de todas las evaluaciones que se han hecho
+en forma de tabla, con una columna para el número de revisión evaluada y otra
+columna con un enlace a la información de la revisión.
+
+Además, tiene métodos para la generación de informes en formato CSV sobre las
+evaluaciones recibidas por un usuario.
+
+\subsubsection{Params}
+
+El controlador \textit{Params} (\texttt{application/controllers/params.php}) se
+encarga de gestionar el CRUD\footnote{Create, Read, Update, Delete} de varios
+parámetros de configuración de la aplicación, en particular:
+
+\begin{itemize}
+\item Lista de conceptos evaluables (entregables).
+\item Categoría a la que pertenecen los artículos a evaluar.
+\end{itemize}
+
+\pagebreak
+
+\section{Tareas pendientes}
+
+Actualmente existe una serie de mejoras del software pendientes de hacer. Se
+incluyen consejos para abordar estas tareas.
+
+\subsection{Subcategorías}
+
+\begin{description}
+\item[Enlace] \url{https://forja.rediris.es/pm/task.php?func=detailtask&project_task_id=2861&group_id=1135&group_project_id=2120}
+\item[Descripción] Cuando se indica la categoría de los artículos evaluar,
+  podría incluir la opción de indicar \textit{``incluir subtareas''}.
+\end{description}
+
+El filtrado de artículos por categoría se realiza en el modelo
+\textit{Revisiones}, al hacer la consulta SQL de las revisiones pendientes de
+evaluación. Sería posible añadir más opciones de filtrado de artículos, así como
+incluir varias categorías, por ejemplo utilizado el operador \texttt{IN} de SQL.
+
+
+\subsection{Intervalo fechas}
+
+\begin{description}
+\item[Enlace] \url{https://forja.rediris.es/pm/task.php?func=detailtask&project_task_id=2862&group_id=1135&group_project_id=2120}
+\item[Descripción] Poner un intervalo de fechas para tomar las ediciones dentro de él
+\end{description}
+
+Actualmente, el intervalo de fechas se asigna en el fichero de configuración de
+AWM, \texttt{application/config/amw.php}, tal y como se explica en la sección de
+\textit{Instalación}. Sería conveniente añadir una manera visual de cambiar el
+intervalo de edición desde la propia aplicación. Para ello:
+
+\begin{enumerate}
+\item En el panel \textit{Params} se añadirían dos controles de fecha, uno para
+  la fecha de inicio y otro para la fecha final.
+\item En el controlador \texttt{Params} se añadirían los dos valores de fecha
+  como dos filas de la tabla \texttt{config}.
+\item En el modelo \textit{Revisiones}, al hacer la consulta SQL para las
+  revisiones, se leerían los dos parámetros previamente comentados
+\end{enumerate}
+
+
+
+Unificar acceso a lista de de usuarios, en algunos lados se accede directamente
+al array usuarios y en otros lados se utiliza la función users del modelo usuarios
+
+Añadir comprobaciones cuando se pidan objetos inexistentes
+
+
+\end{document}
