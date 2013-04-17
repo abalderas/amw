@@ -9,7 +9,6 @@
 <?php if ($this->session->userdata('is_admin')) { ?>
 					<li><?php echo anchor(site_url("alumnos"), "Students"); ?></li>
 					<li><?php echo anchor(site_url("parametros"), "Parameters"); ?></li>
-					<li><?php echo anchor(site_url("configuration"), "Configuration"); ?></li>
 					<li class="divider-vertical"></li>
 <?php } ?>					
 					<li class="pull-right"><?php echo anchor(site_url("acceso/salir"), "Logout"); ?></li>

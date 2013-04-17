@@ -9,10 +9,11 @@ class Alumnos extends CI_Controller
 			redirect('acceso/index');
 
 		// LOAD LIBRARIES
-        $this->load->library(array('encrypt', 'form_validation'));
+		$this->load->library(array('encrypt', 'form_validation'));
 		
 		// LOAD MODEL
 		$this->load->model('acceso_model', 'acceso');
+		$this->load->model('roles_model');
 
 		// Leemos el ID del usuario que ha hecho login
 		$usuario_id = $this->session->userdata('userid');

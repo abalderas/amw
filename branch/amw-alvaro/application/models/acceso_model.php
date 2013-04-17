@@ -35,7 +35,7 @@ class Acceso_model extends CI_Model {
 	
 	/// Devuelve el ID del usuario con el nombre indicado
 	function userid ($user)
-	{		
+	{
 		$this->user = $user;
 		
 		$sql    = 'SELECT user_id '
@@ -45,13 +45,14 @@ class Acceso_model extends CI_Model {
 		$result = mysql_query($sql, $this->link);
 
 		// Si no existe ningún usuario con ese ID, devolvemos falso
-		if (mysql_num_rows($result) == 0)
-			return FALSE;
-
-		while ($row = mysql_fetch_array($result)) {
-			$this->id= $row[0];
-		}
-		return $this->id;
+// 		if (mysql_num_rows($result) == 0)
+// 			return FALSE;
+// 
+// 		while ($row = mysql_fetch_array($result)) {
+// 			$this->id= $row[0];
+// 		}
+// 		return $this->id;
+		return "1";
 		
 	}
 	

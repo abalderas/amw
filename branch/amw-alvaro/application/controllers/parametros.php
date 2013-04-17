@@ -145,4 +145,4 @@ class Parametros extends CI_Controller {
 }
 
 /* End of file evaluar.php */
-/* Location: ./application/controllers/alumnos.php */
+/* Location: ./application/controllers/parametros.php */
