@@ -121,18 +121,6 @@ class Acceso_model extends CI_Model {
 
 		return in_array($userid, $this->config->item("usuarios_admin"));
 	}
-	
-	function get_role($userid)
-	{
-		$sql = "SELECT ug_group FROM user_groups WHERE ug_user = '$userid'";
-
-		// Lanzamos la sentencia
-		$result = mysql_query($sql, $this->link);
-		
-		while ($row = mysql_fetch_array($result, MYSQL_NUM)) {
-			$this->usuarios[$row[0]] = $row[1];
-		}
-	}
 
 }
 ?>

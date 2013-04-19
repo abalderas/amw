@@ -225,7 +225,7 @@ class Evaluar extends CI_Controller {
 			redirect('acceso/index');
 
 		 // LOAD LIBRARIES
-        $this->load->library(array('encrypt', 'form_validation'));
+		$this->load->library(array('encrypt', 'form_validation'));
 		
 		// LOAD MODEL
 		$this->load->model('Entregable_model', 'entregables');
@@ -256,13 +256,22 @@ class Evaluar extends CI_Controller {
 		$this->evaluacion->insertar_entregables($data['id_campo'], 
 		$data['puntuacion'], $data['comentarios']);
 		
-		$data_reply['rep_read'] = $this->input->post('rep_read');;
+		$data_reply['rep_read'] = $this->input->post('rep_read');
 		$data_reply['rep_new'] = $this->evaluacion->id();
+		$data_reply['rep_status'] = 'nonarbitred';
 		$reply = new $this->reply();
 		$reply->insert($data_reply);
 		
 		$this->mostrar_evaluacion($this->evaluacion->id());
 
+	}
+	
+	function resolver_reply($what, $repid){
+		if($what == 'accept')
+			$this->reply_model->accept_reply($repid);
+		else
+			$this->reply_model->deny_reply($repid);
+			
 	}
 
 }

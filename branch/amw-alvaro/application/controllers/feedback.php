@@ -93,6 +93,28 @@ class Feedback extends CI_Controller {
 		$this->load->view('csv_sheet', $data);
 	}
 	
+	function replies($status = false)
+	{
+		if (!$this->session->userdata('logged_in'))
+			redirect('acceso/index');
+		
+		$this->load->model('reply_model');
+		$this->load->model('acceso_model');
+		$this->load->model('roles_model');
+		
+		$this->load->view('template/header');
+		$this->load->view('template/menu');
+		
+		if(!$status)
+			$this->load->view('reply_list', array('replies' => $this->reply_model->student_replies_list()));
+		else if($status == 'arbitred')
+			$this->load->view('reply_list', array('replies' => $this->reply_model->arbitred_replies()));
+		else
+			$this->load->view('reply_list', array('replies' => $this->reply_model->nonarbitred_replies()));
+			
+		$this->load->view('template/footer');
+	}
+	
 	function replies_in($student = false)
 	{
 		if (!$this->session->userdata('logged_in'))
@@ -100,6 +122,7 @@ class Feedback extends CI_Controller {
 
 		$this->load->model('reply_model');
 		$this->load->model('acceso_model');
+		$this->load->model('roles_model');
 
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
@@ -120,6 +143,7 @@ class Feedback extends CI_Controller {
 
 		$this->load->model('reply_model');
 		$this->load->model('acceso_model');
+		$this->load->model('roles_model');
 
 		$this->load->view('template/header');
 		$this->load->view('template/menu');

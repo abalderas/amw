@@ -11,6 +11,11 @@
 			<th>Revision</th>
 			<th>Grade</th>
 			<th>Comment</th>
+			<th>Status</th>
+<?if(in_array('referee', $this->roles_model->getroles($this->session->userdata('username')))) {?>
+			<th>Arbitrate</th>
+<?}?>
+			
 		</tr>
 	</thead>
 	<tbody>
@@ -24,10 +29,14 @@
 		<td><?php echo $replie['eva_revision'];  ?></td>
 		<td><?php echo $replie['ee_nota'];  ?></td>
 		<td><?php echo $replie['ee_comentario'];  ?></td>
+		<td><?php echo $replie['rep_status'];  ?></td>
+<?if(in_array('referee', $this->roles_model->getroles($this->session->item('username')))) {?>
+		<td><?php echo anchor("evaluar/resolver_reply/accept/".$replie['rep_id'], 'Accept Reply')."&nbsp".anchor("evaluar/resolver_reply/deny/".$replie['rep_id'], 'Deny Reply');?></td>
+<?}?>
 	</tr>
 <?php }
 	else{ ?>
-		<td colspan = '6'><?php echo "There are no replies.";  ?></td>
+		<td colspan = '7'><?php echo "There are no replies.";  ?></td>
 	<?}?>
 
 	</tbody>

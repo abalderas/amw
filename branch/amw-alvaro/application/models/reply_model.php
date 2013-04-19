@@ -82,15 +82,15 @@ class Reply_model extends CI_Model {
 	function student_replies_list($student = false)
 	{
 		if($student){
-			$query = $this->db->query("select rep_id, eva_user, eva_revisor, eva_revision, ee_nota, ee_comentario from replies, evaluaciones, evaluaciones_entregables where rep_read = evaluaciones.eva_id and rep_read = `evaluaciones_entregables`.eva_id and eva_user = '$student'");
+			$query = $this->db->query("select rep_id, rep_status, eva_user, eva_revisor, eva_revision, ee_nota, ee_comentario from replies, evaluaciones, evaluaciones_entregables where rep_read = evaluaciones.eva_id and rep_read = `evaluaciones_entregables`.eva_id and eva_user = '$student'");
 		}else{
-			$query = $this->db->query("select rep_id, eva_user, eva_revisor, eva_revision, ee_nota, ee_comentario from replies, evaluaciones, evaluaciones_entregables where rep_read = evaluaciones.eva_id and rep_read = `evaluaciones_entregables`.eva_id");
+			$query = $this->db->query("select rep_id, rep_status, eva_user, eva_revisor, eva_revision, ee_nota, ee_comentario from replies, evaluaciones, evaluaciones_entregables where rep_read = evaluaciones.eva_id and rep_read = `evaluaciones_entregables`.eva_id");
 		}
 		
 		$result = $query->result();
 		if($result){
 			foreach($result as $row)
-				$replies[] = array('rep_id' => $row->rep_id, 'eva_user' => $row->eva_user, 'eva_revisor' => $row->eva_revisor, 'eva_revision' => $row->eva_revision, 'ee_nota' => $row->ee_nota, 'ee_comentario' => $row->ee_comentario);
+				$replies[] = array('rep_id' => $row->rep_id, 'eva_user' => $row->eva_user, 'eva_revisor' => $row->eva_revisor, 'eva_revision' => $row->eva_revision, 'ee_nota' => $row->ee_nota, 'ee_comentario' => $row->ee_comentario, 'rep_status' => $row->rep_status);
 			return $replies;
 		}else
 			return false;
@@ -99,21 +99,59 @@ class Reply_model extends CI_Model {
 	function student_replies_out_list($student = false)
 	{
 		if($student){
-			$query = $this->db->query("select rep_id, eva_user, eva_revisor, eva_revision, ee_nota, ee_comentario from replies, evaluaciones, evaluaciones_entregables where rep_read = evaluaciones.eva_id and rep_read = `evaluaciones_entregables`.eva_id and eva_revisor = '$student'");
+			$query = $this->db->query("select rep_id, rep_status, eva_user, eva_revisor, eva_revision, ee_nota, ee_comentario from replies, evaluaciones, evaluaciones_entregables where rep_read = evaluaciones.eva_id and rep_read = `evaluaciones_entregables`.eva_id and eva_revisor = '$student'");
 		}else{
-			$query = $this->db->query("select rep_id, eva_user, eva_revisor, eva_revision, ee_nota, ee_comentario from replies, evaluaciones, evaluaciones_entregables where rep_read = evaluaciones.eva_id and rep_read = `evaluaciones_entregables`.eva_id");
+			$query = $this->db->query("select rep_id, rep_status, eva_user, eva_revisor, eva_revision, ee_nota, ee_comentario from replies, evaluaciones, evaluaciones_entregables where rep_read = evaluaciones.eva_id and rep_read = `evaluaciones_entregables`.eva_id");
 		}
 		
 		$result = $query->result();
 		if($result){
 			foreach($result as $row)
-				$replies[] = array('rep_id' => $row->rep_id, 'eva_user' => $row->eva_user, 'eva_revisor' => $row->eva_revisor, 'eva_revision' => $row->eva_revision, 'ee_nota' => $row->ee_nota, 'ee_comentario' => $row->ee_comentario);
+				$replies[] = array('rep_id' => $row->rep_id, 'eva_user' => $row->eva_user, 'eva_revisor' => $row->eva_revisor, 'eva_revision' => $row->eva_revision, 'ee_nota' => $row->ee_nota, 'ee_comentario' => $row->ee_comentario, 'rep_status' => $row->rep_status);
 			return $replies;
 		}else
 			return false;
 	}
 	
+	function arbitred_replies()
+	{
+		$query = $this->db->query("select rep_id, rep_status, eva_user, eva_revisor, eva_revision, ee_nota, ee_comentario from replies, evaluaciones, evaluaciones_entregables where rep_read = evaluaciones.eva_id and rep_read = `evaluaciones_entregables`.eva_id and replies.rep_status != 'nonarbitred'");
+		
+		$result = $query->result();
+		if($result){
+			foreach($result as $row)
+				$replies[] = array('rep_id' => $row->rep_id, 'eva_user' => $row->eva_user, 'eva_revisor' => $row->eva_revisor, 'eva_revision' => $row->eva_revision, 'ee_nota' => $row->ee_nota, 'ee_comentario' => $row->ee_comentario, 'rep_status' => $row->rep_status);
+			return $replies;
+		}else
+			return false;
+	}
 	
+	function nonarbitred_replies()
+	{
+		$query = $this->db->query("select rep_id, rep_status, eva_user, eva_revisor, eva_revision, ee_nota, ee_comentario from replies, evaluaciones, evaluaciones_entregables where rep_read = evaluaciones.eva_id and rep_read = `evaluaciones_entregables`.eva_id and replies.rep_status = 'nonarbitred'");
+		
+		$result = $query->result();
+		if($result){
+			foreach($result as $row)
+				$replies[] = array('rep_id' => $row->rep_id, 'eva_user' => $row->eva_user, 'eva_revisor' => $row->eva_revisor, 'eva_revision' => $row->eva_revision, 'ee_nota' => $row->ee_nota, 'ee_comentario' => $row->ee_comentario, 'rep_status' => $row->rep_status);
+			return $replies;
+		}else
+			return false;
+	}
+	
+	function accept_reply($repid){
+		$data = array('rep_status' => 'accepted');
+
+		$this->db->where('rep_id', $repid);
+		$this->db->update('replies', $data); ;
+	}
+	
+	function deny_reply($repid){
+		$data = array('rep_status' => 'denied');
+
+		$this->db->where('rep_id', $repid);
+		$this->db->update('replies', $data); ;
+	}
 }
 
 ?>

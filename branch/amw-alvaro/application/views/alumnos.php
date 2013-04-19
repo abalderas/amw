@@ -9,8 +9,8 @@
 			<th style = 'vertical-align:top;'>Students</th>
 			<th style = 'vertical-align:top;'>Report</th>
 			<th style = 'vertical-align:top;'>CSV</th>
-			<th style = 'vertical-align:top;'>Replies <br> <?=anchor(site_url("feedback/replies/"), "View All")?></th>
-			<th style = 'width:60%;'>Roles <br> <?=form_submit('submit', 'Save Roles')."&nbsp;Set all to: ".form_submit('submit_student', 'Student').form_submit('submit_referee', 'Referee').form_submit('submit_meta', 'Meta-Evaluator').form_submit('submit_metameta', 'Meta²evaluator')?></th>
+			<th style = 'vertical-align:top;'>Replies <br> <?=anchor(site_url("feedback/replies/"), "View All")."<br>".anchor(site_url("feedback/replies/arbitred"), "View Arbitred")."<br>".anchor(site_url("feedback/replies/nonarbitred"), "View Non-Arbitred")?></th>
+			<th style = 'vertical-align:top;'>Roles <?=" | ".anchor("configuration/setroles/","Save Roles")."<br>Set all to: ".anchor("configuration/setroles/student","Student")." | ".anchor("configuration/setroles/referee","Referee")." | ".anchor("configuration/setroles/meta","MetaEvaluator")." | ".anchor("configuration/setroles/metameta","Meta²evaluator")?></th>
 		</tr>
 	</thead>
 	<tbody>

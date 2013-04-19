@@ -18,39 +18,34 @@ class Roles_model extends CI_Model
 		}
 	}
 	
-	function getroles($alumno){
+	function getroles($usuario){
 		if($this->db->table_exists('role')){
-			$query = $this->db->query("select * from role where role_user = '$alumno'");
+			$roles[] = 'student';
+			
+			$query = $this->db->query("select * from role where role_user = '$usuario'");
 			
 			if(!$query->result())
-				return false;
+				return $roles;
 			
 			foreach($query->result() as $row)
 				$role = $row->role_name;
-				
+			
 			switch($role){
-				case 'student': 
-					$roles[] = 'student';
-					return $roles;
-				case 'referee': 
-					$roles[] = 'student';
+				case 'student':break;
+				case 'referee':
 					$roles[] = 'referee';
-					return $roles;
+					break;
 				case 'meta': 
-					$roles[] = 'student';
 					$roles[] = 'referee';
 					$roles[] = 'meta';
-					return $roles;
-				case 'metameta': 
-					$roles[] = 'student';
+					break;
+				case 'metameta':
 					$roles[] = 'referee';
 					$roles[] = 'meta';
 					$roles[] = 'metameta';
-					return $roles;
+					break;
 			}
 		}
-		
-		$roles[] = 'student';
 		return $roles;
 	}
 }

@@ -15,22 +15,22 @@ class Configuration extends CI_Controller {
 			redirect('acceso/index');		
 	}
 	
-	public function setroles(){
+	public function setroles($role = false){
 		$alumnos = $this->acceso_model->usuarios();
 		
-		if(isset($_POST['submit']))
+		if(!$role)
 			foreach($alumnos as $key => $value)
 				$final_roles[] = array('role_user' => $value, 'role_name' => $this->input->post("select_role_$key"));
-		else if(isset($_POST['submit_student']))
+		else if($role == 'student')
 			foreach($alumnos as $key => $value)
 				$final_roles[] = array('role_user' => $value, 'role_name' => 'student');
-		else if(isset($_POST['submit_referee']))
+		else if($role == 'referee')
 			foreach($alumnos as $key => $value)
 				$final_roles[] = array('role_user' => $value, 'role_name' => 'referee');
-		else if(isset($_POST['submit_meta']))
+		else if($role == 'meta')
 			foreach($alumnos as $key => $value)
 				$final_roles[] = array('role_user' => $value, 'role_name' => 'meta');
-		else if(isset($_POST['submit_metameta']))
+		else if($role == 'metameta')
 			foreach($alumnos as $key => $value)
 				$final_roles[] = array('role_user' => $value, 'role_name' => 'metameta');
 		

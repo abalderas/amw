@@ -17,6 +17,7 @@ class Acceso extends CI_Controller {
 
 		// Carga del modelo de acceso
 		$this->load->model('acceso_model', 'acceso');
+		$this->load->model('roles_model');
 
 		// Si junto a la petición se reciben datos del formulario
 		if($this->input->post('login'))
@@ -83,13 +84,13 @@ class Acceso extends CI_Controller {
 
 	            		// Generamos los datos de la sesión con la información de login
 						
-						$user_role = $this->acceso->get_role($user_id);
+						$user_role = $this->roles_model->getroles($user_id);
 						
 						$newdata = array(
 							'username'  => $user_name,
 							'userid'  => $user_id,   
 							'logged_in' => TRUE,
-							'role' => $user_role,
+							'role' => end($user_role),
 							'is_admin' => $this->acceso->es_admin($user_id)
 							);
 
