@@ -79,6 +79,40 @@ class Reply_model extends CI_Model {
 		return $re_list;
 	}
 	
+	function student_replies_list($student = false)
+	{
+		if($student){
+			$query = $this->db->query("select rep_id, eva_user, eva_revisor, eva_revision, ee_nota, ee_comentario from replies, evaluaciones, evaluaciones_entregables where rep_read = evaluaciones.eva_id and rep_read = `evaluaciones_entregables`.eva_id and eva_user = '$student'");
+		}else{
+			$query = $this->db->query("select rep_id, eva_user, eva_revisor, eva_revision, ee_nota, ee_comentario from replies, evaluaciones, evaluaciones_entregables where rep_read = evaluaciones.eva_id and rep_read = `evaluaciones_entregables`.eva_id");
+		}
+		
+		$result = $query->result();
+		if($result){
+			foreach($result as $row)
+				$replies[] = array('rep_id' => $row->rep_id, 'eva_user' => $row->eva_user, 'eva_revisor' => $row->eva_revisor, 'eva_revision' => $row->eva_revision, 'ee_nota' => $row->ee_nota, 'ee_comentario' => $row->ee_comentario);
+			return $replies;
+		}else
+			return false;
+	}
+	
+	function student_replies_out_list($student = false)
+	{
+		if($student){
+			$query = $this->db->query("select rep_id, eva_user, eva_revisor, eva_revision, ee_nota, ee_comentario from replies, evaluaciones, evaluaciones_entregables where rep_read = evaluaciones.eva_id and rep_read = `evaluaciones_entregables`.eva_id and eva_revisor = '$student'");
+		}else{
+			$query = $this->db->query("select rep_id, eva_user, eva_revisor, eva_revision, ee_nota, ee_comentario from replies, evaluaciones, evaluaciones_entregables where rep_read = evaluaciones.eva_id and rep_read = `evaluaciones_entregables`.eva_id");
+		}
+		
+		$result = $query->result();
+		if($result){
+			foreach($result as $row)
+				$replies[] = array('rep_id' => $row->rep_id, 'eva_user' => $row->eva_user, 'eva_revisor' => $row->eva_revisor, 'eva_revision' => $row->eva_revision, 'ee_nota' => $row->ee_nota, 'ee_comentario' => $row->ee_comentario);
+			return $replies;
+		}else
+			return false;
+	}
+	
 	
 }
 

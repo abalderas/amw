@@ -92,6 +92,46 @@ class Feedback extends CI_Controller {
 
 		$this->load->view('csv_sheet', $data);
 	}
+	
+	function replies_in($student = false)
+	{
+		if (!$this->session->userdata('logged_in'))
+			redirect('acceso/index');
+
+		$this->load->model('reply_model');
+		$this->load->model('acceso_model');
+
+		$this->load->view('template/header');
+		$this->load->view('template/menu');
+		
+		if($student)
+			$this->load->view('reply_list', array('student' => $student, 'replies' => $this->reply_model->student_replies_list($student)));
+		else
+			$this->load->view('reply_list', array('replies' => $this->reply_model->student_replies_list()));
+		
+		
+		$this->load->view('template/footer');
+	}
+	
+	function replies_out($student = false)
+	{
+		if (!$this->session->userdata('logged_in'))
+			redirect('acceso/index');
+
+		$this->load->model('reply_model');
+		$this->load->model('acceso_model');
+
+		$this->load->view('template/header');
+		$this->load->view('template/menu');
+		
+		if($student)
+			$this->load->view('reply_list', array('student' => $student, 'replies' => $this->reply_model->student_replies_out_list($student)));
+		else
+			$this->load->view('reply_list', array('replies' => $this->reply_model->student_replies_out_list()));
+		
+		
+		$this->load->view('template/footer');
+	}
 }
 
 /* End of file feedback.php */

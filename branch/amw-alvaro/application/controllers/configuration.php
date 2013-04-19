@@ -18,14 +18,25 @@ class Configuration extends CI_Controller {
 	public function setroles(){
 		$alumnos = $this->acceso_model->usuarios();
 		
-		foreach($alumnos as $key => $value){
-			$final_roles[] = array('role_user' => $value, 'role_name' => $this->input->post("select_role_$key"));
-		}
-			
+		if(isset($_POST['submit']))
+			foreach($alumnos as $key => $value)
+				$final_roles[] = array('role_user' => $value, 'role_name' => $this->input->post("select_role_$key"));
+		else if(isset($_POST['submit_student']))
+			foreach($alumnos as $key => $value)
+				$final_roles[] = array('role_user' => $value, 'role_name' => 'student');
+		else if(isset($_POST['submit_referee']))
+			foreach($alumnos as $key => $value)
+				$final_roles[] = array('role_user' => $value, 'role_name' => 'referee');
+		else if(isset($_POST['submit_meta']))
+			foreach($alumnos as $key => $value)
+				$final_roles[] = array('role_user' => $value, 'role_name' => 'meta');
+		else if(isset($_POST['submit_metameta']))
+			foreach($alumnos as $key => $value)
+				$final_roles[] = array('role_user' => $value, 'role_name' => 'metameta');
+		
 		$this->roles_model->saveroles($final_roles);
 		
-		$data['alumnos'] = $this->acceso_model->usuarios();
-		
+		$data['alumnos'] = $this->acceso_model->usuarios();	
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
 		$this->load->view('alumnos', $data);
