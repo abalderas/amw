@@ -3,7 +3,7 @@
 // FICHERO CON OPCIONES DE CONFIGURACIÓN DE ASSESSMEDIAWIKI
 
 // Nombre de la BD de MediaWiki
-$config["database_mw"] = "amwanom";
+$config["database_mw"] = "mwdbanon";
 
 // Nombre de usuario de la BD de MediaWiki
 $config["username_mw"] = "root";

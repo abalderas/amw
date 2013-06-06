@@ -32,7 +32,7 @@ class Parametros extends CI_Controller {
 		$data['entregables'] = $this->entregable->entregables;
 
 		// Si se han recibido datos del formulario de parámetros
-		if ($this->input->post('categoria'))
+		if ($this->input->post('categoria') || $this->input->post('fecha_inicio') || $this->input->post('fecha_fin'))
 		{
 			$this->parametros->set_categoria($this->input->post('categoria'));
 			$this->parametros->set_fecha_inicio($this->input->post('fecha_inicio'));

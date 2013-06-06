@@ -4,6 +4,9 @@ class Acceso extends CI_Controller {
 
 	public function index()
 	{
+
+		// redirect('evaluar'); //IMPORTANTE! usar para cargar controladores directamente
+
 		// Cargamos las bibliotecas de encriptado y validación de formularios
 		$this->load->library(array('encrypt', 'form_validation'));
 
@@ -31,17 +34,19 @@ class Acceso extends CI_Controller {
 					
 			    	// Leemos usuario y contraseña
 					$user_name = $this->input->post('user_name');		
-					$user_name = ucfirst($user_name);
+					// $user_name = ucfirst($user_name);		//esta funcion da problemas y hace que luego de que el usuario no exista al cambiar la primera letra por mayuscula (la tabla anonima esta en minusculas)
 					$user_pass = $this->input->post('user_pass');
 
 	    			// Buscamos el ID asociado al nombre de usuario indicado
 					$user_id = $this->acceso->userid($user_name);
 
+					print_r($user_name);
+
 					// Si no existe un usuario con ese ID, damos fallo
-					// if ($user_id == FALSE) 
-					// {
-					// 	throw new Exception("Usuario inexistente");					
-					// }
+					if ($user_id == FALSE) 
+					{
+						throw new Exception("Usuario inexistente");	
+					}
 
 					// Fragmento de código sacado del fuente de MediaWiki para generar
 					// el HASH de la contraseña del usuario
@@ -78,16 +83,15 @@ class Acceso extends CI_Controller {
 					}
 						
 					// Si la contraseña indicada coincide
-					$acceso=1; //
 					if ($acceso == 1)
 					{
 
 	            		// Generamos los datos de la sesión con la información de login
 						$newdata = array(
-							'username'  => "kite",
-							'userid'  => 1,  
+							'username'  => $user_name,
+							'userid'  => $user_id,   
 							'logged_in' => TRUE,
-							'is_admin' => TRUE			
+							'is_admin' => $this->acceso->es_admin($user_id)
 							);
 
 						// Guardamos los datos en la cookie de sesión

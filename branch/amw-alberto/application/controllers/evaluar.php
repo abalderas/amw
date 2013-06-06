@@ -7,6 +7,13 @@ class Evaluar extends CI_Controller {
 		if (!$this->session->userdata('logged_in'))
 			redirect('acceso/index');
 
+		//Datos del usuario logeado
+		foreach ($this->session->userdata as $key => $value) {
+			echo $key . "=>" . $value . "<br>";
+		}
+
+		echo "<br>";
+
 		 // LOAD LIBRARIES
         $this->load->library(array('encrypt', 'form_validation'));
 		
@@ -26,7 +33,7 @@ class Evaluar extends CI_Controller {
 			b) No debe haberse revisado ya.
 
 		*/
-
+	
 		// Obtenemos las entradas ya revisadas.
 		$entradas_existentes = $this->evaluaciones->listado();
 
@@ -107,7 +114,7 @@ class Evaluar extends CI_Controller {
 		$data['entrada'] = $this->input->post('entrada');
 		
 		$data['entregables'] = $this->entregables->entregables;
-		
+
 		/*
 			Almaceno los datos que irán en la BD.
 		*/
@@ -116,9 +123,7 @@ class Evaluar extends CI_Controller {
 		$datos['eva_user'] = $data['usuario_a_revisar'];
 		$datos['eva_revision'] = $data['entrada'];
 		$this->evaluacion->insertar($datos);
-		$this->evaluacion->insertar_entregables($data['id_campo'], 
-		$data['puntuacion'], $data['comentarios']);
-		
+		$this->evaluacion->insertar_entregables($data['id_campo'], $data['puntuacion'], $data['comentarios']);	
 		
 		$this->mostrar_evaluacion($this->evaluacion->id());
 
@@ -253,8 +258,7 @@ class Evaluar extends CI_Controller {
 		$datos['eva_revision'] = $data['entrada'];
 		$datos['eva_time'] = $data['time'];
 		$this->evaluacion->insertar($datos);
-		$this->evaluacion->insertar_entregables($data['id_campo'], 
-		$data['puntuacion'], $data['comentarios']);
+		$this->evaluacion->insertar_entregables($data['id_campo'], $data['puntuacion'], $data['comentarios']);
 		
 		$data_reply['rep_read'] = $this->input->post('rep_read');;
 		$data_reply['rep_new'] = $this->evaluacion->id();

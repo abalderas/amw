@@ -3,7 +3,7 @@
 class Feedback extends CI_Controller {
 
 	
-	public function index($id = 0)
+	public function index($id = 1)
 	{
 		if (!$this->session->userdata('logged_in'))
 			redirect('acceso/index');
@@ -17,7 +17,7 @@ class Feedback extends CI_Controller {
 		$this->load->model('acceso_model', 'acceso');
 		$this->load->model('Reply_model', 'replies');
 		
-		$usuario_id = $this->session->userdata('userid');		
+		$usuario_id = $this->session->userdata('userid');	
 
 		if ($id!=0)
 			if (!$this->acceso->es_admin($usuario_id))
@@ -27,8 +27,9 @@ class Feedback extends CI_Controller {
 			$id = $usuario_id;
 		
 		$articulos = $this->revisiones->articulos($id);
-		$data['articulos'] = $this->evaluaciones->evaluados($articulos);		
-		
+		$data['articulos'] = $this->evaluaciones->evaluados($articulos);	
+
+
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
 		$this->load->view('feedbacks', $data);

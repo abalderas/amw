@@ -1,4 +1,4 @@
-	<?php
+<?php
 class Acceso_model extends CI_Model {
 
     private $user;
@@ -100,6 +100,7 @@ class Acceso_model extends CI_Model {
 
 		// Lanzamos la sentencia
 		$result = mysql_query($sql, $this->link);
+
 		// Guardamos todos los usuarios leidos en el array $this->usuarios
 		while ($row = mysql_fetch_array($result, MYSQL_NUM)) {
 			$this->usuarios[$row[0]] = $row[1];
