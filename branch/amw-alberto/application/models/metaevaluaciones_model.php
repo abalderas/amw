@@ -16,20 +16,14 @@ class Metaevaluaciones_model extends CI_Model {
         parent::__construct();
     }
 	
-	//Funcion que inserta una nueva metaevaluacion pendiente al generar una evaluacion (TODO: invocar esta funcion al crear la evaluacion)
-	function insertar($evaluacion_id)
+	// Inserta una metaevaluación en la base de datos
+	function insertar_metaevaluacion($datos)
 	{
 
-		$data['mevaluador_id'] = 0; //No tendra metaevaluador hasta que a alguien no le toque metaevaluarla
-		$data['evaluacion_id'] = $evaluacion_id; // Habria que almacenar la id de la evaluacion realizada
-		// $data['evaluacion_id'] = $this->evaluacion->$eva_id;
-		$data['calificacion'] = 0;
-		$data['comentario'] = "";
+		// Inserta en la tabla la evaluación con los datos indicados
+		$this->db->insert($this->tabla, $datos);
 
-		// Inserta en la tabla la metaevaluación con los datos indicados
-		$this->db->insert($this->tabla, $data);
-
-		// Guarda el ID de la metaevaluación recién insertada
+		// Guarda los datos de la evaluación recién insertada
 		$this->mev_id = $this->db->insert_id();
 		
 		// Al insertar podemos comprobar si ya
@@ -44,8 +38,8 @@ class Metaevaluaciones_model extends CI_Model {
 	}
 
 	
-	// Devuelve una lista de todas las metaevaluaciones
-	function listado()
+	// Devuelve una lista de todas las metaevaluaciones realizadas
+	function listado_metaevaluadas()
 	{
 		$listado = array();
 
@@ -63,68 +57,52 @@ class Metaevaluaciones_model extends CI_Model {
 		return $listado;
 	}
 
-	// Funcion que devuelve la lista de evaluaciones a metaevaluar
+	// Funcion que devuelve la lista de IDs de evaluaciones a metaevaluar
 	function para_metaevaluar()
 	{
 		$listado = array();
 		
-		$sql = 'SELECT mev_id' .
-			' FROM metaevaluaciones ' .
-			' where calificacion LIKE 0';
-		//echo $sql;
+		$sql = 'SELECT eva_id' .
+			' FROM evaluaciones' .
+			' WHERE eva_id NOT IN ( ' . 
+				' SELECT evaluacion_id' . 
+				' FROM metaevaluaciones' . 
+			')';
+		// echo $sql;
 
 		$query = $this->db->query($sql);
 
 		// Por cada fila, metemos en el array el ID de la metaevaluacion
 		foreach ($query->result() as $row)
 		{
-			array_push($listado, $row->mev_id);
+			array_push($listado, $row->eva_id);
 		}
 
 		return $listado;
-	}
-
-	// Funcion que devuelve la lista de evaluaciones ya metaevaluadas
-	function metaevaluadas()
-	{
-		$listado = array();
-		
-		$sql = 'SELECT mev_id' .
-			' FROM metaevaluaciones ' .
-			' where calificacion NOT LIKE 0';
-		//echo $sql;
-		
-		$query = $this->db->query($sql);
-
-		// Por cada fila, metemos en el array el ID de la metaevaluacion
-		foreach ($query->result() as $row)
-		{
-			array_push($listado, $row->mev_id);
-		}
-	
-
-		return $listado;
-	}
+	}	
 
 		// Devuelve las evaluaciones pendientes de evaluar evitando que un alumno se metaevalue a si mismo o donde haya sido evaluado
 		function metavaluaciones_para_aumno($user)
 	{
 		$listado = array();
 		
-		$sql = 'SELECT mev_id' .
-			' FROM metaevaluaciones, evaluaciones ' .
-			' where calificacion LIKE 0' .
-			' AND eva_id = evaluacion_id' .
-			' AND eva_user !=' . $user .
-			' AND eva_revisor !=' . $user ;
-		//	echo $sql;
+		$sql = 'SELECT eva_id' .
+			' FROM evaluaciones ' .
+			' WHERE eva_id NOT IN ( ' . 
+				' SELECT evaluacion_id' . 
+				' FROM metaevaluaciones' .
+				' )' . 
+				' AND eva_user !=' . $user .
+				' AND eva_revisor !=' . $user ;
+
+		// 	echo $sql;
 
 		$query = $this->db->query($sql);
 
 		// Por cada fila, metemos en el array el ID de la metaevaluacion
 		foreach ($query->result() as $row)
 		{
-			array_push($listado, $row->mev_id);
+			array_push($listado, $row->eva_id);
 		}
 
 		return $listado;
@@ -137,9 +115,9 @@ class Metaevaluaciones_model extends CI_Model {
 		$listado = array();
 		
 		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
-		$sql = 'SELECT mev_id '  
-			. 'FROM metaevaluaciones '
-			. 'WHERE mevaluador_id =' . $user
+		$sql = 'SELECT mev_id'  
+			. ' FROM metaevaluaciones'
+			. ' WHERE mevaluador_id =' . $user
 			. ' AND calificacion NOT LIKE 0' ;
 		// echo $sql;
 			
@@ -154,59 +132,9 @@ class Metaevaluaciones_model extends CI_Model {
 		return $listado;
 	}
 
-	// Funcion que crea una metaevaluacion para las evaluaciones que aun no la tengan
-	function reload()
-	{
-		$listado = array();
-		
-		$sql = 'SELECT eva_id' .
-			' FROM evaluaciones' .
-			' where eva_id NOT ' .
-			'IN (' .
-				'SELECT evaluacion_id' .
-				' FROM metaevaluaciones' .
-			')';
-		//echo $sql;
-		
-		$query = $this->db->query($sql);
-
-		// Por cada fila, metemos en el array el ID de la metaevaluacion
-		foreach ($query->result() as $row)
-		{
-			$this->insertar($row->eva_id);
-		}
-	}
-
-	// Fuincion que modifica los datos de una metaevaluacion (salvo la id de la metaevaluacion)
-	function modificar($data)
-	{
-
-		$sql = 'UPDATE metaevaluaciones' .
-		' SET mevaluador_id = ' . $data['mevaluador_id'] . ',' .
-			' calificacion = ' . $data['calificacion'] . ',' .
-			' comentario = ' . $data['comentario'] . ',' .
-		' WHERE evaluacion_id = ' . $data['evaluacion_id'];
-
-		echo $sql;
-
-		//comprobar query
-		$query = $this->db->query($sql);
-
-
-		mysqli_query($con, $sql); //problemas con las funciones de modificar los datos de las tablas
-		mysqli_close($con);
-
-
-		// Inserta en la tabla la metaevaluación con los datos indicados
-		// $this->db->insert($this->tabla, $data);
-
-		// Guarda el ID de la metaevaluación recién modificada
-		// $this->mev_id = $this->db->insert_id();
-	}
-
 	// Dado el ID de una metaevaluacion devuelve el ID de la evaluacion metaevaluada
 	function evaluacion_metaevaluada($id)
-	{		
+	{
 		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
 		$sql = 'SELECT evaluacion_id ' .
 			' FROM metaevaluaciones ' .
@@ -224,22 +152,18 @@ class Metaevaluaciones_model extends CI_Model {
 		return $resultado;
 	}
 
-		// Dado el ID de una metaevaluacion devuelve la entrada evaluada a metaevaluar
-	function entrada_metaevaluada($id)
-	{		
-
-		$eva_id = $this->evaluacion_metaevaluada($id);
-
+	// Dado el ID de una evaluacion devuelve la edicion a metaevaluar
+	function edicion_metaevaluada($id)
+	{
 		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
 		$sql = 'SELECT eva_revision '  .
-			' FROM evaluaciones, metaevaluaciones ' .
-			' WHERE mev_id = ' . $id .
-			' AND eva_id = ' . $eva_id;
+			' FROM evaluaciones ' .
+			' WHERE eva_id = ' . $id;
 		//echo $sql;
 			
 		$query = $this->db->query($sql);
 
-		// Por cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
+		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
 		foreach ($query->result() as $row)
 		{
 			$resultado = $row->eva_revision;
@@ -248,5 +172,104 @@ class Metaevaluaciones_model extends CI_Model {
 		return $resultado;
 	}
 
+	// Dado el ID de una evaluacion devuelve la nota a calificacion
+	function calificacion_metaevaluada($id)
+	{
+		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
+		$sql = 'SELECT ee_nota '  .
+			' FROM evaluaciones_entregables ' .
+			' WHERE eva_id = ' . $id;
+		// echo $sql;
+
+		$query = $this->db->query($sql);
+
+		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
+		foreach ($query->result() as $row)
+		{
+			$resultado = $row->ee_nota;
+		}
+		
+		return $resultado;
+	}
+
+	// Dado el ID de una evaluacion devuelve el criterio de la calificacion
+	function criterio_metaevaluada($id)
+	{
+		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
+		$sql = 'SELECT ent_entregable '  .
+			' FROM entregables, evaluaciones_entregables ' .
+			' WHERE eva_id = ' . $id .
+			' AND entregables.ent_id = evaluaciones_entregables.ent_id' ;
+		// echo $sql;
+
+		$query = $this->db->query($sql);
+
+		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
+		foreach ($query->result() as $row)
+		{
+			$resultado = $row->ent_entregable;
+		}
+
+		return $resultado;
+	}
+	
+	// Dado el ID de una evaluacion devuelve la descripcion de la calificacion
+	function descripcion_metaevaluada($id)
+	{
+		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
+		$sql = 'SELECT ee_comentario '  .
+			' FROM evaluaciones_entregables ' .
+			' WHERE eva_id = ' . $id;
+		// echo $sql;
+
+		$query = $this->db->query($sql);
+
+		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
+		foreach ($query->result() as $row)
+		{
+			$resultado = $row->ee_comentario;
+		}
+	
+		return $resultado;
+	}
+
+	// Dado el ID de una metaevaluacion devuelve la calificacion
+	function get_calificacion($id)
+	{
+		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
+		$sql = 'SELECT calificacion '  .
+			' FROM metaevaluaciones ' .
+			' WHERE mev_id = ' . $id;
+		// echo $sql;
+
+		$query = $this->db->query($sql);
+
+		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
+		foreach ($query->result() as $row)
+		{
+			$resultado = $row->calificacion;
+		}
+	
+		return $resultado;
+	}
+		// Dado el ID de una metaevaluacion devuelve su comentario
+	function get_comentario($id)
+	{
+		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
+		$sql = 'SELECT comentario '  .
+			' FROM metaevaluaciones ' .
+			' WHERE mev_id = ' . $id;
+		// echo $sql;
+
+		$query = $this->db->query($sql);
+
+		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
+		foreach ($query->result() as $row)
+		{
+			$resultado = $row->comentario;
+		}
+	
+		return $resultado;
+	}
 }
 ?>

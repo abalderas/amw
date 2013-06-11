@@ -1,4 +1,6 @@
-<h2>List of revisions</h2>
+	<h2>List of revisions</h2>
+
+		Here you will see your revisions that have been evaluated.
 
 <table class="table table-striped table-hover table-condensed table-bordered">
 	<thead>

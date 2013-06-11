@@ -2,7 +2,7 @@
 
 class Metaevaluar extends CI_Controller {	
 	
-	public function index2(){
+	public function test(){
 
 		if (!$this->session->userdata('logged_in'))
 			redirect('acceso/index');
@@ -14,12 +14,11 @@ class Metaevaluar extends CI_Controller {
 		$this->load->model('Evaluaciones_model', 'evaluaciones');
 		$this->load->model('Metaevaluaciones_model', 'metaevaluaciones');
 		
-		$this->metaevaluaciones->reload(); // Busca evaluaciones que no hayan sido metaevaluadas y crea sus metaevaluaciones
 		$id = $this->session->userdata('userid');
 
 		$filtro = $this->metaevaluaciones->metavaluaciones_para_aumno($id);
 		$por_metaevaluar = $this->metaevaluaciones->para_metaevaluar();
-		$metaevaluadas = $this->metaevaluaciones->metaevaluadas();
+		$metaevaluadas = $this->metaevaluaciones->listado_metaevaluadas();
 		$realizadas = $this->metaevaluaciones->metaevaluaciones_realizadas($id);
 
 		echo "Quedan por metaevaluar " . count($por_metaevaluar) . " evaluaciones <br>";
@@ -28,7 +27,7 @@ class Metaevaluar extends CI_Controller {
 		echo "He echo: " . count($realizadas) . " metaevaluaciones <br>";
 
 
-		$id = $this->metaevaluaciones->evaluacion_metaevaluada(44);
+		// $id = $this->metaevaluaciones->evaluacion_metaevaluada(0);
 
 
 		echo "He metaevaluado: <br>";
@@ -41,16 +40,21 @@ class Metaevaluar extends CI_Controller {
 			echo $key . "<br>";
 		}
 
-		echo "Metaevaluadas: <br>";
-		foreach ($metaevaluadas as $key) {
+				echo "Para alumno logeado: <br>";
+		foreach ($filtro as $key) {
 			echo $key . "<br>";	
 		}	
 
+		echo "Metaevaluadas: <br>";
+		foreach ($metaevaluadas as $key) {
+			echo $key . "<br>";	
+		}
 	}
 
 	public function index()
 	{
-		
+		// redirect('metaevaluar/test');
+
 		if (!$this->session->userdata('logged_in'))
 			redirect('acceso/index');
 
@@ -61,8 +65,6 @@ class Metaevaluar extends CI_Controller {
 		$this->load->model('Evaluaciones_model', 'evaluaciones');
 		$this->load->model('Metaevaluaciones_model', 'metaevaluaciones');
 		$this->load->model('Parametros_model', 'parametros');
-
-		$this->metaevaluaciones->reload(); // Busca evaluaciones que no hayan sido metaevaluadas y crea sus metaevaluaciones
 			
 		$max_mevs = $this->parametros->get_evaluaciones_por_alumno(); // Numero de metaevaluaciones = numero de evaluaciones
 
@@ -71,21 +73,22 @@ class Metaevaluar extends CI_Controller {
 
 		// Si el numero de evaluaciones para metaevaluar es mayor que 0
 		$por_metaevaluar = $this->metaevaluaciones->para_metaevaluar();
+
 		if (count($por_metaevaluar) > 0)
 		{
-			// Elegimos una de las metaevaluaciones de forma aleatoria
+			// Elegimos una de las evaluaciones de forma aleatoria
 			$aleatorio = rand(0, (count($por_metaevaluar)-1));
-			
+
 			// Guardamos la id de la evaluacion elegida 
-			$data['metaevaluacion'] = $por_metaevaluar[$aleatorio];
-			
-			// Obtenemos la id de la evaluacion que estamos metaevaluando
-			$data['evaluacion'] = $this->metaevaluaciones->evaluacion_metaevaluada($data['metaevaluacion']);
+			$data['evaluacion'] = $por_metaevaluar[$aleatorio];
+		
+			// Obtenemos los datos de la edicion evaluada que estamos metaevaluando
+			$data['edicion'] = $this->metaevaluaciones->edicion_metaevaluada($data['evaluacion']);
+			$data['calificacion'] = $this->metaevaluaciones->calificacion_metaevaluada($data['evaluacion']);
+			$data['criterio'] = $this->metaevaluaciones->criterio_metaevaluada($data['evaluacion']);
+			$data['descripcion'] = $this->metaevaluaciones->descripcion_metaevaluada($data['evaluacion']);
 
-			// Obtenemos la entrada evaluada que estamos metaevaluando
-			$data['entrada'] = $this->metaevaluaciones->entrada_metaevaluada($data['metaevaluacion']);
-
-			$evaluacion = $this->evaluaciones->consultar_entregables($data['evaluacion']);
+			$evaluacion = $this->evaluaciones->consultar_entregables($data['evaluacion']); //Modificar
 		}
 		
 		if ($max_mevs > 0)
@@ -105,6 +108,8 @@ class Metaevaluar extends CI_Controller {
 			log_message('error',$data["usuario"]);
 
 			$data['msg'] = "You may grade the evaluation of the revision here below.";
+
+			$data['post_url'] = 'metaevaluar/procesar';
 
 			//$evaluar->mostrar_evaluacion($data['evaluacion']); // con algo asi se podria cargar la evaluacion y no seria tan complicado
 			$this->load->view('hello_evaluacion', $data);
@@ -137,19 +142,53 @@ class Metaevaluar extends CI_Controller {
 		$this->load->model('Metaevaluaciones_model', 'metaevaluaciones');
 		$this->load->model('Evaluaciones_model', 'evaluaciones');
 
-
-		$data['mevaluador_id'] = $this->session->userdata('userid'); // El metaevaluador sera el usuario logeado
+		if ($this->input->post('puntuacion') == 0)
+			redirect('evaluar/index');
+		
+		else
+		{
+		
+		$datos['mevaluador_id'] = $this->session->userdata('userid'); // El metaevaluador sera el usuario logeado
 		echo "Seguimiento del id del usuario logeado : " . $this->session->userdata('userid') . "<br>";
 		
-		// $data['evaluacion_id'] = $this->evaluaciones->id(); // La id de la evaluacion ha de permanecer como cuando se creo, para saber cual es
+		$datos['evaluacion_id'] = $this->input->post('id_evaluation');; // La id de la evaluacion ha de permanecer como cuando se creo, para saber cual es
+		echo "Seguimiento de la calificacion : " . $this->input->post('id_evaluation') . "<br>";
 
-		$data['calificacion'] = $this->input->post('puntuacion'); // Leemos la nota que haya introducido el metaevaluador
+		$datos['calificacion'] = $this->input->post('puntuacion'); // Leemos la nota que haya introducido el metaevaluador
 		echo "Seguimiento de la calificacion : " . $this->input->post('puntuacion') . "<br>";
 		
-		$data['comentario'] = $this->input->post('descripcion'); // Leemos el comentario introducido
+		$datos['comentario'] = $this->input->post('comentario'); // Leemos el comentario introducido
 		echo "Seguimiento del comentario : " . $this->input->post('comentario') . "<br>";
 
-		$this->metaevaluaciones->modificar($data); //esta funcion debe modificar los datos, no insertar
+		$this->metaevaluaciones->insertar_metaevaluacion($datos); //Creamos la metaevaluacion en la tabla
+
+		$this->mostrar_metaevaluacion($this->metaevaluaciones->id());
+		}
+	}
+
+	// Muestra la información relacionada con una metaevaluación
+	function mostrar_metaevaluacion($mev = 0)
+	{				
+		$colors = array("#99C68E", "#F9966B", "#FDD017", "#EBDDE2", "#5CB3FF", "#736F6E");
+		$this->load->model('Reply_model', 'reply');		
+		$this->load->model('Acceso_model', 'acceso');
+		
+		$this->load->view('template/header');
+		$this->load->view('template/menu');
+		
+		$data['usuario'] = $this->session->userdata('username');
+		$data['usuario_id'] = $this->session->userdata('userid');
+		$data['evaluacion'] = $this->metaevaluaciones->evaluacion_metaevaluada($mev); // Id de la evaluacion
+		$data['edicion'] = $this->metaevaluaciones->edicion_metaevaluada($data['evaluacion']);	// Enlace a la edicion
+		$data['calificacion_eva'] = $this->metaevaluaciones->calificacion_metaevaluada($data['evaluacion']); // Nota de la evaluacion
+		$data['criterio_eva'] = $this->metaevaluaciones->criterio_metaevaluada($data['evaluacion']); // Criterio evaluadi
+		$data['descripcion_eva'] = $this->metaevaluaciones->descripcion_metaevaluada($data['evaluacion']); // Descripcion de la evaluacion
+		$data['calificacion_mev'] = $this->metaevaluaciones->get_calificacion($mev); // Nota de la metaevaluacion
+		$data['comentario_mev'] = $this->metaevaluaciones->get_comentario($mev); // Descripcion de la metaevaluacion
+
+		$this->load->view('info_evaluacion', $data);
+		
+		$this->load->view('template/footer');
 	}
 }
 

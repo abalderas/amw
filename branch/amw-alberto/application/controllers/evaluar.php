@@ -268,7 +268,6 @@ class Evaluar extends CI_Controller {
 		$this->mostrar_evaluacion($this->evaluacion->id());
 
 	}
-
 }
 
 /* End of file evaluar.php */

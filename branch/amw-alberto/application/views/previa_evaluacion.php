@@ -3,10 +3,12 @@
 	{	
 
 ?>
-<p><?php echo $msg . " " . anchor_popup(wiki_revision_url($entrada), "This is the url to assess");?>.</p>
+<p><?php echo $msg . " " . anchor_popup(wiki_revision_url($edicion), "This is the url assessed");?>.</p>
+
+<?php echo form_open($post_url); ?>
     <div class="textfield">           
 		<?php
-			$options = array("Very good", "Good", "Not bad", "Bad", "Very bad");
+			$options = array("","1) Very bad", "2) Bad", "3) Not bad", "4) Good", "5) Very good");
 		?>	
 
 		<table class="table table-striped table-hover table-condensed table-bordered">
@@ -21,13 +23,13 @@
 
 			<tr>
 				<td>
-						<?php echo "Criterio evaluado";?>
+					<?php echo $criterio;?>
 				</td>
 				<td>
-					<?php echo "La nota que le pusieron"; ?>
+					<?php echo $calificacion;?>
 				</td>
 
-				<td><?php echo "Descripcion";?></td>
+				<td><?php echo $descripcion;?></td>
 			</tr>
 
 			</tbody>
@@ -58,7 +60,11 @@
 
 			</tbody>
 		</table>
-		<?php echo form_hidden('entrada', $entrada); ?>
+		<?php
+			// ID of the evaluation.
+				echo form_hidden('id_evaluation', $evaluacion); 
+		?>
+		<?php echo form_hidden('edicion', $edicion); ?>
 		<?php
 			// Tiempo en el que se entra en el formulario.
 			// Utilizado para saber el tiempo dedicado a rellenar.
@@ -78,6 +84,6 @@
 <?php echo form_close(); ?>	
 
 <?php
-		} // Fin metaevaluaciones pendientes (Necesito un script o algo que lanze la funcion)
+		} // Fin metaevaluaciones metaevaluaciones_pendientes
 	
 ?>
