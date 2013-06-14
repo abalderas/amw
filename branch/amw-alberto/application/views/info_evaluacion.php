@@ -1,12 +1,10 @@
-<h2>Summary of metaevaluation</h2>
-
+<h2>Summary of metaevaluations</h2>
 <div class="row">
 	<div class="span3">
 		<ul>
-			<li>Author:
-			<?php echo $usuario; ?></li>
-		
+			<li>Author of the m.evaluation: <?php echo $usuario; ?></li>
 			<li>Evaluacion ID: <?php echo $evaluacion; ?></li>
+			<li>Metaevaluacion ID: <?php echo $metaevaluacion; ?></li>
 			<li>Revision link: <?php echo anchor_popup(wiki_revision_url($edicion), 'url'); ?></li>
 		
 		</ul>

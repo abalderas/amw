@@ -7,13 +7,6 @@ class Evaluar extends CI_Controller {
 		if (!$this->session->userdata('logged_in'))
 			redirect('acceso/index');
 
-		//Datos del usuario logeado
-		foreach ($this->session->userdata as $key => $value) {
-			echo $key . "=>" . $value . "<br>";
-		}
-
-		echo "<br>";
-
 		 // LOAD LIBRARIES
         $this->load->library(array('encrypt', 'form_validation'));
 		
@@ -177,7 +170,7 @@ class Evaluar extends CI_Controller {
 		$data['usuario_id'] = $this->session->userdata('userid');
 
 		// ID del usuario a ser evaluado		
-		$data['usuario_a_revisar'] = $this->revisiones->usuarioArticulo($data['entrada']);  // Poner bien documento a evaluar (2874, no id de la evaluacion
+		$data['usuario_a_revisar'] = $this->revisiones->usuarioArticulo($data['entrada']);
 		
 		// Campos entregables
 		$data['campos'] = $this->entregables->entregables;

@@ -7,6 +7,7 @@ class Parametros_model extends CI_Model {
 		"fecha_inicio" => "19900101000000",
 		"fecha_fin" => "29900101000000",
 		"evaluaciones_por_alumno" => "10",
+		"metaevaluaciones_por_alumno" => "10",
 		"wiki_url" => "http://osl2.uca.es/wikihaskell"
 		);
 
@@ -47,9 +48,19 @@ class Parametros_model extends CI_Model {
 		return intval($this->get_value('evaluaciones_por_alumno'));
 	}
 
+	function get_metaevaluaciones_por_alumno()
+	{
+		return intval($this->get_value('metaevaluaciones_por_alumno'));
+	}
+
 	function set_evaluaciones_por_alumno ($value)
 	{
 		$this->set_value('evaluaciones_por_alumno', $value);
+	}
+
+	function set_metaevaluaciones_por_alumno ($value)
+	{
+		$this->set_value('metaevaluaciones_por_alumno', $value);
 	}
 
 	function get_wiki_url()

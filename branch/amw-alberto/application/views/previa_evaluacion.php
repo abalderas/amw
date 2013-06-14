@@ -78,7 +78,7 @@
     </div>
 
     <div class="buttons">
-        <?php echo form_submit('puntuar', 'Puntuar'); ?>
+        <?php echo form_submit('puntuar', 'Metaevaluar'); ?>
     </div>
 
 <?php echo form_close(); ?>	

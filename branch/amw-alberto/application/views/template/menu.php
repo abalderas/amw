@@ -10,6 +10,7 @@
                     <li><?php echo anchor(site_url("metaevaluar"), "Metaevaluations"); ?></li>
                     <li class="divider-vertical"></li>
 <?php if ($this->session->userdata('is_admin')) { ?>
+                    <li><?php echo anchor(site_url("metaevaluar/lista"), "All Metaevaluations   "); ?></li>
 					<li><?php echo anchor(site_url("alumnos"), "Students"); ?></li>
 					<li><?php echo anchor(site_url("parametros"), "Parameters"); ?></li>
 					<li class="divider-vertical"></li>

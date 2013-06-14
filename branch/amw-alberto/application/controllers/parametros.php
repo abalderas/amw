@@ -38,6 +38,7 @@ class Parametros extends CI_Controller {
 			$this->parametros->set_fecha_inicio($this->input->post('fecha_inicio'));
 			$this->parametros->set_fecha_fin($this->input->post('fecha_fin'));
 			$this->parametros->set_evaluaciones_por_alumno($this->input->post('evaluaciones_por_alumno'));
+			$this->parametros->set_metaevaluaciones_por_alumno($this->input->post('metaevaluaciones_por_alumno'));
 
 			$wiki_url = $this->input->post('wiki_url');
 			// Añade una barra invertida si no la trae al final
@@ -54,6 +55,7 @@ class Parametros extends CI_Controller {
 		$data['fecha_inicio'] = $this->parametros->get_fecha_inicio();
 		$data['fecha_fin'] = $this->parametros->get_fecha_fin();
 		$data['evaluaciones_por_alumno'] = $this->parametros->get_evaluaciones_por_alumno();
+		$data['metaevaluaciones_por_alumno'] = $this->parametros->get_metaevaluaciones_por_alumno();
 		$data['wiki_url'] = $this->parametros->get_wiki_url();
 		
 		$this->load->view('template/header');

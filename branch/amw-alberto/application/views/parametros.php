@@ -59,6 +59,13 @@
 	</div>
 
 	<div class="control-group">
+		<label class="control-label" for="">Meta-evals per student</label>
+		<div class="controls">
+			<input type="text" name="metaevaluaciones_por_alumno" value="<?php echo $metaevaluaciones_por_alumno;?>">
+		</div>
+	</div>
+
+	<div class="control-group">
 		<label class="control-label" for="">Wiki URL</label>
 		<div class="controls">
 			<input type="text" name="wiki_url" value="<?php echo $wiki_url;?>">

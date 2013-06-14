@@ -154,7 +154,7 @@ class Metaevaluaciones_model extends CI_Model {
 
 	// Dado el ID de una evaluacion devuelve la edicion a metaevaluar
 	function edicion_metaevaluada($id)
-	{
+	{	
 		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
 		$sql = 'SELECT eva_revision '  .
 			' FROM evaluaciones ' .
@@ -252,7 +252,8 @@ class Metaevaluaciones_model extends CI_Model {
 	
 		return $resultado;
 	}
-		// Dado el ID de una metaevaluacion devuelve su comentario
+
+	// Dado el ID de una metaevaluacion devuelve su comentario
 	function get_comentario($id)
 	{
 		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
@@ -270,6 +271,68 @@ class Metaevaluaciones_model extends CI_Model {
 		}
 	
 		return $resultado;
+	}
+
+	// Dado el ID de una metaevaluacion devuelve el id de su metaevaluador
+	function get_mevaluatorid($id)
+	{
+		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
+		$sql = 'SELECT mevaluador_id '  .
+			' FROM metaevaluaciones ' .
+			' WHERE mev_id = ' . $id;
+		// echo $sql;
+
+		$query = $this->db->query($sql);
+
+		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
+		foreach ($query->result() as $row)
+		{
+			$resultado = $row->mevaluador_id;
+		}
+	
+		return $resultado;
+	}
+
+	// Dado el ID de un usuario devuelve su nombre TODO: hay que cambiar para leer de la otra tabla (ahora hace lo mismo que la anterior)
+	function get_usuario($id)
+	{
+		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
+		$sql = 'SELECT mevaluador_id '  .
+			' FROM metaevaluaciones ' .
+			' WHERE mev_id = ' . $id;
+		// echo $sql;
+
+		$query = $this->db->query($sql);
+
+		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
+		foreach ($query->result() as $row)
+		{
+			$resultado = $row->mevaluador_id;
+		}
+	
+		return $resultado;
+	}
+
+	// Funcion que devuelve las metaevaluaciones que ha realizado un alumno ordenada por id del alumno (Se deberia ordenar por apellido)
+	function listado_metaevaluadas_ordenado()
+	{
+		$listado = array();
+		
+		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
+		$sql = 'SELECT mev_id'  
+			. ' FROM metaevaluaciones'
+			. ' ORDER BY mevaluador_id';
+		// echo $sql;
+			
+		$query = $this->db->query($sql);
+
+		// Por cada fila, metemos en el array el ID de la metaevaluacion
+		foreach ($query->result() as $row)
+		{
+			array_push($listado, $row->mev_id);
+		}
+
+		return $listado;
 	}
 }
 ?>
