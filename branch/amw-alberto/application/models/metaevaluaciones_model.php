@@ -163,10 +163,28 @@ class Metaevaluaciones_model extends CI_Model {
 			
 		$query = $this->db->query($sql);
 
-		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
 		foreach ($query->result() as $row)
 		{
 			$resultado = $row->eva_revision;
+		}
+		
+		return $resultado;
+	}
+
+	// Dado el ID de una evaluacion devuelve el evaluador de la evaluacion
+	function evaluador_metaevaluada($id)
+	{	
+		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
+		$sql = 'SELECT eva_revisor '  .
+			' FROM evaluaciones ' .
+			' WHERE eva_id = ' . $id;
+		//echo $sql;
+			
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row)
+		{
+			$resultado = $row->eva_revisor;
 		}
 		
 		return $resultado;
@@ -182,11 +200,12 @@ class Metaevaluaciones_model extends CI_Model {
 		// echo $sql;
 
 		$query = $this->db->query($sql);
+		$i=0;
 
-		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
 		foreach ($query->result() as $row)
 		{
-			$resultado = $row->ee_nota;
+			$resultado[$i] = $row->ee_nota;
+			$i++;
 		}
 		
 		return $resultado;
@@ -203,13 +222,14 @@ class Metaevaluaciones_model extends CI_Model {
 		// echo $sql;
 
 		$query = $this->db->query($sql);
+		$i=0;
 
-		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
 		foreach ($query->result() as $row)
 		{
-			$resultado = $row->ent_entregable;
+			$resultado[$i] = $row->ent_entregable;
+			$i++;
 		}
-
+		
 		return $resultado;
 	}
 	
@@ -223,11 +243,12 @@ class Metaevaluaciones_model extends CI_Model {
 		// echo $sql;
 
 		$query = $this->db->query($sql);
+		$i=0;
 
-		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
 		foreach ($query->result() as $row)
 		{
-			$resultado = $row->ee_comentario;
+			$resultado[$i] = $row->ee_comentario;
+			$i++;
 		}
 	
 		return $resultado;
@@ -244,7 +265,6 @@ class Metaevaluaciones_model extends CI_Model {
 
 		$query = $this->db->query($sql);
 
-		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
 		foreach ($query->result() as $row)
 		{
 			$resultado = $row->calificacion;
@@ -264,7 +284,6 @@ class Metaevaluaciones_model extends CI_Model {
 
 		$query = $this->db->query($sql);
 
-		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
 		foreach ($query->result() as $row)
 		{
 			$resultado = $row->comentario;
@@ -284,7 +303,6 @@ class Metaevaluaciones_model extends CI_Model {
 
 		$query = $this->db->query($sql);
 
-		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
 		foreach ($query->result() as $row)
 		{
 			$resultado = $row->mevaluador_id;
@@ -293,25 +311,24 @@ class Metaevaluaciones_model extends CI_Model {
 		return $resultado;
 	}
 
-	// Dado el ID de un usuario devuelve su nombre TODO: hay que cambiar para leer de la otra tabla (ahora hace lo mismo que la anterior)
-	function get_usuario($id)
-	{
-		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
-		$sql = 'SELECT mevaluador_id '  .
-			' FROM metaevaluaciones ' .
-			' WHERE mev_id = ' . $id;
-		// echo $sql;
+	// // Dado el ID de un usuario devuelve su nombre TODO: hay que cambiar para leer de la otra tabla (ahora hace lo mismo que la anterior)
+	// function get_usuario($id)
+	// {
+	// 	// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
+	// 	$sql = 'SELECT mevaluador_id '  .
+	// 		' FROM metaevaluaciones ' .
+	// 		' WHERE mev_id = ' . $id;
+	// 	// echo $sql;
 
-		$query = $this->db->query($sql);
+	// 	$query = $this->db->query($sql);
 
-		// pg_port() cada fila (que debe ser solo una), metemos en el array el ID de la metaevaluacion
-		foreach ($query->result() as $row)
-		{
-			$resultado = $row->mevaluador_id;
-		}
+	// 	foreach ($query->result() as $row)
+	// 	{
+	// 		$resultado = $row->mevaluador_id;
+	// 	}
 	
-		return $resultado;
-	}
+	// 	return $resultado;
+	// }
 
 	// Funcion que devuelve las metaevaluaciones que ha realizado un alumno ordenada por id del alumno (Se deberia ordenar por apellido)
 	function listado_metaevaluadas_ordenado()

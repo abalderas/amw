@@ -60,7 +60,7 @@ class CI_Config {
 
 			else
 			{
-				$base_url = 'http://localhost2/';
+				$base_url = 'http://localhost/';
 			}
 
 			$this->set_item('base_url', $base_url);

@@ -67,3 +67,17 @@ CREATE TABLE IF NOT EXISTS `replies` (
 
 -- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `metaevaluaciones`
+--
+
+CREATE TABLE IF NOT EXISTS `metaevaluaciones` (
+  `mev_id` int(11) NOT NULL AUTO_INCREMENT,
+  `mevaluador_id` int(11) NOT NULL,
+  `evaluacion_id` int(11) NOT NULL,
+  `calificacion` int(11) NOT NULL,
+  `comentario` varchar(250) NOT NULL,
+  PRIMARY KEY (`mev_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------

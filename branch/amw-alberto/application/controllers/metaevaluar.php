@@ -22,13 +22,6 @@ class Metaevaluar extends CI_Controller {
 		$metaevaluadas = $this->metaevaluaciones->listado_metaevaluadas();
 		$realizadas = $this->metaevaluaciones->metaevaluaciones_realizadas($id);
 
-		$variable = $this->acceso->usuarios();
-		foreach ($variable as $key => $value) {
-			echo "Seguimiento" . $key . "=> ". $value . "<br>";
-			}
-
-
-
 		echo "Quedan por metaevaluar " . count($por_metaevaluar) . " evaluaciones <br>";
 		echo "De las que quedan por metaevaluar " . count($filtro) . " no son evaluaciones ni ediciones mias <br>";
 		echo "Han sido metaevaluadas " . count($metaevaluadas) . " evaluaciones <br>";
@@ -80,7 +73,7 @@ class Metaevaluar extends CI_Controller {
 		$usuario_id = $this->session->userdata('userid');
 
 		// Si el numero de evaluaciones para metaevaluar es mayor que 0
-		$por_metaevaluar = $this->metaevaluaciones->para_metaevaluar();
+		$por_metaevaluar = $this->metaevaluaciones->metavaluaciones_para_aumno($usuario_id);
 
 		if (count($por_metaevaluar) > 0)
 		{
@@ -152,17 +145,10 @@ class Metaevaluar extends CI_Controller {
 		else
 		{
 		
-		$datos['mevaluador_id'] = $this->session->userdata('userid'); // El metaevaluador sera el usuario logeado
-		echo "Seguimiento del id del usuario logeado : " . $this->session->userdata('userid') . "<br>";
-		
+		$datos['mevaluador_id'] = $this->session->userdata('userid'); // El metaevaluador sera el usuario logeado		
 		$datos['evaluacion_id'] = $this->input->post('id_evaluation');; // La id de la evaluacion ha de permanecer como cuando se creo, para saber cual es
-		echo "Seguimiento de la calificacion : " . $this->input->post('id_evaluation') . "<br>";
-
 		$datos['calificacion'] = $this->input->post('puntuacion'); // Leemos la nota que haya introducido el metaevaluador
-		echo "Seguimiento de la calificacion : " . $this->input->post('puntuacion') . "<br>";
-		
 		$datos['comentario'] = $this->input->post('comentario'); // Leemos el comentario introducido
-		echo "Seguimiento del comentario : " . $this->input->post('comentario') . "<br>";
 
 		$this->metaevaluaciones->insertar_metaevaluacion($datos); //Creamos la metaevaluacion en la tabla
 
@@ -208,8 +194,10 @@ class Metaevaluar extends CI_Controller {
 		// $lista = $this->metaevaluaciones->listado_metaevaluadas_ordenado();
 		$data['metaevaluacion'] = $this->metaevaluaciones->listado_metaevaluadas_ordenado();
 
+		$datos['usuario'] = $this->session->userdata('username');
+
 		if (count($data['metaevaluacion']) == 0)
-			$this->load->view('no_metaevaluacion');
+			$this->load->view('no_metaevaluacion',$datos);
 		else
 		{
 			$data['total'] = count($data['metaevaluacion']);
@@ -223,7 +211,9 @@ class Metaevaluar extends CI_Controller {
 				$data['calificacion_mev'][$value] = $this->metaevaluaciones->get_calificacion($value); // Nota de la metaevaluacion
 				$data['comentario_mev'][$value] = $this->metaevaluaciones->get_comentario($value); // Descripcion de la metaevaluacion
 				$data['usuario_id'][$value] = $this->metaevaluaciones->get_mevaluatorid($value);  // ID del usuario metaevaluador
-				$data['usuario'][$value] = $usuarios[$data['usuario_id'][$value]]; // Nombre del metaevaluador (ver funcion)
+				$data['usuario'][$value] = $usuarios[$data['usuario_id'][$value]]; // Nombre del metaevaluador
+				$data['evaluador_id'][$value] = $this->metaevaluaciones->evaluador_metaevaluada($data['evaluacion'][$value]); // ID del evaluador de la evaluacion metaevaluada
+				$data['evaluador'][$value] = $usuarios[$data['evaluador_id'][$value]]; // Nombre del evaluador
 			}
 		$this->load->view('metaevaluacion_list', $data);
 		}

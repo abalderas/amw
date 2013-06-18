@@ -23,7 +23,7 @@ class Parametros extends CI_Controller {
 
 		// Cargamos los modelos de los datos
 		$this->load->model('Entregable_model', 'entregable');
-		$this->load->model('Parametros_model', 'parametros');		
+		$this->load->model('Parametros_model', 'parametros');
     }
 	
 	public function index()

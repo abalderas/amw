@@ -23,13 +23,26 @@
 
 			<tr>
 				<td>
-					<?php echo $criterio;?>
+					<?php
+					foreach ($criterio as $key) {
+						echo $key . "<br>";
+					}
+					?>
 				</td>
 				<td>
-					<?php echo $calificacion;?>
+					<?php
+					foreach ($calificacion as $key) {
+						echo $key . "<br>";
+					}
+					?>
 				</td>
 
-				<td><?php echo $descripcion;?></td>
+				<td>
+					<?php
+					foreach ($descripcion as $key) {
+						echo $key . "<br>";
+					}
+					?>
 			</tr>
 
 			</tbody>

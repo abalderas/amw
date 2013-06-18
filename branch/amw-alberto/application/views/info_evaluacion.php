@@ -3,8 +3,6 @@
 	<div class="span3">
 		<ul>
 			<li>Author of the m.evaluation: <?php echo $usuario; ?></li>
-			<li>Evaluacion ID: <?php echo $evaluacion; ?></li>
-			<li>Metaevaluacion ID: <?php echo $metaevaluacion; ?></li>
 			<li>Revision link: <?php echo anchor_popup(wiki_revision_url($edicion), 'url'); ?></li>
 		
 		</ul>
@@ -23,15 +21,27 @@
 
 			<tr>
 				<td>
-					<?php echo $criterio_eva;?>
+					<?php
+					foreach ($criterio_eva as $key) {
+						echo $key . "<br>";
+					}
+					?>
 				</td>
 
 				<td>
-					<?php echo $calificacion_eva;?>
+					<?php
+					foreach ($calificacion_eva as $key) {
+						echo $key . "<br>";
+					}
+					?>
 				</td>
 
 				<td>
-					<?php echo $descripcion_eva;?>
+					<?php
+					foreach ($descripcion_eva as $key) {
+						echo $key . "<br>";
+					}
+					?>
 				</td>
 			</tr>
 

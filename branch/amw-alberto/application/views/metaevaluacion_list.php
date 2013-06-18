@@ -13,6 +13,7 @@
 					<th>Criterion</th>
 					<th>Evaluation grade</th>
 					<th>Evaluation description</th>
+					<th>Evaluator</th>
 				</tr>
 			</thead>
 
@@ -20,7 +21,7 @@
 			<?php foreach ($metaevaluacion as $i) { ?>
 				<tr>
 					<td>
-						<?php echo $usuario[$i];?> <!-- Cambiar para que muestre el nombre del usuario y no el id -->
+						<?php echo $usuario[$i];?>
 					</td>
 
 					<td>
@@ -36,15 +37,31 @@
 					</td>
 
 					<td>
-						<?php echo $criterio_eva[$i];?>
+						<?php
+							foreach ($criterio_eva[$i] as $key) {
+								echo $key . "<br>";
+							}
+						?>
 					</td>
 					
 					<td>
-						<?php echo $calificacion_eva[$i];?>
+						<?php
+							foreach ($calificacion_eva[$i] as $key) {
+								echo $key . "<br>";
+							}
+						?>
 					</td>
 
 					<td>
-						<?php echo $descripcion_eva[$i];?>
+						<?php
+							foreach ($descripcion_eva[$i] as $key) {
+								echo $key . "<br>";
+							}
+						?>
+					</td>
+
+					<td>
+						<?php echo $evaluador[$i];?>
 					</td>
 				</tr>
 			<?php } ?>
