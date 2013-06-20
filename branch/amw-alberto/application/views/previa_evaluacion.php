@@ -8,7 +8,7 @@
 <?php echo form_open($post_url); ?>
     <div class="textfield">           
 		<?php
-			$options = array("","1) Very bad", "2) Bad", "3) Not bad", "4) Good", "5) Very good");
+			$options = array("","1) Very bad", "2) Bad", "3) Regular", "4) Good", "5) Very good");
 		?>	
 
 		<table class="table table-striped table-hover table-condensed table-bordered">

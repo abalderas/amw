@@ -72,7 +72,7 @@ class Revisiones_model extends CI_Model {
 		// Filtramos las revisiones para que solo se incluyan los artículos en la categoría indicada
 		// Ademas de estas lineas se incluye en from tabla categorylinks
 		
-		if ($this->parametros->get_categoria() != "") { //Solo añadimos categoria si hay alguna especificada
+		if ($this->parametros->get_categoria() != "") { // Solo añadimos categoria si hay alguna especificada
 			$sql_fin .= "AND cl_to = '" . $this->parametros->get_categoria() . "'";
 		}
 

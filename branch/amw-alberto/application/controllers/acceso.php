@@ -34,7 +34,7 @@ class Acceso extends CI_Controller {
 					
 			    	// Leemos usuario y contraseña
 					$user_name = $this->input->post('user_name');		
-					// $user_name = ucfirst($user_name);		//esta funcion da problemas y hace que luego de que el usuario no exista al cambiar la primera letra por mayuscula (la tabla anonima esta en minusculas)
+					$user_name = ucfirst($user_name);	//esta funcion da problemas y hace que luego de que el usuario no exista al cambiar la primera letra por mayuscula (la tabla anonima esta en minusculas)
 					$user_pass = $this->input->post('user_pass');
 
 	    			// Buscamos el ID asociado al nombre de usuario indicado

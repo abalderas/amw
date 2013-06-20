@@ -25,7 +25,9 @@
 					</td>
 
 					<td>
-						<?php echo $calificacion_mev[$i];?>
+						<center>
+						<?php echo $calificacion_mev[$i] *100/5 ."%" ;?> <!-- Se tiene que dividir entre el numero de opciones en previa_evaluacion	 -->
+						</center>
 					</td>
 
 					<td>
@@ -45,11 +47,13 @@
 					</td>
 					
 					<td>
+						<center>
 						<?php
 							foreach ($calificacion_eva[$i] as $key) {
 								echo $key . "<br>";
 							}
 						?>
+						</center>
 					</td>
 
 					<td>

@@ -311,25 +311,6 @@ class Metaevaluaciones_model extends CI_Model {
 		return $resultado;
 	}
 
-	// // Dado el ID de un usuario devuelve su nombre TODO: hay que cambiar para leer de la otra tabla (ahora hace lo mismo que la anterior)
-	// function get_usuario($id)
-	// {
-	// 	// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
-	// 	$sql = 'SELECT mevaluador_id '  .
-	// 		' FROM metaevaluaciones ' .
-	// 		' WHERE mev_id = ' . $id;
-	// 	// echo $sql;
-
-	// 	$query = $this->db->query($sql);
-
-	// 	foreach ($query->result() as $row)
-	// 	{
-	// 		$resultado = $row->mevaluador_id;
-	// 	}
-	
-	// 	return $resultado;
-	// }
-
 	// Funcion que devuelve las metaevaluaciones que ha realizado un alumno ordenada por id del alumno (Se deberia ordenar por apellido)
 	function listado_metaevaluadas_ordenado()
 	{
