@@ -93,6 +93,38 @@ class Feedback extends CI_Controller {
 
 		$this->load->view('csv_sheet', $data);
 	}
+
+	// Funcion que muestra todas las metaevaluaciones realizadas por el alumno
+	function metaevaluaciones($id)
+	{
+		$this->load->model('Metaevaluaciones_model', 'metaevaluaciones');
+		$this->load->model('Evaluaciones_model', 'evaluaciones');
+		$this->load->model('Acceso_model', 'acceso');
+
+		$this->load->view('template/header');
+		$this->load->view('template/menu');	
+
+		// $lista = $this->metaevaluaciones->listado_metaevaluadas_ordenado();
+		$data['metaevaluacion'] = $this->metaevaluaciones->metaevaluaciones_realizadas($id);
+
+		$data['total'] = count($data['metaevaluacion']);
+		$usuarios = $this->acceso->usuarios();
+		foreach ($data['metaevaluacion'] as $value) {
+			$data['evaluacion'][$value] = $this->metaevaluaciones->evaluacion_metaevaluada($value); // Id de la evaluacion
+			$data['edicion'][$value] = $this->metaevaluaciones->edicion_metaevaluada($data['evaluacion'][$value]);	// Enlace a la edicion
+			$data['calificacion_eva'][$value] = $this->metaevaluaciones->calificacion_metaevaluada($data['evaluacion'][$value]); // Nota de la evaluacion
+			$data['criterio_eva'][$value] = $this->metaevaluaciones->criterio_metaevaluada($data['evaluacion'][$value]); // Criterio evaluadi
+			$data['descripcion_eva'][$value] = $this->metaevaluaciones->descripcion_metaevaluada($data['evaluacion'][$value]); // Descripcion de la evaluacion
+			$data['calificacion_mev'][$value] = $this->metaevaluaciones->get_calificacion($value); // Nota de la metaevaluacion
+			$data['comentario_mev'][$value] = $this->metaevaluaciones->get_comentario($value); // Descripcion de la metaevaluacion
+			$data['usuario_id'][$value] = $this->metaevaluaciones->get_mevaluatorid($value);  // ID del usuario metaevaluador
+			$data['usuario'][$value] = $usuarios[$data['usuario_id'][$value]]; // Nombre del metaevaluador
+			$data['evaluador_id'][$value] = $this->metaevaluaciones->evaluador_metaevaluada($data['evaluacion'][$value]); // ID del evaluador de la evaluacion metaevaluada
+			$data['evaluador'][$value] = $usuarios[$data['evaluador_id'][$value]]; // Nombre del evaluador
+		}
+		$this->load->view('metaevaluacion_list', $data);
+		$this->load->view('template/footer');
+	}
 }
 
 /* End of file feedback.php */

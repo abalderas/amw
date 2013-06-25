@@ -7,7 +7,7 @@
 			<thead>
 				<tr class="head">
 					<th>Metaevaluator</th>
-					<th>Metaevaluation grade</th>
+					<th>Metaevaluation grade (1-5)</th>
 					<th>Metaevaluation comments</th>
 					<th>URL</th>
 					<th>Criterion</th>
@@ -26,7 +26,7 @@
 
 					<td>
 						<center>
-						<?php echo $calificacion_mev[$i] *100/5 ."%" ;?> <!-- Se tiene que dividir entre el numero de opciones en previa_evaluacion	 -->
+						<?php echo $calificacion_mev[$i];?> <!-- Se tiene que dividir entre el numero de opciones en previa_evaluacion	 -->
 						</center>
 					</td>
 
