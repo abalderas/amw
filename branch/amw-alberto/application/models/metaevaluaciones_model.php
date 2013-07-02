@@ -132,6 +132,30 @@ class Metaevaluaciones_model extends CI_Model {
 		return $listado;
 	}
 
+	// Funcion que devuelve las metaevaluaciones que ha recibido un alumno
+	function metaevaluaciones_recibidas($user)
+	{
+		$listado = array();
+		
+		// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
+		$sql = 'SELECT mev_id'  
+			. ' FROM metaevaluaciones, evaluaciones'
+			. ' WHERE eva_revisor =' . $user
+			. ' AND eva_id = evaluacion_id' 
+			. ' AND calificacion NOT LIKE 0' ;
+		 // echo $sql;
+			
+		$query = $this->db->query($sql);
+
+		// Por cada fila, metemos en el array el ID de la metaevaluacion
+		foreach ($query->result() as $row)
+		{
+			array_push($listado, $row->mev_id);
+		}
+
+		return $listado;
+	}
+
 	// Dado el ID de una metaevaluacion devuelve el ID de la evaluacion metaevaluada
 	function evaluacion_metaevaluada($id)
 	{

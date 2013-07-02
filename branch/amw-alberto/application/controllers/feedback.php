@@ -94,7 +94,7 @@ class Feedback extends CI_Controller {
 		$this->load->view('csv_sheet', $data);
 	}
 
-	// Funcion que muestra todas las metaevaluaciones realizadas por el alumno
+	// Funcion que muestra todas las metaevaluaciones que ha recibido un alumno
 	function metaevaluaciones($id)
 	{
 		$this->load->model('Metaevaluaciones_model', 'metaevaluaciones');
@@ -105,7 +105,7 @@ class Feedback extends CI_Controller {
 		$this->load->view('template/menu');	
 
 		// $lista = $this->metaevaluaciones->listado_metaevaluadas_ordenado();
-		$data['metaevaluacion'] = $this->metaevaluaciones->metaevaluaciones_realizadas($id);
+		$data['metaevaluacion'] = $this->metaevaluaciones->metaevaluaciones_recibidas($id);
 
 		$data['total'] = count($data['metaevaluacion']);
 		$usuarios = $this->acceso->usuarios();

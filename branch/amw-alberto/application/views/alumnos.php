@@ -13,7 +13,7 @@
 	<tr>
 		<td><?php echo $alumnos[$key]; ?></td>
 		<td><?php echo anchor(site_url("feedback/informe/" . $key), "Report"); ?> (<?php echo anchor(site_url("feedback/csv/" . $key), "CSV"); ?>) </td>
-		<td><?php echo anchor(site_url("feedback/metaevaluaciones/" . $key), "List of meta-evaluations"); ?></td>
+		<td><?php echo anchor(site_url("feedback/metaevaluaciones/" . $key), "Meta-evaluated evaluations"); ?></td>
 	</tr>
 <?php } ?>
 	</tbody>
