@@ -356,5 +356,27 @@ class Metaevaluaciones_model extends CI_Model {
 
 		return $listado;
 	}
+
+	// Funcion que devuelve la media de las metaevaluaiones
+	// function listado_metaevaluadas_ordenado()
+	// {
+	// 	$listado = array();
+		
+	// 	// Generamos las posibilidades SQL igualando la id de usuario y eliminando las que no han sido calificadas
+	// 	$sql = 'SELECT mev_id'  
+	// 		. ' FROM metaevaluaciones'
+	// 		. ' ORDER BY mevaluador_id';
+	// 	// echo $sql;
+			
+	// 	$query = $this->db->query($sql);
+
+	// 	// Por cada fila, metemos en el array el ID de la metaevaluacion
+	// 	foreach ($query->result() as $row)
+	// 	{
+	// 		array_push($listado, $row->mev_id);
+	// 	}
+
+	// 	return $listado;
+	// }
 }
 ?>

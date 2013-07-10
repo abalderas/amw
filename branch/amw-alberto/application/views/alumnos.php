@@ -5,7 +5,7 @@
 		<tr>
 			<th>Students</th>
 			<th>Report</th>
-			<th>Metaevaluations</th>
+			<th>Resume</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -13,7 +13,7 @@
 	<tr>
 		<td><?php echo $alumnos[$key]; ?></td>
 		<td><?php echo anchor(site_url("feedback/informe/" . $key), "Report"); ?> (<?php echo anchor(site_url("feedback/csv/" . $key), "CSV"); ?>) </td>
-		<td><?php echo anchor(site_url("feedback/metaevaluaciones/" . $key), "Meta-evaluated evaluations"); ?></td>
+		<td><?php echo anchor(site_url("feedback/resume/" . $key), "Metaevaluations resume"); ?></td>
 	</tr>
 <?php } ?>
 	</tbody>
