@@ -19,7 +19,8 @@ class Acceso extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<span class="inline-help">','</span>');
 
 		// Carga del modelo de acceso
-		$this->load->model('acceso_model', 'acceso');
+		$this->load->model('Acceso_model', 'acceso');
+		$this->load->model('Roles_model', 'roles');
 
 		// Si junto a la petición se reciben datos del formulario
 		if($this->input->post('login'))
@@ -91,7 +92,14 @@ class Acceso extends CI_Controller {
 							'username'  => $user_name,
 							'userid'  => $user_id,   
 							'logged_in' => TRUE,
-							'is_admin' => $this->acceso->es_admin($user_id)
+							'is_admin' => $this->roles->es_admin($user_id),
+							'rol' => $this->roles->get_rol($user_id),
+							'evaluar_access' => $this->roles->comprobar_permisos($user_id, 'evaluar'),
+							'feedback_access' => $this->roles->comprobar_permisos($user_id, 'feedback'),
+							'metaevaluar_access' => $this->roles->comprobar_permisos($user_id, 'metaevaluar'),
+							'metaevaluar_lista_access' => $this->roles->comprobar_permisos($user_id, 'metaevaluar_lista'),
+							'alumnos_access' => $this->roles->comprobar_permisos($user_id, 'alumnos'),
+							'parametros_access' => $this->roles->comprobar_permisos($user_id, 'parametros')
 							);
 
 						// Guardamos los datos en la cookie de sesión
