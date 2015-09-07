@@ -40,7 +40,199 @@ Otra cosa a destacar es que con el antiguo esquema de la base de datos, al reali
 Gracias a la nueva distribución de la base de datos se ha solventado ese problema, manteniendo a su vez la compatibilidad con otros sistemas como StatMediaWiki o CleverFigures
 
 \section{Scripts de Base de datos}
-Organización del código fuente, describiendo la utilidad de los diferentes ficheros y su distribución en paquetes o directorios. Asimismo, se incluirá el script de algún disparador o un procedimiento almacenado, que sea de interés para ilustrar algún aspecto concreto de la gestión de la base de datos.
+El script para la creación de la base de datos, así como para introducir los datos y valores iniciales es el siguiente:\\
+
+-- --------------------------------------------------------\\
+
+--\\
+-- Estructura de tabla para la tabla `config`\\
+--\\
+
+CREATE TABLE IF NOT EXISTS `config` (\\
+`parameter` varchar(50) NOT NULL,\\
+`value` varchar(50) NOT NULL,\\
+PRIMARY KEY (`parameter`)\\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;\\
+
+-- --------------------------------------------------------\\
+
+--\\
+-- Estructura de tabla para la tabla `entregables`\\
+--\\
+
+CREATE TABLE IF NOT EXISTS `entregables` (\\
+`ent\_id` int(11) NOT NULL AUTO\_INCREMENT,\\
+`ent\_entregable` varchar(250) NOT NULL,\\
+`ent\_description` varchar(255) NOT NULL,\\
+`generic\_specific` boolean NOT NULL DEFAULT false, --0 = generic, 1 = specific\\
+PRIMARY KEY (`ent\_id`)\\
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO\_INCREMENT=1 ;\\
+
+-- --------------------------------------------------------\\
+
+--\\
+-- Estructura de tabla para la tabla `evaluaciones`\\
+--\\
+
+CREATE TABLE IF NOT EXISTS `evaluaciones` (\\
+`eva\_id` int(11) NOT NULL AUTO\_INCREMENT,\\
+`eva\_user` int(11) NOT NULL,\\
+`eva\_revisor` int(11) NOT NULL,\\
+`eva\_revision` int(11) NOT NULL,\\
+`eva\_time` int(11) NOT NULL,\\
+PRIMARY KEY (`eva\_id`)\\
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO\_INCREMENT=1 ;\\
+
+-- --------------------------------------------------------\\
+
+--\\
+-- Estructura de tabla para la tabla `evaluaciones\_entregables`\\
+--\\
+
+CREATE TABLE IF NOT EXISTS `evaluaciones\_entregables` (\\
+`eva\_id` int(11) NOT NULL,\\
+`ent\_id` int(11) NOT NULL,\\
+`ee\_nota` int(11) NOT NULL,\\
+`ee\_comentario` varchar(250) NOT NULL,\\
+PRIMARY KEY (`eva\_id`,`ent\_id`)\\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;\\
+
+-- --------------------------------------------------------\\
+
+--\\
+-- Estructura de tabla para la tabla `replies`\\
+--\\
+
+CREATE TABLE IF NOT EXISTS `replies` (\\
+`rep\_id` int(11) NOT NULL AUTO\_INCREMENT,\\
+`rep\_read` int(11) NOT NULL,\\
+`rep\_new` int(11) NOT NULL,\\
+PRIMARY KEY (`rep\_id`)\\
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO\_INCREMENT=1 ;\\
+
+-- --------------------------------------------------------\\
+
+--\\
+-- Estructura de tabla para la tabla `metaevaluaciones`\\
+--\\
+
+CREATE TABLE IF NOT EXISTS `metaevaluaciones` (\\
+`mev\_id` int(11) NOT NULL AUTO\_INCREMENT,\\
+`mevaluador\_id` int(11) NOT NULL,\\
+`evaluacion\_id` int(11) NOT NULL,\\
+`calificacion` int(11) NOT NULL,\\
+`comentario` varchar(250) NOT NULL,\\
+PRIMARY KEY (`mev\_id`)\\
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO\_INCREMENT=1 ;\\
+
+-- --------------------------------------------------------\\
+
+--\\
+-- Estructura de tabla para la tabla `roles`\\
+--\\
+
+CREATE TABLE IF NOT EXISTS `roles` (\\
+`rol\_id` int(11) NOT NULL AUTO\_INCREMENT,\\
+`name` varchar(30) NOT NULL UNIQUE,\\
+`evaluar` boolean NOT NULL DEFAULT true,\\
+`feedback` boolean NOT NULL DEFAULT true,\\
+`metaevaluar` boolean NOT NULL DEFAULT false,\\
+`metaevaluar\_lista` boolean NOT NULL DEFAULT false,\\
+`alumnos` boolean NOT NULL DEFAULT false,\\
+`parametros` boolean NOT NULL DEFAULT false,\\
+PRIMARY KEY (`rol\_id`)\\
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO\_INCREMENT=1 ;\\
+
+-- --------------------------------------------------------\\
+
+--\\
+-- Estructura de tabla para la tabla `rol\_assignation`\\
+--\\
+
+CREATE TABLE IF NOT EXISTS `rol\_assignation` (\\
+`user\_id` int(11) NOT NULL,\\
+`rol\_id` int(11) NOT NULL,\\
+PRIMARY KEY (`user\_id`)\\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO\_INCREMENT=1 ;\\
+
+-- --------------------------------------------------------\\
+
+--\\
+-- Estructura de tabla para la tabla `ejercicios\_de\_evaluacion`\\
+--\\
+
+CREATE TABLE IF NOT EXISTS `ejercicios\_de\_evaluacion` (\\
+`evaluation\_id` int(11) NOT NULL AUTO\_INCREMENT,\\
+`exercise\_name` varchar(30) NOT NULL UNIQUE,\\
+`beginning` date NOT NULL,\\
+`first\_phase\_end` date NOT NULL,\\
+`second\_phase\_end` date NOT NULL,\\
+`third\_phase\_end` date NOT NULL,\\
+`fourth\_phase\_end` date NOT NULL,\\
+`description` varchar(500) NOT NULL,\\
+PRIMARY KEY (`evaluation\_id`)\\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO\_INCREMENT=1 ;\\
+
+-- ----------------------------------------------------------\\
+
+--\\
+-- Estructura de tabla para la tabla `preasignaciones`\\
+--\\
+
+CREATE TABLE IF NOT EXISTS `preasignaciones` (\\
+`preasignacion\_id` int(11) NOT NULL AUTO\_INCREMENT,\\
+`edit\_id` int(11) NOT NULL,\\
+`revisor\_id` int(11) NOT NULL,\\
+`ejercicio\_de\_evaluacion` int(11) NOT NULL,\\
+PRIMARY KEY (`preasignacion\_id`)\\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO\_INCREMENT=1 ;\\
+
+-- --------------------------------------------------------\\
+
+--\\
+-- Estructura de tabla para la tabla `categorias\_ej\_ev`\\
+--\\
+
+CREATE TABLE IF NOT EXISTS `categorias\_ej\_ev` (\\
+`evaluation\_id` int(11) NOT NULL,\\
+`ent\_id` int(11) NOT NULL,\\
+PRIMARY KEY (`evaluation\_id`,`ent\_id`)\\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO\_INCREMENT=1 ;\\
+
+-- --------------------------------------------------------\\
+
+--\\
+-- Estructura de tabla para la tabla `rafagas`\\
+--\\
+
+CREATE TABLE IF NOT EXISTS `rafagas` (\\
+`raf\_start` int(8) NOT NULL,\\
+`raf\_end` int(8) NOT NULL,\\
+`raf\_timestamp` char(14) NOT NULL,\\
+`raf\_size` int(10) NOT NULL,\\
+PRIMARY KEY (`raf\_start`)\\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;\\
+
+-- --------------------------------------------------------\\
+
+
+--\\
+-- Insercion de valores por defecto\\
+--
+-- A la vez que creamos la tabla añadimos los dos primeros usuarios, esto ha de hacerse como ultima accion\\
+-- ya que si esta creado dara error y no se crearan las siguientes tablas, y una vez añadidos los usuarios\\
+-- añadimos al primer usuario creado en la wiki como administrador.\\
+-- \#TODO evitar esse error
+
+INSERT INTO `roles`(`name`, `evaluar`, `feedback`, `metaevaluar`, `metaevaluar\_lista`, `alumnos`,\\ `parametros`)\\
+VALUES ("Admin",1,1,1,1,1,1);\\
+INSERT INTO `roles`(`name`, `evaluar`, `feedback`)  \\
+VALUES ("Student",1,1);\\
+INSERT INTO `rol\_assignation`(`user\_id`, `rol\_id`)\\
+VALUES (1,1);\\
+
+-- --------------------------------------------------------\\
+
 
 La mayoría de funciones para manejar las bases de datos se encuentran en los modelos del sistema.\\
 

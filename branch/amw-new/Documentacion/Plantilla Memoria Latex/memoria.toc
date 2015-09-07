@@ -38,34 +38,30 @@
 \contentsline {section}{\numberline {6.1}Entorno de Construcci\IeC {\'o}n}{43}{section.6.1}
 \contentsline {section}{\numberline {6.2}C\IeC {\'o}digo Fuente}{43}{section.6.2}
 \contentsline {section}{\numberline {6.3}Scripts de Base de datos}{44}{section.6.3}
-\contentsline {chapter}{\numberline {7}Pruebas del Sistema}{47}{chapter.7}
-\contentsline {section}{\numberline {7.1}Estrategia}{47}{section.7.1}
-\contentsline {section}{\numberline {7.2}Entorno de Pruebas}{47}{section.7.2}
-\contentsline {section}{\numberline {7.3}Roles}{47}{section.7.3}
-\contentsline {section}{\numberline {7.4}Niveles de Pruebas}{47}{section.7.4}
-\contentsline {subsection}{\numberline {7.4.1}Pruebas Unitarias}{47}{subsection.7.4.1}
-\contentsline {subsection}{\numberline {7.4.2}Pruebas de Integraci\IeC {\'o}n}{48}{subsection.7.4.2}
-\contentsline {subsection}{\numberline {7.4.3}Pruebas de Sistema}{48}{subsection.7.4.3}
-\contentsline {subsubsection}{Pruebas Funcionales}{48}{section*.8}
-\contentsline {subsubsection}{Pruebas No Funcionales}{48}{section*.9}
-\contentsline {subsection}{\numberline {7.4.4}Pruebas de Aceptaci\IeC {\'o}n}{48}{subsection.7.4.4}
-\contentsline {part}{II\hspace {1em}Ep\IeC {\'\i }logo}{49}{part.2}
-\contentsline {chapter}{\numberline {8}Manual de implantaci\IeC {\'o}n y explotaci\IeC {\'o}n}{53}{chapter.8}
-\contentsline {section}{\numberline {8.1}Introducci\IeC {\'o}n}{53}{section.8.1}
-\contentsline {section}{\numberline {8.2}Requisitos previos}{53}{section.8.2}
-\contentsline {section}{\numberline {8.3}Inventario de componentes}{53}{section.8.3}
-\contentsline {section}{\numberline {8.4}Procedimientos de instalaci\IeC {\'o}n}{54}{section.8.4}
-\contentsline {section}{\numberline {8.5}Pruebas de implantaci\IeC {\'o}n}{55}{section.8.5}
-\contentsline {section}{\numberline {8.6}Procedimientos de operaci\IeC {\'o}n y nivel de servicio}{55}{section.8.6}
-\contentsline {chapter}{\numberline {9}Manual de usuario}{57}{chapter.9}
-\contentsline {section}{\numberline {9.1}Introducci\IeC {\'o}n}{57}{section.9.1}
-\contentsline {section}{\numberline {9.2}Caracter\IeC {\'\i }sticas}{57}{section.9.2}
-\contentsline {section}{\numberline {9.3}Requisitos previos}{57}{section.9.3}
-\contentsline {section}{\numberline {9.4}Uso del sistema}{58}{section.9.4}
-\contentsline {chapter}{\numberline {10}Conclusiones}{59}{chapter.10}
-\contentsline {section}{\numberline {10.1}Objetivos alcanzados}{59}{section.10.1}
-\contentsline {section}{\numberline {10.2}Lecciones aprendidas}{59}{section.10.2}
-\contentsline {section}{\numberline {10.3}Trabajo futuro}{59}{section.10.3}
-\contentsline {chapter}{Bibliograf\'{\i }a}{61}{chapter*.10}
-\contentsline {chapter}{Informaci\IeC {\'o}n sobre Licencia}{63}{section*.11}
+\contentsline {chapter}{\numberline {7}Pruebas del Sistema}{51}{chapter.7}
+\contentsline {section}{\numberline {7.1}Estrategia}{51}{section.7.1}
+\contentsline {section}{\numberline {7.2}Entorno de Pruebas}{51}{section.7.2}
+\contentsline {section}{\numberline {7.3}Roles}{51}{section.7.3}
+\contentsline {section}{\numberline {7.4}Niveles de Pruebas}{51}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}Pruebas de Sistema}{51}{subsection.7.4.1}
+\contentsline {subsection}{\numberline {7.4.2}Pruebas de Aceptaci\IeC {\'o}n}{52}{subsection.7.4.2}
+\contentsline {part}{II\hspace {1em}Ep\IeC {\'\i }logo}{53}{part.2}
+\contentsline {chapter}{\numberline {8}Manual de implantaci\IeC {\'o}n y explotaci\IeC {\'o}n}{57}{chapter.8}
+\contentsline {section}{\numberline {8.1}Introducci\IeC {\'o}n}{57}{section.8.1}
+\contentsline {section}{\numberline {8.2}Requisitos previos}{57}{section.8.2}
+\contentsline {section}{\numberline {8.3}Inventario de componentes}{57}{section.8.3}
+\contentsline {section}{\numberline {8.4}Procedimientos de instalaci\IeC {\'o}n}{58}{section.8.4}
+\contentsline {section}{\numberline {8.5}Pruebas de implantaci\IeC {\'o}n}{59}{section.8.5}
+\contentsline {section}{\numberline {8.6}Procedimientos de operaci\IeC {\'o}n y nivel de servicio}{59}{section.8.6}
+\contentsline {chapter}{\numberline {9}Manual de usuario}{61}{chapter.9}
+\contentsline {section}{\numberline {9.1}Introducci\IeC {\'o}n}{61}{section.9.1}
+\contentsline {section}{\numberline {9.2}Caracter\IeC {\'\i }sticas}{61}{section.9.2}
+\contentsline {section}{\numberline {9.3}Requisitos previos}{61}{section.9.3}
+\contentsline {section}{\numberline {9.4}Uso del sistema}{62}{section.9.4}
+\contentsline {chapter}{\numberline {10}Conclusiones}{63}{chapter.10}
+\contentsline {section}{\numberline {10.1}Objetivos alcanzados}{63}{section.10.1}
+\contentsline {section}{\numberline {10.2}Lecciones aprendidas}{63}{section.10.2}
+\contentsline {section}{\numberline {10.3}Trabajo futuro}{63}{section.10.3}
+\contentsline {chapter}{Bibliograf\'{\i }a}{65}{chapter*.8}
+\contentsline {chapter}{Informaci\IeC {\'o}n sobre Licencia}{67}{section*.9}
 \contentsfinish 

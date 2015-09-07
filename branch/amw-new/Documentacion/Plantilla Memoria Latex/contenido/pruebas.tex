@@ -7,35 +7,26 @@
 % Copyright (C) 2012 SPI-FM. Universidad de Cádiz
 % ------------------------------------------------------------------------------
 
-En este capítulo se presenta el plan de pruebas del sistema de información, incluyendo los diferentes tipos de pruebas que se han llevado a cabo, ya sean manuales (mediante listas de comprobación) o automatizadas mediante algún software específico de pruebas.
-
 \section{Estrategia}
-En esta sección se debe incluir el alcance de las pruebas, hasta donde se pretende llegar con ellas, si se registrarán todas o sólo aquellas de un cierto tipo y cómo se interpretarán y evaluarán los resultados.
-También, se incluirá el procedimiento a seguir para las pruebas de regresión, esto es, la repetición de ciertas pruebas para comprobar que nuevos cambios que se vayan introduciendo no originen errores en el software ya probado.
+Para realizar las pruebas de sistema se ha creado un MediaWiki local con varios usuarios y ediciones.
 
 \section{Entorno de Pruebas}
-Incluir en este apartado los requisitos de los entornos hardware/software donde se ejecutarán las pruebas.
+Para realizar pruebas en el sistema es necesario al menos un MediaWiki con usuarios y ediciones y que se haya creado la propia base de datos del sistema.
 
 \section{Roles}
-Describir en esa sección cuáles serán los perfiles y participantes necesarios para la ejecución de cada uno de los niveles de prueba.
+Describir en esa sección cuáles serán los perfiles y participantes necesarios para la ejecución de cada uno de los niveles de prueba.\\
+
+Los roles de pruebas básicos son el de Estudiante y Profesor, pero dado que se pueden crear roles personalizables en el sistema es imposible hacer un listado total de los roles.
 
 \section{Niveles de Pruebas}
-En este sección se documentan los diferentes tipos de pruebas que se han llevado a cabo, ya sean manuales o automatizadas mediante algún software específico de pruebas.
+En este sección se documentan los diferentes tipos de pruebas que se han llevado a cabo, ya sean manuales o automatizadas mediante algún software específico de pruebas.\\
 
-\subsection{Pruebas Unitarias}
-Las pruebas unitarias tienen por objetivo localizar errores en cada nuevo artefacto software desarrollado, antes que se produzca la integración con el resto de artefactos del sistema.
-
-\subsection{Pruebas de Integración}
-Este tipo de pruebas tienen por objetivo localizar errores en módulos o subsistemas completos, analizando la interacción entre varios artefactos software.
+Todas las pruebas de inserción de datos han sido realizadas manualmente, así como la corrección de ediciones y la creación y edición tanto de roles como de ejercicios de evaluación
 
 \subsection{Pruebas de Sistema}
-En esta actividad se realizan las pruebas de sistema de modo que se asegure que el sistema cumple con todos los requisitos establecidos: funcionales, de almacenamiento, reglas de negocio y no funcionales. Se suelen desarrollar en un entorno específico para pruebas.
-
-\subsubsection{Pruebas Funcionales}
-Con estas pruebas se analiza el buen funcionamiento de la implementación de los flujos normales y alternativos de los distintos casos de uso del sistema.
-
-\subsubsection{Pruebas No Funcionales}
-Estas pruebas pretenden comprobar el funcionamiento del sistema, con respecto a los requisitos no funcionales identificados: eficiencia, seguridad, etc.
+Se creo un apartado: "sala de depurado (debug room)" para realizar pruebas preliminares introduciendo datos manualmente en el código en vez de hacerlas con la interfaz, lo cual agilizo mucho el proceso de realización de pruebas, permitiendo hacer varias pruebas de forma simultanea en el sistema.
 
 \subsection{Pruebas de Aceptación}
-El objetivo de estas pruebas es demostrar que el producto está listo para el paso a producción. Suelen ser las mismas pruebas que se realizaron anteriormente pero en el entorno de producción. En estas pruebas, es importante la participación del cliente final.
+El objetivo de estas pruebas es demostrar que el producto está listo para el paso a producción. Suelen ser las mismas pruebas que se realizaron anteriormente pero en el entorno de producción. En estas pruebas, es importante la participación del cliente final.\\
+
+Al realizar las pruebas con la interfaz se vieron los mismos errores que en la sala de depurado, principalmente de comunicación con las bases de datos, una vez solventados estos problemas en la sala de depurado se comprobó que también hubiesen sido solventados en la interfaz del usuario.
