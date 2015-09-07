@@ -4,8 +4,6 @@ class Metaevaluar extends CI_Controller {
 
 	public function index()
 	{
-		redirect('test'); #iMPORTANTE: ELIMINAR ESTA REDIRECCION
-
 		if (!$this->session->userdata('logged_in'))
 			redirect('acceso');
 

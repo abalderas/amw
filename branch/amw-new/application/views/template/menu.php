@@ -27,6 +27,10 @@
 					   <li><?php echo anchor(site_url("parametros"), "Parameters"); ?></li>
 					   <li class="divider-vertical"></li>
                     <?php } ?>
+                    <?php if ($this->config->item('modo_desarrollo') == TRUE) { ?>
+                       <li><?php echo anchor(site_url("test"), "Debug Room"); ?></li>
+                       <li class="divider-vertical"></li>
+                    <?php } ?>
                     				
 					<li class="pull-right"><?php echo anchor(site_url("acceso/salir"), "Logout"); ?></li>
                 </ul>

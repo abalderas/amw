@@ -17,6 +17,15 @@
         </div>
 
         <div class="control-group">
+            <?php echo form_label('Generic / Specific:', 'generic_specific', array('class' => 'control-label')); ?>
+            
+            <div class="controls">
+                <?php echo form_dropdown('generic_specific', ['Generic','Specific'], [0,1]); ?>
+            </div>          
+            
+        </div>
+
+        <div class="control-group">
             <?php echo form_label('Description:', 'ent_description', array('class' => 'control-label')); ?>			
 
             <div class="controls">

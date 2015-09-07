@@ -1,0 +1,110 @@
+% ------------------------------------------------------------------------------
+% Este fichero es parte de la plantilla LaTeX para la realización de Proyectos
+% Final de Grado, protegido bajo los términos de la licencia GFDL.
+% Para más información, la licencia completa viene incluida en el
+% fichero fdl-1.3.tex
+
+% Copyright (C) 2012 SPI-FM. Universidad de Cádiz
+% ------------------------------------------------------------------------------
+
+\documentclass[a4paper,11pt]{book}
+
+% PAQUETES
+\usepackage{./estilo/paquetes}
+\usepackage{./estilo/colores}
+\usepackage{./estilo/comandos}
+
+% Ruta al directorio de imágenes
+\graphicspath{{./img/}} 
+
+% METADATOS
+\title{AssessMediaWiki}
+\author{Jose Alberto Garcia Pinteño}
+\date{Septiembre 2015} 
+ 
+\begin{document}
+
+\pagestyle{empty}
+
+% PORTADAS
+\input{./portadas/portada-inicial}
+\cleardoublepage
+
+\input{./portadas/portada-secundaria}
+\cleardoublepage
+
+% PRELIMINARES
+\input{contenido/agradecimientos}
+\newpage
+
+\input{contenido/resumen}
+\newpage
+
+
+\frontmatter
+
+% INDICES
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter
+
+\chapter{Introducción}
+\input{./contenido/introduccion}
+
+\chapter{Planificación}
+\input{./contenido/planificacion}
+
+% DESARROLLO
+\part{Desarrollo}
+
+\chapter{Requisitos del Sistema}
+\input{./contenido/requisitos}
+
+\chapter{Análisis del Sistema}
+\input{./contenido/analisis}
+
+\chapter{Diseño del Sistema}
+\input{./contenido/diseno}
+
+\chapter{Construcción del Sistema}
+\input{./contenido/implementacion}
+
+\chapter{Pruebas del Sistema}
+\input{./contenido/pruebas}
+
+% EPILOGO
+\part{Epílogo}
+\null\vfill
+\noindent En esta última parte quedarán recogidas las conclusiones y los manuales necesarios para el manejo de la aplicación resultado del desarrollo. Si se ha realizado algún tipo de evaluación de la solución proporcionada, más allá de las pruebas del sistema, también deberá venir recogida en un capítulo separado dentro de esta parte. Pueden consultarse diversos tipos de evaluaciones sobre sistemas de información en \cite{hevner2004}: casos de estudio, análisis estático, análisis dinámico, simulación, experimento controlado, etc.
+\vfill
+
+\chapter{Manual de implantación y explotación}
+\input{./contenido/manual_instexp}
+
+\chapter{Manual de usuario}
+\input{./contenido/manual_usuario}
+
+\chapter{Conclusiones}
+\input{./contenido/conclusiones}
+
+\chapter*{\bibname}
+\addcontentsline{toc}{chapter}{\bibname}
+%\renewcommand{\bibname}{}
+
+%\input{./bibliografia}
+
+\begingroup
+  \def\chapter*#1{}
+\renewcommand{\bibname}{}
+% Bibliografía con BibTeX
+\bibliographystyle{apalike}
+\bibliography{bibliografia}
+
+\backmatter
+
+\input{./anexos/general}
+%GNU \input{./anexos/fdl-1.3}
+
+\end{document}

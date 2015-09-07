@@ -16,7 +16,10 @@ class Evaluar extends CI_Controller {
 		$this->load->model('Revisiones_model', 'revisiones');
 		$this->load->model('Parametros_model', 'parametros');
 		$this->load->model('Roles_model', 'roles');
+		$this->load->model('Evaluation_exercise_model', 'evaluation_exercise');
 			
+		
+		// --- METODO ANTIGUO (seleccion aleatoria) ---
 		// Máximo número de evaluaciones por alumno
 		//  Si es 0 no se tiene en cuenta.
 		$max_eval = $this->parametros->get_evaluaciones_por_alumno();
@@ -27,6 +30,7 @@ class Evaluar extends CI_Controller {
 			b) No debe haberse revisado ya.
 
 		*/
+		/*
 	
 		// Obtenemos las entradas ya revisadas.
 		$entradas_existentes = $this->evaluaciones->listado();
@@ -60,6 +64,37 @@ class Evaluar extends CI_Controller {
 			$data['evaluaciones_pendientes'] = $max_eval - $this->revisiones->realizadas($usuario_id);
 		}
 
+		*/
+
+		/*
+			--- METODO NUEVO (con preasignaciones) ---
+			No es necesario buscar entradas/ediciones validas, ya que todas las entradas a evaluar
+			han sido cargadas previamente en la tabla de preasignaciones
+		
+		*/
+
+		// Leemos el ID del usuario logueado
+		$usuario_id = $this->session->userdata('userid');
+
+		//Obtenemos el numero de ediciones que quedan por evaluar
+		$data['evaluaciones_pendientes'] = $this->evaluation_exercise->realizadas($usuario_id);
+		
+		if ($data['evaluaciones_pendientes'] > 0) //Si queda alguna edicion por evaluar
+		{
+			// Elegimos una de las entradas de la lista de preasignaciones
+			$data['entrada'] = $this->evaluation_exercise->get_one_edition_for($usuario_id);
+		
+			// Leemos el autor de la entrada a revisar
+			$data['usuario_a_revisar'] = $this->revisiones->usuarioArticulo($data['entrada']);
+			
+			// Pasamos los títulos y las descripciones de los campos a evaluar
+			$data['campos'] = $this->entregables->entregables;
+			$data['descriptions'] = $this->entregables->descriptions;
+
+			//Cargamos la rubrica de la edicion a evaluar
+			$data['rubrica'] = $this->evaluation_exercise->get_description_from_edition($data['entrada']);
+		}
+
 		$data['usuario'] = $this->session->userdata('username');
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
@@ -69,6 +104,7 @@ class Evaluar extends CI_Controller {
 		{
 			log_message('error',$data["entrada"]);
 
+			$data['instructions'] = "Here you are the criteria for the evaluation exercise, bellow that you'll find a link to the revision to assess";
 			$data['msg'] = "You may grade the revision here below.";
 			$data['post_url'] = 'evaluar/procesar';
 
@@ -85,7 +121,7 @@ class Evaluar extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
-	/// Recibe los datos provenientes del formulario de evaluación y los añade a la base de datos
+	// Recibe los datos provenientes del formulario de evaluación y los añade a la base de datos
 	public function procesar()
 	{
 		if (!$this->session->userdata('logged_in'))
@@ -97,6 +133,7 @@ class Evaluar extends CI_Controller {
 		// LOAD MODEL
 		$this->load->model('Entregable_model', 'entregables');
 		$this->load->model('Evaluaciones_model', 'evaluacion');
+		$this->load->model('Evaluation_exercise_model', 'evaluation_exercise');
 		
 		
 		$data['usuario'] = $this->session->userdata('username');
@@ -117,7 +154,9 @@ class Evaluar extends CI_Controller {
 		$datos['eva_user'] = $data['usuario_a_revisar'];
 		$datos['eva_revision'] = $data['entrada'];
 		$this->evaluacion->insertar($datos);
-		$this->evaluacion->insertar_entregables($data['id_campo'], $data['puntuacion'], $data['comentarios']);	
+		$this->evaluacion->insertar_entregables($data['id_campo'], $data['puntuacion'], $data['comentarios']);
+		//Tras insertar los datos daremos la edicion por evaluada, por lo que la borramos de la tabla de preasignaciones
+		$this->evaluation_exercise->delete_from_preasignations($data['entrada']);
 		
 		$this->mostrar_evaluacion($this->evaluacion->id());
 
@@ -129,6 +168,7 @@ class Evaluar extends CI_Controller {
 		$colors = array("#99C68E", "#F9966B", "#FDD017", "#EBDDE2", "#5CB3FF", "#736F6E");
 		$this->load->model('Reply_model', 'reply');		
 		$this->load->model('Acceso_model', 'acceso');
+		$this->load->model('Roles_model', 'roles');
 		
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
@@ -136,14 +176,14 @@ class Evaluar extends CI_Controller {
 		$data = $this->evaluation_data($eval);
 		$data['usuario_id'] = $this->session->userdata('userid');
 		$this->load->view('info_revision', $data);
-		
+
 		 // Replies
 		$re_list = $this->reply->replies_list($eval);
 		$tot = count($re_list);
 		$tot_col = count($colors);
 		for ($i = 0; $i < $tot; $i++)
 		{
-//			echo $re_list[$i] . "<br>";
+		//echo $re_list[$i] . "<br>";
 			$data = $this->evaluation_data($re_list[$i]);
 			$data['color'] = $colors[$i%$tot_col];
 			$data['reply_number'] = $i+1;
@@ -159,6 +199,7 @@ class Evaluar extends CI_Controller {
 		// Cargamos los modelos necesarios
 		$this->load->model('acceso_model','acceso');
 		$this->load->model('Revisiones_model', 'revisiones');
+		$this->load->model('Roles_model', 'roles');
 		$this->load->model('Entregable_model', 'entregables');
 
 		// Cargamos los datos de evaluación

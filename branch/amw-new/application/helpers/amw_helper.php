@@ -10,9 +10,18 @@ if ( ! function_exists('wiki_revision_url'))
 
 	    // Cargamos el modelo de parámetros
 	    $CI->load->model('Parametros_model', 'parametros');
+	    $CI->load->model('Evaluation_exercise_model', 'evaluation_exercise');
+
+	    //Si es una rafaga la url terminara con la id de la edicion final, si no terminara con prev
+		$fin_url = $CI->evaluation_exercise->buscar_fin_rafaga($rev);
+		
+		if ($fin_url == $rev || $fin_url == 0) 
+		{
+			$fin_url = "prev";
+		}	    
 
 	    // Construimos la URL
-	    $baseURL = $CI->parametros->get_wiki_url() . "index.php?oldid=" . $rev . "&diff=prev";
+	    $baseURL = $CI->parametros->get_wiki_url() . "index.php?oldid=" . $rev . "&diff=" . $fin_url;
 
 	    return $baseURL;
     }   

@@ -3,6 +3,8 @@
 	{	
 		
 ?>
+<p><?php echo $instructions;?>.</p>
+<p><?php echo $rubrica;?></p>
 <p><?php echo $msg . " " . anchor_popup(wiki_revision_url($entrada), "This is the url to assess");?>.</p>
 
 <?php echo form_open($post_url); ?>

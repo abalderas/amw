@@ -1,0 +1,63 @@
+﻿---Notas:
+DB manage http://www.codeigniter.com/userguide2/database/active_record.html
+
+ALUMNO COLABORADOR!
+
+---Dudas:
+
+Al borrar un ejercicio de evaluacion, deberiamos borrar todas las evaluaciones realizadas en ese ejercicio?
+Poner inactivo
+
+Donde guardar las ediciones tras efectuar operaciones de union de rafagas y desplazamientos, si se guardan en una tabla a parte pueden dificultar las preasignaciones (en principio no deberia si se pasa una lista por varias funciones que vayan añadiendo, el mayor problema seria ordenarlas por tamaño)
+
+---Corregir:
+
+
+---To do:
+
+Añadir rubrica del ejercicio de evaluacion a la pantalla de inicio
+
+eliminar ejercicios de evaluacion con preasignaciones ya echas de la lista de asignar preasignaciones
+
+Delete current preasignations //Borra todas las preasignaciones actuales (vaciar la tabla de la base de datos)
+{
+	do
+		amount = count(current preasignations)
+		if (amount >= 1)
+			this-db-select
+			this-db-delete
+	while (amount >= 1)
+}
+
+
+-------------------------------------------------------
+
+Fase 1: configuración del entorno. El usuario administrador indicará el wiki con el que se trabajará, si va a leer de directamente de su base de datos (hay que crear una vista o configuración de permisos de un usuario en MySQL por defecto) o se trabajará vía API (trabajo futuro, ventaja que es independiente de los cambios en la base de datos interna del wiki) con sus correspondientes credenciales (IP + base de datos + usuario/clave).
+
+Fase 2: configuración de un “ejercicio de evaluación” indicar fechas de las ediciones que se consideran. Posibilidad de limitar la categoría a evaluar (sólo una: ya sea visible u oculta) y si se consideran también sus subcategorías y listas negras/blancas de autores de dichas evaluaciones  (¿Se podrían añadir las listas negras/blancas como roles?). Indicar fechas entre las que se permite evaluar.
+
+Fase 3: configuración del instrumento de evaluación. Se descarta usar Eval-comix (indicarlo en la memoria del PFC) y se decide implementar sistema de evaluación propio con una rúbrica o similar.
+
+Fase 4: Algoritmo para pre-procesamiento de ediciones: ráfagas, etc. Incluye etiquetado (semi)automático de determinados wiki-comportamientos: correcciones ortográficas, desplazamientos de textos (queda como trabajo futuro), …
+
+Fase 5: Algoritmo de selección de ediciones: todas, las más grandes, las X más grandes de cada alumno, mínimo X de cada alumno, etc
+
+Fase 6: distribución de evaluaciones entre alumnos (número de evaluaciones que le toca a cada uno), si queremos autoevaluación, si queremos X evaluaciones por cada edición seleccionada, si queremos cubrir un mínimo porcentaje de ediciones de cada alumno, etc.
+
+Fase 7: evaluación
+
+Fase 8: Se muestran resultados anonimizados y se habilitan quejas (replies), ¿se permiten proponer ediciones para ser evaluadas?
+
+Fase 9: se resuelven replies ¿las resuelve el profesor o puede hacerlo el alumno evaluador? ¿se habilita un rol de alumno resolvedor/colaborador? ¿y se evalúan las ediciones propuestas por los autores?
+
+Fase 10: Se muestran estadísticas
+
+Fase 11: se permite volver a fase 2 para otro ejercicio de evaluación ¿se permite lanzar varias evaluaciones simultáneas (que coincidan en fecha)?
+
+Fase 12: se permite al profesor introducir una evaluación del estado final del wiki usando una rúbrica distinta a la de los alumnos.
+
+
+
+Bibliografia:
+
+Algoritmo distribucion aleatoria: https://es.wikipedia.org/wiki/Algoritmo_Fisher-Yates

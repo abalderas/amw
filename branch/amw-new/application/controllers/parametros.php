@@ -31,6 +31,9 @@ class Parametros extends CI_Controller {
 	{
 		// Leemos todos los entregables
 		$data['entregables'] = $this->entregable->entregables;
+		foreach ($data['entregables'] as $key => $value) {
+			$data['generic_specific'][$value] = $this->entregable->get_generic_specific($value);
+		}
 
 		// Si se han recibido datos del formulario de parámetros
 		if ($this->input->post('categoria') || $this->input->post('fecha_inicio') || $this->input->post('fecha_fin'))
@@ -40,6 +43,10 @@ class Parametros extends CI_Controller {
 			$this->parametros->set_fecha_fin($this->input->post('fecha_fin'));
 			$this->parametros->set_evaluaciones_por_alumno($this->input->post('evaluaciones_por_alumno'));
 			$this->parametros->set_metaevaluaciones_por_alumno($this->input->post('metaevaluaciones_por_alumno'));
+			$this->parametros->set_evaluaciones_por_edicion($this->input->post('evaluaciones_por_edicion'));
+			$this->parametros->set_min_ediciones_evaluadas_por_alumno($this->input->post('min_ediciones_evaluadas_por_alumno'));
+			$this->parametros->set_autoevaluacion($this->input->post('autoevaluacion'));
+
 
 			$wiki_url = $this->input->post('wiki_url');
 			// Añade una barra invertida si no la trae al final
@@ -57,6 +64,9 @@ class Parametros extends CI_Controller {
 		$data['fecha_fin'] = $this->parametros->get_fecha_fin();
 		$data['evaluaciones_por_alumno'] = $this->parametros->get_evaluaciones_por_alumno();
 		$data['metaevaluaciones_por_alumno'] = $this->parametros->get_metaevaluaciones_por_alumno();
+		$data['evaluaciones_por_edicion'] = $this->parametros->get_evaluaciones_por_edicion();
+		$data['min_ediciones_evaluadas_por_alumno'] = $this->parametros->get_min_ediciones_evaluadas_por_alumno();
+		$data['autoevaluacion'] = $this->parametros->get_autoevaluacion();
 		$data['wiki_url'] = $this->parametros->get_wiki_url();
 		
 		$this->load->view('template/header');
@@ -86,6 +96,10 @@ class Parametros extends CI_Controller {
 			'name' => 'ent_entregable', 
 			'value' => $this->entregable->entregables[$id]);
 
+		$data['generic_specific'] = array(
+			'name' => 'generic_specific', 
+        'value' => $this->entregable->generic_specific[$id]);
+
 		$data['ent_description'] = array(
 			'name' => 'ent_description',
 			'class' => 'input-xxlarge',
@@ -114,7 +128,12 @@ class Parametros extends CI_Controller {
 		$data['ent_entregable'] = array(
               'name'        => 'ent_entregable',
               'id'          => 'ent_entregable',
-            );			
+            );		
+
+        $data['generic_specific'] = array(
+              'name'        => 'generic_specific',
+              'id'          => 'generic_specific',
+            );		
 		
 		$data['ent_description'] = array(
               'name'        => 'ent_description',
@@ -144,6 +163,14 @@ class Parametros extends CI_Controller {
 		
 		$this->load->view('csv_parametros_view', $data);		
 		
+	}
+
+	function help()
+	{
+		$this->load->view('template/header');
+		$this->load->view('template/menu');
+		$this->load->view('help');
+		$this->load->view('template/footer');
 	}
 }
 

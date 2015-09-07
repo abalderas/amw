@@ -1,0 +1,8 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {spanish}
+\beamer@sectionintoc {1}{Introducci\IeC {\'o}n}{3}{0}{1}
+\beamer@sectionintoc {2}{Planificaci\IeC {\'o}n}{6}{0}{2}
+\beamer@sectionintoc {3}{Desarrollo del proyecto}{11}{0}{3}
+\beamer@sectionintoc {4}{Demo}{17}{0}{4}
+\beamer@sectionintoc {5}{Conclusiones}{19}{0}{5}
+\beamer@sectionintoc {6}{Bibliograf\IeC {\'\i }a}{24}{0}{6}

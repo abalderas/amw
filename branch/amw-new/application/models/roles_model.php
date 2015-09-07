@@ -51,7 +51,7 @@ class Roles_model extends CI_Model {
 		return $result[0];
 	}
 
-	//Devuelve el id del rol
+	//Devuelve el id del rol dado el nombre del mismo
 	function get_rol_id($rol)
 	{
 		$result = array();
@@ -59,6 +59,26 @@ class Roles_model extends CI_Model {
 		$sql = 'SELECT rol_id' .
 			' FROM roles ' .
 			' WHERE name LIKE "'. $rol .'"' ;
+		//echo $sql;
+			
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row)
+		{
+			array_push($result, $row->rol_id);
+		}
+
+		return $result[0];
+	}
+
+	//Devuelve el nombre del rol dado el id del mismo
+	function get_rol_name($rol_id)
+	{
+		$result = array();
+
+		$sql = 'SELECT name' .
+			' FROM roles ' .
+			' WHERE rol_id ='. $rol_id ;
 		//echo $sql;
 			
 		$query = $this->db->query($sql);
@@ -90,6 +110,47 @@ class Roles_model extends CI_Model {
 
 		return $result[0];
 	}
+
+	//Devuelve la lista de id de los usuarios con el rol seleccionado
+	function get_users_with_rol($rol_id)
+	{
+		$result = array();
+
+		$sql = 'SELECT user_id' .
+			' FROM rol_assignation ' .
+			' WHERE rol_id ='. $rol_id;
+		//echo $sql;
+
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row)
+		{
+			array_push($result, $row->user_id);
+		}
+
+		return $result;
+	}
+
+	//Devuelve un usuario con el rol seleccionado
+	function get_user_with_rol($rol_id)
+	{
+		$result = array();
+
+		$sql = 'SELECT user_id' .
+			' FROM rol_assignation ' .
+			' WHERE rol_id ='. $rol_id;
+		//echo $sql;
+
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row)
+		{
+			array_push($result, $row->user_id);
+		}
+
+		return $result[0];
+	}
+
 
 	//Devuelve una lista con todos los ids de roles
 	function get_rol_id_list()
@@ -127,6 +188,26 @@ class Roles_model extends CI_Model {
 		}
 
 		return $result;
+	}
+
+	//Dado el id de un rol devuelve a cuantas personas les ha sido asignado
+	function count_ammount_of_roles_assigned($rol_id)
+	{		
+		$result = array();
+
+		$sql = 'SELECT COUNT(rol_id) AS cantidad' .
+			' FROM rol_assignation ' .
+			' WHERE rol_id = ' . $rol_id;
+		//echo $sql;
+
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row) 
+		{
+			array_push($result, $row->cantidad);
+		}
+
+		return $result[0];
 	}
 
 	//Devuelve true si el usuario tiene permiso para visitar la pagina seleccionada
@@ -211,6 +292,15 @@ class Roles_model extends CI_Model {
 	function eliminar_rol($rol) 
 	{
 		$rol_id=$this->roles->get_rol_id($rol); //Obtenemos el id del rol a borrar
+		$ammount = $this->count_ammount_of_roles_assigned($rol_id);
+
+		while ($ammount != 0) //Volvemos a asignar a todos los usuarios que tenian ese rol como estudiantes
+		{
+			$user = $this->get_user_with_rol($rol_id);
+			$this->db->where('user_id', $user);
+			$this->db->delete($this->asignacion); 
+			$ammount=$ammount-1;
+		}
 
 		if ($rol_id != 1 && $rol_id != 2) //Si no borramos ni al Administrador ni a los estudiantes
 		{
@@ -222,26 +312,33 @@ class Roles_model extends CI_Model {
 	// Funcion que asigna un rol a un usuario
 	function asignar_rol($usuario, $rol) 
 	{
-		$rol_id=$this->roles->get_rol_id($rol); //Obtenemos el id del rol a borrar
-		$usuarios = $this->acceso->usuarios()
-		$user_id= //to do
+		$rol_id = $this->roles->get_rol_id($rol); //Obtenemos el id del rol a asignar
+		$user_id = $this->acceso->userid($usuario);
+		$datos = array();
+		
+		$datos['user_id'] = $user_id; //Asignamos los datos al vector de entrada
+		$datos['rol_id'] = $rol_id;
 
-		//Si el usuario tiene algo asignado
-		//edita
-		//else
-		//inserta
-	}
-	// Funcion que deja a un usuario con el rol de estudiante
-	
-	function desasignar_rol($usuario) 
-	{
-		$rol_id=$this->roles->get_rol_id($rol); //Obtenemos el id del rol a borrar
-
-		if ($rol_id != 1 && $rol_id != 2) //Si no borramos ni al Administrador ni a los estudiantes
+		if ($rol_id == 2) //Si queremos asignar el rol de estudiante
 		{
-			$this->db->where('rol_id', $rol_id);
-			$this->db->delete($this->tabla); 
-		} 
+			$this->db->where('user_id', $user_id);
+			$this->db->delete($this->asignacion); 
+		}
+		else //Si queremos asignar un rol distinto al de estudiante
+		{
+				if ($this->roles->get_user_rol_id($user_id) == 2)//Si el usuario no tiene rol asignado (es estudiante)
+			{
+				$this->db->insert($this->asignacion, $datos);
+			}
+			else //Realizamos la busqueda y actualizamos los datos
+			{
+				$this->db->where('user_id', $user_id);
+				$this->db->update($this->asignacion, $datos);
+			}
+		}
 	}
+
+	
 }
+
 ?>

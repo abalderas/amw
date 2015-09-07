@@ -103,7 +103,7 @@ class Revisiones_model extends CI_Model {
 		return $articulos;
 		
 	}
-	
+		
 	function fecha()
 	{
 		$y = date("Y");

@@ -8,6 +8,9 @@ class Parametros_model extends CI_Model {
 		"fecha_fin" => "29900101000000",
 		"evaluaciones_por_alumno" => "10",
 		"metaevaluaciones_por_alumno" => "10",
+		"evaluaciones_por_edicion" => "1",
+		"min_ediciones_evaluadas_por_alumno" => "1",
+		"autoevaluacion" => "0",
 		"wiki_url" => "http://osl2.uca.es/wikihaskell"
 		);
 
@@ -48,19 +51,75 @@ class Parametros_model extends CI_Model {
 		return intval($this->get_value('evaluaciones_por_alumno'));
 	}
 
+	function set_evaluaciones_por_alumno ($value)
+	{
+		if ($value > 0) 
+		{
+			$this->set_value('evaluaciones_por_alumno', $value);
+		}
+	}
+
 	function get_metaevaluaciones_por_alumno()
 	{
 		return intval($this->get_value('metaevaluaciones_por_alumno'));
 	}
 
-	function set_evaluaciones_por_alumno ($value)
-	{
-		$this->set_value('evaluaciones_por_alumno', $value);
-	}
-
 	function set_metaevaluaciones_por_alumno ($value)
 	{
-		$this->set_value('metaevaluaciones_por_alumno', $value);
+		if ($value < 0)
+			$this->set_value('evaluaciones_por_edicion', 0);
+		else
+			$this->set_value('metaevaluaciones_por_alumno', $value);
+	}
+
+	function get_evaluaciones_por_edicion()
+	{
+		return intval($this->get_value('evaluaciones_por_edicion'));
+	}
+
+	function set_evaluaciones_por_edicion($value)
+	{
+		if ($value < 1) // Cada edicion debe recibir al menos una evaluacion
+		{
+			$this->set_value('evaluaciones_por_edicion', 1);
+		}
+		else
+		{
+			if ($value < $this->get_evaluaciones_por_alumno())
+			{
+				$this->set_value('evaluaciones_por_edicion', $value);
+			}
+		}
+	}
+
+	function get_min_ediciones_evaluadas_por_alumno()
+	{
+		return intval($this->get_value('min_ediciones_evaluadas_por_alumno'));
+	}
+
+	function set_min_ediciones_evaluadas_por_alumno ($value) 
+	{
+		if ($value < 0) //0 = Desactivado
+		{
+			$this->set_value('min_ediciones_evaluadas_por_alumno', 0);
+		}
+		else
+		{
+			$this->set_value('min_ediciones_evaluadas_por_alumno', $value);
+		}
+	}
+
+	function set_autoevaluacion ($value)
+	{
+		if ($value > 0)
+			$this->set_value('autoevaluacion', 1); //On
+		if ($value < 1)
+			$this->set_value('autoevaluacion', 0); //Off
+	}
+
+	function get_autoevaluacion()
+	{
+		return intval($this->get_value('autoevaluacion'));
 	}
 
 	function get_wiki_url()

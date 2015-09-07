@@ -1,7 +1,7 @@
 <?php
 class Reply_model extends CI_Model {
     
-	var $table = 'roles';
+	var $table = 'replies';
 	private $rep_id;
 	private $rep_read;
 	private $rep_new;

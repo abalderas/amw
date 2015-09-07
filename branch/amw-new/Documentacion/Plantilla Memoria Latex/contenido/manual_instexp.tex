@@ -1,0 +1,87 @@
+% ------------------------------------------------------------------------------
+% Este fichero es parte de la plantilla LaTeX para la realización de Proyectos
+% Final de Grado, protegido bajo los términos de la licencia GFDL.
+% Para más información, la licencia completa viene incluida en el
+% fichero fdl-1.3.tex
+
+% Copyright (C) 2012 SPI-FM. Universidad de Cádiz
+% ------------------------------------------------------------------------------
+
+Las instrucciones de instalación y explotación del sistema se detallan a continuación.
+
+\section{Introducción}
+AssessMediaWiki es una aplicación web de código abierto que, al conectarse a una instalación MediaWiki, proporciona procedimientos de autoevaluación, hetero evaluación y evaluación entre iguales, a la vez que mantiene información sobre esas evaluaciones. Los supervisores pueden obtener informes que ayudan en la evaluación de los estudiantes.
+\newline
+
+Aunque hay un gran número de extensiones para el sistema MediaWiki, no hemos encontrado ninguna que permitiera evaluar contribuciones individuales a un wiki. La mayoría de las aproximaciones solo ofrecen formas de evaluar una versión en particular de un artículo (normalmente la más reciente), siendo ineficaces en este caso. Por ello, para evaluar la calidad de las contribuciones creamos AssessMediaWiki.
+\newline
+
+AssessMediaWiki implementa como base dos roles de usuario distintos: supervisores y estudiantes. Los estudiantes pueden elegir entre distintas opciones: evaluar una revisión, comprobar sus propias aportaciones evaluadas y verificar las evaluaciones ya enviadas. Por otro lado, los supervisores tienen un mayor número de opciones, como modificar los parámetros de los programas o vigilar las evaluaciones que los alumnos vayan haciendo.
+\newline
+
+\section{Requisitos previos}
+Para usar AssessMediaWiki es necesaria la previa presencia de un MediaWiki donde los alumnos vayan a trabajar
+
+\section{Inventario de componentes}
+Lista de los componentes hardware y software que se incluyen en la versión del producto:
+\begin{itemize}
+	\item AssessMediaWiki 2.0
+	\item Manual de instalación.
+	\item Ayuda al usuario.
+\end{itemize}
+
+\section{Procedimientos de instalación}
+\textbf{Descarga e instalación}
+
+AssessMediaWiki se puede descargar desde su \href{https://forja.rediris.es/projects/assessmediawiki/}{web oficial}, dentro de la pestaña de \href{http://forja.rediris.es/frs/?group_id=1135/}{descargas}. El contenido del archivo se debe descomprimir en la carpeta que desee del servidor web (que permita ejecutar ficheros de lenguaje PHP). Por ejemplo, en el caso de los paquetes Xampp se denomina htdocs, y en otras instalaciones de Apache www.\\
+
+
+\textbf{Configuración previa}\\
+
+Tras instalar AssesMediaWiki en nuestro equipo tendremos que entrar en los siguientes ficheros para hacer las siguientes modificaciones para que funcione adecuadamente:\\
+
+htcdocs/assesmediawiki/applications/config/amw.php:\\
+
+$config["database_mw"] = "mediawikidb";$ mediawikidb sería la base de datos propia del mismo wiki\\
+
+$config["username_mw"] = "user";$ user sera el nombre de usuario de mysql\\
+
+$config["password_mw"] = "password";$ password sera la contraseña de mysql\\
+
+$config["usuarios_admin"] = array(1, 2);$ en la array indicamos cuales usuarios de la wiki serán los administradores del AssesMediaWiki, en este caso serian el primero y el segundo en registrarse, los cuales saldrán por ese orden en la base de datos del wiki\\
+
+
+htcdocs/assesmediawiki/applications/config/database.php:\\
+
+db['default']['hostname'] = 'localhost'; localhost será el servidor donde se encuentran ubicadas las bases de datos, en caso de estar en el propio equipo lo dejaremos tal cual, en caso contrario lo cambiaremos por la dirección del servidor.\\
+
+$config["username_mw"] = "user";$ user sera el nombre de usuario de mysql\\
+
+$config["password_mw"] = "password";$ password sera la contraseña de mysql\\
+
+$db['default']['database'] = 'amw';$ amw sería la base de datos propia de AssesMediaWiki, generada por el mismo programa. (En caso de que el AssesMediaWiki no cree su propia base de datos podemos generarla con la sentencia $“mysql nombre_base_de_datos < fichero_de_texto”$, pudiendo encontrar el fichero de texto en:$ htcdocs/assesmediawiki/application/sql/estructura_amw$ y siendo en este caso $“amw”$ el nombre de la base de datos).\\
+
+\textbf{Configuración}\\
+
+Tras haber configurado dichos archivos ejecutaremos el sistema gestor de bases de datos y el servidor web (en este orden). Por ejemplo, en el panel del control de Xampp o usando los scripts de /etc/init.d (o los comandos start, stop, reload y restart que lo sustituyen en “upstart”).\\
+
+Tras hacer entrar al sistema como usuario administrador iremos a la pestaña de “Parameters”, donde modificaremos los siguientes datos:\\
+
+Start date: fecha de inicio de evaluación de las entradas en la wiki.\\
+
+End date: fecha de fin de evaluación de las entradas en la wiki.\\
+
+Evals per student: numero de entradas que evaluara cada estudiante.\\
+
+Meta-vals per student: numero de evaluaciones que evaluara cada metaevaluador.\\
+
+Wiki URL: dirección URL del wiki en el que usaremos el AssesMediaWiki, es muy importante poner bien la dirección URL, ya que sin esta el AssesMediaWiki no puede funcionar correctamente.\\
+
+\section{Pruebas de implantación}
+Seria recomendable probar a crear y editar algún rol y ejercicio de evaluación y dentro del MediaWiki algún usuario y una edición de prueba para intentar corregirla.
+
+\section{Procedimientos de operación y nivel de servicio}
+Procedimientos necesarios para asegurar el correcto funcionamiento, rendimiento, disponibilidad y seguridad del sistema: back-ups, chequeo de logs, etc. También, es preciso indicar claramente aquellas actuaciones precisas necesarias para el mantenimiento preventivo del sistema y así prevenir posibles fallos en el mismo.\\
+
+Para asegurar el correcto funcionamiento sera necesario tener el servidor siempre encendido y con conexión a internet, para que así sea posible acceder al sistema en cualquier momento y desde cualquier lugar.\\
+Asimismo se recomienda la creación de una copia de seguridad periódicamente, para prevenir la perdida de datos ante algún error desconocido o problema con el servidor.

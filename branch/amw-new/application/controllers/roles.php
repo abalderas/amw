@@ -64,7 +64,7 @@ public function index()
 		$this->load->model('Roles_model', 'roles');
 
 		//Si se ha mantenido el mensaje por fefecto del cuadro de texto entenderemos que le han dado al boton sin querer
-		if ($this->input->post('new_rol_name') == "New rol name")
+		if ($this->input->post('new_rol_name') == "New_rol_name")
 			redirect('roles');
 		
 		//Leemos el nuevo nombre del rol y los nuevos permisos
@@ -74,21 +74,33 @@ public function index()
 			
 			if ($this->input->post('nuevo_acceso') == 'on')
 				$datos['evaluar'] = true;
+			else
+				$datos['evaluar'] = false;
 			
 			if ($this->input->post('nuevo_feedback') == 'on')
 				$datos['feedback'] = true;
+			else
+				$datos['feedback'] = false;
 	
 			if ($this->input->post('nuevo_metaevaluaciones') == 'on')
 				$datos['metaevaluar'] = true;
+			else
+				$datos['metaevaluar'] = false;
 			
-			if ($this->input->post('metaevaluaciones_lista') == 'on')
+			if ($this->input->post('nuevo_metaevaluaciones_lista') == 'on')
 				$datos['metaevaluar_lista'] = true;
+			else
+				$datos['metaevaluar_lista'] = false;
 			
 			if ($this->input->post('nuevo_alumnos') == 'on')
 				$datos['alumnos'] = true;
+			else
+				$datos['alumnos'] = false;
 			
 			if ($this->input->post('nuevo_parametros') == 'on')
 				$datos['parametros'] = true;
+			else
+				$datos['parametros'] = false;
 	
 			$this->roles->insertar_rol($datos);
 		}
@@ -129,25 +141,36 @@ public function index()
 		$this->load->model('Roles_model', 'roles');
 
 		$datos['name'] = $this->input->post('rol_name');
-		//$datos['name'] = $_POST['rol_name'];
 
-		if ($this->input->post('evaluar') == 'on')
-			$datos['evaluar'] = true;
-		
-		if ($this->input->post('nuevo_feedback') == 'on')
-			$datos['feedback'] = true;
-
-		if ($this->input->post('nuevo_metaevaluaciones') == 'on')
-			$datos['metaevaluar'] = true;
-		
-		if ($this->input->post('metaevaluaciones_lista') == 'on')
-			$datos['metaevaluar_lista'] = true;
-		
-		if ($this->input->post('nuevo_alumnos') == 'on')
-			$datos['alumnos'] = true;
-		
-		if ($this->input->post('nuevo_parametros') == 'on')
-			$datos['parametros'] = true;
+		if ($this->input->post('evaluar') == 'on') //Obtenemos los datos del formulario
+				$datos['evaluar'] = true;
+			else
+				$datos['evaluar'] = false;
+			
+			if ($this->input->post('feedback') == 'on')
+				$datos['feedback'] = true;
+			else
+				$datos['feedback'] = false;
+	
+			if ($this->input->post('metaevaluar') == 'on')
+				$datos['metaevaluar'] = true;
+			else
+				$datos['metaevaluar'] = false;
+			
+			if ($this->input->post('metaevaluar_lista') == 'on')
+				$datos['metaevaluar_lista'] = true;
+			else
+				$datos['metaevaluar_lista'] = false;
+			
+			if ($this->input->post('alumnos') == 'on')
+				$datos['alumnos'] = true;
+			else
+				$datos['alumnos'] = false;
+			
+			if ($this->input->post('parametros') == 'on')
+				$datos['parametros'] = true;
+			else
+				$datos['parametros'] = false;
 
 		$this->roles->modificar_rol($datos);
 
@@ -167,17 +190,10 @@ public function index()
 		$this->load->model('acceso_model', 'acceso');
 		$this->load->model('Roles_model', 'roles');
 
-		$user= $this->input->post('user_to_assign') 
-		$rol= $this->input->post('rol_to_assign')
+		$user= $this->input->post('user_to_assign'); 
+		$rol= $this->input->post('rol_to_assign');
 
-		if ($rol == 'Student') //Si el rol es alumno se elimina directamente de la tabla
-		{
-			$this->roles->desasignar_rol($user);
-		}
-		else
-		{
-			$this->roles->asignar_rol($user, $rol);
-		}
+		$this->roles->asignar_rol($user, $rol);
 		
 		redirect('roles');
 	}

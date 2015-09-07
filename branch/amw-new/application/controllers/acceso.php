@@ -5,7 +5,7 @@ class Acceso extends CI_Controller {
 	public function index()
 	{
 
-		// redirect('evaluar'); //IMPORTANTE! usar para cargar controladores directamente
+		//redirect('test'); //IMPORTANTE! usar para cargar controladores directamente
 
 		// Cargamos las bibliotecas de encriptado y validación de formularios
 		$this->load->library(array('encrypt', 'form_validation'));

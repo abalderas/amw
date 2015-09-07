@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `entregables` (
   `ent_id` int(11) NOT NULL AUTO_INCREMENT,
   `ent_entregable` varchar(250) NOT NULL,
   `ent_description` varchar(255) NOT NULL,
+  `generic_specific` boolean NOT NULL DEFAULT false, --0 = generic, 1 = specific
   PRIMARY KEY (`ent_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -111,6 +112,65 @@ CREATE TABLE IF NOT EXISTS `rol_assignation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ejercicios_de_evaluacion`
+--
+
+CREATE TABLE IF NOT EXISTS `ejercicios_de_evaluacion` (
+  `evaluation_id` int(11) NOT NULL AUTO_INCREMENT,
+  `exercise_name` varchar(30) NOT NULL UNIQUE,
+  `beginning` date NOT NULL,
+  `first_phase_end` date NOT NULL,
+  `second_phase_end` date NOT NULL,
+  `third_phase_end` date NOT NULL,
+  `fourth_phase_end` date NOT NULL,
+  `description` varchar(500) NOT NULL,
+  PRIMARY KEY (`evaluation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- ----------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `preasignaciones`
+--
+
+CREATE TABLE IF NOT EXISTS `preasignaciones` (
+  `preasignacion_id` int(11) NOT NULL AUTO_INCREMENT,
+  `edit_id` int(11) NOT NULL,
+  `revisor_id` int(11) NOT NULL,
+  `ejercicio_de_evaluacion` int(11) NOT NULL,
+  PRIMARY KEY (`preasignacion_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categorias_ej_ev`
+--
+
+CREATE TABLE IF NOT EXISTS `categorias_ej_ev` (
+  `evaluation_id` int(11) NOT NULL,
+  `ent_id` int(11) NOT NULL,
+  PRIMARY KEY (`evaluation_id`,`ent_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rafagas`
+--
+
+CREATE TABLE IF NOT EXISTS `rafagas` (
+  `raf_start` int(8) NOT NULL,
+  `raf_end` int(8) NOT NULL,
+  `raf_timestamp` char(14) NOT NULL,
+  `raf_size` int(10) NOT NULL,
+  PRIMARY KEY (`raf_start`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
 
 --
 -- Insercion de valores por defecto

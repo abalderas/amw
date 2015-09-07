@@ -2,7 +2,7 @@
 <p>Hi <strong><?php echo $usuario; ?></strong>
 <?php
 
-if (!isset($evaluaciones_pendientes))
+if (!isset($evaluaciones_pendientes) || $evaluaciones_pendientes == 0)
 {
 	$evaluaciones_pendientes = "no";
 }

@@ -1,0 +1,63 @@
+% ------------------------------------------------------------------------------
+% Este fichero es parte de la plantilla LaTeX para la realización de Proyectos
+% Final de Grado, protegido bajo los términos de la licencia GFDL.
+% Para más información, la licencia completa viene incluida en el
+% fichero fdl-1.3.tex
+
+% Copyright (C) 2012 SPI-FM. Universidad de Cádiz
+% ------------------------------------------------------------------------------
+
+
+\section{Situación actual} 
+En la versión actual (la que esta funcionando en estos momentos) de AssessMediaWiki nos encontramos con un algoritmo de selección que escoge una edición de forma aleatoria entre las $n$ ediciones mas significativas (las de mayor tamaño), de forma que en el peor de los casos nos encontramos con la situación de que las $n-1$ ediciones mas significativas nunca serán seleccionadas.
+\newline
+Esta versión de AssessMediaWiki también carece de un procesado de ediciones para ciertos wiki-comportamientos (ráfagas, correcciones ortográficas, etc) y los roles de los usuarios se limitan a los de alumno y supervisor.\\
+Estos situaciones han sido complementadas con esta nueva versión, añadiendo un algoritmo distinto de selección de ediciones, un sistema de administración de roles y el procesado de ráfagas
+
+\subsection{Entorno Tecnológico}
+Para este proyecto sera necesario contar con un MediaWiki, normalmente alojado en un servidor, en el cual seria recomendable alojar el mismo software del proyecto.
+
+\subsection{Fortalezas y Debilidades}
+Fortalezas: Herramienta muy útil para añadir nuevas posibilidades a los métodos docentes.//
+
+Debilidades: Es necesario un mínimo de conocimientos para su instalación, al igual que para la instalación del MediaWiki.
+
+\section{Objetivos del Sistema}
+El objetivo del sistema es añadir nuevas funciones al método docente y darle a los alumnos mas responsabilidades, así como analizar su participación y resultados.
+
+\section{Catálogo de Requisitos}
+
+\subsection{Requisitos funcionales}
+Listado de las nuevas funcionalidades que ofrece el sistema:
+
+\begin{itemize}
+	\item Creación y edición de nuevos roles.
+	\item Creación y edición de ejercicios de evaluación.
+	\item Procesado de ráfagas.
+	\item Preasignaciones de ediciones.
+\end{itemize}
+
+\subsection{Requisitos no funcionales}
+Descripción de otros requisitos (relacionados con la calidad del software) que el sistema deberá satisfacer: portabilidad, seguridad, estándares de obligado cumplimiento, accesibilidad, usabilidad, etc:
+\begin{itemize}
+	\item MediaWiki.
+	\item Servidor para hospedar tanto el MediaWiki como AssessMediaWiki.
+	\item Conexión a internet.
+\end{itemize}
+
+\subsection{Requisitos de información}
+En esta sección se describen los requisitos de gestión de información (datos) que el sistema debe gestionar:
+\begin{itemize}
+	\item IDs de los usuarios del MediaWiki.
+	\item IDs de las ediciones creadas por los usuarios.
+	\item Notas y comentarios asignados a ediciones evaluadas.
+	\item Parámetros de configuración
+	\item Roles creados por el administrador.
+	\item Ejercicios de evaluación y sus configuraciones.
+\end{itemize}
+
+\section{Alternativas de Solución}
+Se presento la posibilidad de usar Eval-comix[] como herramienta de evaluación alternativa.
+
+\section{Solución Propuesta}
+Se descartó usar Eval-comix[] debido a que se consideró mejor opción implementar un método propio que fuese escalable.

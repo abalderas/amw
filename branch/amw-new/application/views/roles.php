@@ -59,8 +59,8 @@
 	    </div>
 	</td>
 	</tr>
-	<?php echo form_close(); ?> 
-	<?php } ?>
+<?php echo form_close(); ?> 
+<?php } ?>
 </table>
 
 
@@ -70,12 +70,12 @@
 	<tr>
 		<td>
 			<div class="control-group">
-				<label class="control-label" for="">Rol name</label>
+				<label class="control-label" for="">Rol name (without spaces)</label>
 			</div>
 		</td>
 		<td>
 			<div class="controls">
-				<input type="text" name="new_rol_name" value="New rol name" />
+				<input type="text" name="new_rol_name" value="New_rol_name" />
 			</div>
 		</td>
 	</tr>
