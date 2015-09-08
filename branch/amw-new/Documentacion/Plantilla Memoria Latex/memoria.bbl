@@ -1,14 +1,61 @@
 \begin{thebibliography}{}
 
-\bibitem[CCOO, 2010]{paslaboral}
-CCOO (2010).
-\newblock {Tablas salariales 2010 IV Convenio Colectivo}.
-\newblock
-  \url{http://www.uca.es/sindicato/ccoo/documentos/tabla-salarial-pas-laboral-2010.pdf}.
+\bibitem[Cod, ]{CodeIgniter}
+{CodeIgniter}.
+\newblock \url{http://www.codeigniter.com/}.
 
-\bibitem[Hevner et~al., 2004]{hevner2004}
-Hevner, A.~R., March, S.~T., Park, J., and Ram, S. (2004).
-\newblock {Design Science in Information Systems Research}.
-\newblock {\em MIS Quarterly}, 28(1):75--105.
+\bibitem[Dia, ]{Dia}
+{Dia}.
+\newblock \url{http://dia-installer.de/index.html.es}.
+
+\bibitem[Fir, ]{Firefox}
+{Firefox}.
+\newblock \url{https://www.mozilla.org/es-ES/}.
+
+\bibitem[For, ]{ForjaRediris}
+{Forja Rediris}.
+\newblock \url{https://forja.rediris.es/}.
+
+\bibitem[HTM, ]{HTML}
+{HTML}.
+\newblock \url{https://es.wikipedia.org/wiki/HTML}.
+
+\bibitem[LaT, ]{LaTeX}
+{LaTeX}.
+\newblock \url{http://www.latex-project.org/}.
+
+\bibitem[MYS, ]{MYSQL}
+{MYSQL}.
+\newblock \url{https://www.mysql.com/}.
+
+\bibitem[PHP, ]{PHP}
+{PHP}.
+\newblock \url{https://secure.php.net/}.
+
+\bibitem[TeX, ]{TeXtudio}
+{TeXtudio}.
+\newblock \url{http://www.texstudio.org/}.
+
+\bibitem[Tor, ]{TortoiseSVN}
+{Tortoise SVN}.
+\newblock \url{http://tortoisesvn.net/}.
+
+\bibitem[Balderas et~al., 2012]{Balderas:2012}
+Balderas, A., Palomo-Duarte, M., Dodero, J.~M., and Rube, I.~R. (2012).
+\newblock {Qualitative assessment of wiki-based learning processes}.
+
+\bibitem[Ibarra~Sáiz, 2012]{Evalcomix}
+Ibarra~Sáiz, M.S.; Rodríguez~Gómez, G. D. B. J. C. S. D. C. H.-J. O. G.~C.
+  (2012).
+\newblock {Mejoras en la Portabilidad de la Integración de EvalCOMIX en Moodle
+  2.X.}
+\newblock \url{http://evalcomix.uca.es/}.
+\newblock \\ Simposio Pluridisciplinar sobre Diseño y Evaluación de
+  contenidos digitales y educativos. Alicante.
+
+\bibitem[Miguel~Ángel Conde, ]{Conde}
+Miguel~Ángel Conde, Ángel Hérnandez-García, F. J. G.-P. y. M. L. S.-E.
+\newblock {Exploring Student Interactions: Learning Analytics Tools for Student
+  Tracking}.
 
 \end{thebibliography}

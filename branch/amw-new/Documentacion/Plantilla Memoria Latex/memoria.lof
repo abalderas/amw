@@ -11,38 +11,47 @@
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Diagrama de la base de datos de AMW 2.0.}}{13}{figure.4.2}
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Modelo de casos de uso.}}{15}{figure.4.3}
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Caso de uso: administrar roles.}}{23}{figure.4.4}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Caso de uso: crear rol.}}{24}{figure.4.5}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Caso de uso: crear rol.}}{23}{figure.4.5}
 \contentsline {figure}{\numberline {4.6}{\ignorespaces Caso de uso: editar permisos de rol.}}{24}{figure.4.6}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Caso de uso: eliminar rol.}}{25}{figure.4.7}
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Caso de uso: asignar rol.}}{25}{figure.4.8}
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Caso de uso: administrar ejercicios de evaluaci\IeC {\'o}n.}}{26}{figure.4.9}
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Caso de uso: crear ejercicio de evaluaci\IeC {\'o}n.}}{26}{figure.4.10}
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Caso de uso: editar ejercicio de evaluaci\IeC {\'o}n.}}{27}{figure.4.11}
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Caso de uso: eliminar ejercicio de evaluaci\IeC {\'o}n.}}{27}{figure.4.12}
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Caso de uso: editar criterios de evaluaci\IeC {\'o}n.}}{28}{figure.4.13}
-\contentsline {figure}{\numberline {4.14}{\ignorespaces Caso de uso: hacer preasignaciones.}}{28}{figure.4.14}
-\contentsline {figure}{\numberline {4.15}{\ignorespaces Caso de uso: procesar r\IeC {\'a}fagas.}}{29}{figure.4.15}
-\contentsline {figure}{\numberline {4.16}{\ignorespaces Caso de uso: acceso a ayuda.}}{29}{figure.4.16}
-\contentsline {figure}{\numberline {4.17}{\ignorespaces Pantalla de login.}}{30}{figure.4.17}
-\contentsline {figure}{\numberline {4.18}{\ignorespaces Pantalla de inicio del usuario (sin la sala de debug, eso es debido a que el modo de desarrollo esta activado).}}{31}{figure.4.18}
-\contentsline {figure}{\numberline {4.19}{\ignorespaces Pantalla de usuario sin revisiones.}}{31}{figure.4.19}
-\contentsline {figure}{\numberline {4.20}{\ignorespaces Pantalla de metaevaluaciones.}}{32}{figure.4.20}
-\contentsline {figure}{\numberline {4.21}{\ignorespaces Pantalla de listado de metaevaluaciones.}}{32}{figure.4.21}
-\contentsline {figure}{\numberline {4.22}{\ignorespaces Pantalla de listado de alumnos.}}{33}{figure.4.22}
-\contentsline {figure}{\numberline {4.23}{\ignorespaces Pantalla de par\IeC {\'a}metros.}}{34}{figure.4.23}
-\contentsline {figure}{\numberline {4.24}{\ignorespaces Pantalla de configuraci\IeC {\'o}n de roles.}}{35}{figure.4.24}
-\contentsline {figure}{\numberline {4.25}{\ignorespaces Pantalla de configuraci\IeC {\'o}n de ejercicios de evaluaci\IeC {\'o}n.}}{36}{figure.4.25}
-\contentsline {figure}{\numberline {4.26}{\ignorespaces Pantalla de ayuda extra.}}{37}{figure.4.26}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Caso de uso: eliminar rol.}}{24}{figure.4.7}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Caso de uso: asignar rol.}}{24}{figure.4.8}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Caso de uso: administrar ejercicios de evaluaci\IeC {\'o}n.}}{25}{figure.4.9}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Caso de uso: crear ejercicio de evaluaci\IeC {\'o}n.}}{25}{figure.4.10}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Caso de uso: editar ejercicio de evaluaci\IeC {\'o}n.}}{25}{figure.4.11}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Caso de uso: eliminar ejercicio de evaluaci\IeC {\'o}n.}}{26}{figure.4.12}
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Caso de uso: editar criterios de evaluaci\IeC {\'o}n.}}{26}{figure.4.13}
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Caso de uso: hacer preasignaciones.}}{26}{figure.4.14}
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Caso de uso: procesar r\IeC {\'a}fagas.}}{27}{figure.4.15}
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Caso de uso: acceso a ayuda.}}{27}{figure.4.16}
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Pantalla de login.}}{28}{figure.4.17}
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Pantalla de inicio del usuario (sin la sala de debug, eso es debido a que el modo de desarrollo esta activado).}}{29}{figure.4.18}
+\contentsline {figure}{\numberline {4.19}{\ignorespaces Pantalla de usuario sin revisiones.}}{29}{figure.4.19}
+\contentsline {figure}{\numberline {4.20}{\ignorespaces Pantalla de metaevaluaciones.}}{30}{figure.4.20}
+\contentsline {figure}{\numberline {4.21}{\ignorespaces Pantalla de listado de metaevaluaciones.}}{30}{figure.4.21}
+\contentsline {figure}{\numberline {4.22}{\ignorespaces Pantalla de listado de alumnos.}}{31}{figure.4.22}
+\contentsline {figure}{\numberline {4.23}{\ignorespaces Pantalla de par\IeC {\'a}metros.}}{32}{figure.4.23}
+\contentsline {figure}{\numberline {4.24}{\ignorespaces Pantalla de configuraci\IeC {\'o}n de roles.}}{33}{figure.4.24}
+\contentsline {figure}{\numberline {4.25}{\ignorespaces Pantalla de configuraci\IeC {\'o}n de ejercicios de evaluaci\IeC {\'o}n.}}{34}{figure.4.25}
+\contentsline {figure}{\numberline {4.26}{\ignorespaces Pantalla de ayuda extra.}}{35}{figure.4.26}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Diagrama de la base de datos de AMW 2.0.}}{40}{figure.5.1}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Diagrama de la base de datos de MediaWiki (disponible en la web de MediaWiki).}}{40}{figure.5.2}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Diagrama de la base de datos de AMW 2.0.}}{41}{figure.5.3}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Diagrama de la base de datos de AMW 2.0.}}{38}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Diagrama de la base de datos de MediaWiki (disponible en la web de MediaWiki).}}{38}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Diagrama de la base de datos de AMW 2.0.}}{39}{figure.5.3}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Diagrama de la base de datos de AMW 1.0.}}{49}{figure.6.1}
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Diagrama de la base de datos de AMW 2.0.}}{50}{figure.6.2}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Diagrama de la base de datos de AMW 1.0.}}{43}{figure.6.1}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Diagrama de la base de datos de AMW 2.0.}}{44}{figure.6.2}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {9.1}{\ignorespaces Pantalla de ayuda extra.}}{62}{figure.9.1}
+\contentsline {figure}{\numberline {9.1}{\ignorespaces Pantalla de login.}}{54}{figure.9.1}
+\contentsline {figure}{\numberline {9.2}{\ignorespaces Pantalla de inicio del usuario (sin la sala de debug, eso es debido a que el modo de desarrollo esta activado).}}{55}{figure.9.2}
+\contentsline {figure}{\numberline {9.3}{\ignorespaces Pantalla de usuario sin revisiones.}}{56}{figure.9.3}
+\contentsline {figure}{\numberline {9.4}{\ignorespaces Pantalla de metaevaluaciones.}}{57}{figure.9.4}
+\contentsline {figure}{\numberline {9.5}{\ignorespaces Pantalla de listado de metaevaluaciones.}}{58}{figure.9.5}
+\contentsline {figure}{\numberline {9.6}{\ignorespaces Pantalla de listado de alumnos.}}{59}{figure.9.6}
+\contentsline {figure}{\numberline {9.7}{\ignorespaces Pantalla de par\IeC {\'a}metros.}}{61}{figure.9.7}
+\contentsline {figure}{\numberline {9.8}{\ignorespaces Pantalla de configuraci\IeC {\'o}n de roles.}}{62}{figure.9.8}
+\contentsline {figure}{\numberline {9.9}{\ignorespaces Pantalla de configuraci\IeC {\'o}n de ejercicios de evaluaci\IeC {\'o}n.}}{64}{figure.9.9}
+\contentsline {figure}{\numberline {9.10}{\ignorespaces Pantalla de ayuda extra.}}{65}{figure.9.10}
 \addvspace {10\p@ }
 \contentsfinish 

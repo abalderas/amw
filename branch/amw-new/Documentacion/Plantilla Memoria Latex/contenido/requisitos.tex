@@ -9,7 +9,7 @@
 
 
 \section{Situación actual} 
-En la versión actual (la que esta funcionando en estos momentos) de AssessMediaWiki nos encontramos con un algoritmo de selección que escoge una edición de forma aleatoria entre las $n$ ediciones mas significativas (las de mayor tamaño), de forma que en el peor de los casos nos encontramos con la situación de que las $n-1$ ediciones mas significativas nunca serán seleccionadas.
+En la versión actual (la que está funcionando en estos momentos) de AssessMediaWiki nos encontramos con un algoritmo de selección que escoge una edición de forma aleatoria entre las $n$ ediciones mas significativas (las de mayor tamaño), de forma que en el peor de los casos nos encontramos con la situación de que las $n-1$ ediciones mas significativas nunca serán seleccionadas.
 \newline
 Esta versión de AssessMediaWiki también carece de un procesado de ediciones para ciertos wiki-comportamientos (ráfagas, correcciones ortográficas, etc) y los roles de los usuarios se limitan a los de alumno y supervisor.\\
 Estos situaciones han sido complementadas con esta nueva versión, añadiendo un algoritmo distinto de selección de ediciones, un sistema de administración de roles y el procesado de ráfagas
@@ -57,7 +57,10 @@ En esta sección se describen los requisitos de gestión de información (datos)
 \end{itemize}
 
 \section{Alternativas de Solución}
-Se presento la posibilidad de usar \href{http://evalcomix.uca.es/}{evalcomix} como herramienta de evaluación alternativa.
+Se presento la posibilidad de usar \href{http://evalcomix.uca.es/}{evalcomix} \cite{Evalcomix} como herramienta de evaluación alternativa.
 
 \section{Solución Propuesta}
-Se descartó usar \href{http://evalcomix.uca.es/}{evalcomix} debido a que se consideró mejor opción implementar un método propio que fuese escalable.
+Se consideró mejor opción implementar un método propio que fuese escalable, por lo que se descarto usar \href{http://evalcomix.uca.es/}{evalcomix} \cite{Evalcomix} en el desarrollo del sistema.
+\newline
+
+Se ha implementado un sistema de evaluación en el que el docente puede configurar cuantas ediciones se evaluaran de cada estudiante y cuantas evaluaciones recibirá cada edición.
