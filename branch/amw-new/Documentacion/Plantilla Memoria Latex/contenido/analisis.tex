@@ -10,21 +10,235 @@
 
 \section{Modelo Conceptual}
 
-A partir de los requisitos de información, se desarrollará un diagrama conceptual de clases UML, identificando las clases, atributos, relaciones, restricciones adicionales y reglas de derivación necesarias.
+A partir de los requisitos de información, se desarrollará un diagrama conceptual de clases UML, identificando las clases, atributos, relaciones, restricciones adicionales y reglas de derivación necesarias, primero describiremos tas tablas y los atributos de la bases bases de datos (la antigua y la de la nueva versión).\\
 
-\begin{figure}
+\textbf{Base de datos 1.0}\\
+
+\begin{itemize}	
+	\item Config\\
+	
+	En esta tabla almacenaremos los parámetros de las configuraciones.
+	
+	\begin{itemize}
+		\item parameter - nombre del parámetro
+		\item value - valor del parámetro
+	\end{itemize}
+	
+	\item Entregables\\
+	
+	En esta tabla almacenaremos las categorías a evaluar en cada ejercicio.
+	
+	\begin{itemize}
+		\item ent id - id de la categoría a evaluar
+		\item ent entregale - nombre de la categoría a evaluar
+		\item ent descripción - descripción de la categoría a evaluar
+	\end{itemize}
+	
+	\item Evaluaciones\\
+	
+	En esta tabla almacenaremos datos de la edición evaluada.
+	
+	\begin{itemize}
+		\item eva id - id de la evaluación
+		\item eva user - id del autor de la edición
+		\item eva revisor - id del evaluador de la edición
+		\item eva revision - id de la edición
+		\item eva time - tiempo empleado en la evaluación
+	\end{itemize}
+	
+	\item Evaluaciones entregables\\
+	
+	En esta tabla almacenaremos los datos de la evaluación.
+	
+	\begin{itemize}
+		\item eva id - id de la evaluación
+		\item ent id - id de la categoría evaluada
+		\item ee nota - nota de la edición en una categoría
+		\item ee comentario - comentarios sobre la valoración de la edición
+	\end{itemize}
+	
+	\item Metaevaluaciones\\
+	
+	En esta tabla almacenaremos las metaevaluaciones realizadas.
+	
+	\begin{itemize}
+		\item mev id - id de la metaevaluación
+		\item mevaluador id - id del meta-evaluador
+		\item evaluación id - id de la evaluación
+		\item calificación - valoración de la evaluación
+		\item comentario - comentarios sobre la valoración de la evaluación
+	\end{itemize}
+	
+	
+	\item Replies\\
+	
+	En esta tabla almacenaremos las re-evaluaciones solicitadas.
+	
+	\begin{itemize}
+		\item rep id - id del reply
+		\item rep read - id de la evaluación antigua
+		\item rep new - id de la nueva evaluación
+	\end{itemize}
+	
+
+	
+\end{itemize}
+
+\begin{figure} [h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{db1girada.jpg}
 	\caption{Diagrama de la base de datos de AMW 1.0.}
 \end{figure}
 
-\begin{figure}
+\clearpage
+
+\textbf{Base de datos 2.0}\\
+	
+\begin{itemize}
+	\item Categorías ej ev\\
+	
+	En esta tabla almacenaremos información de las categorías de los ejercicios de evaluación.\\
+	
+	\begin{itemize}
+		\item evaluation id - id del ejercicio de evaluación
+		\item ent id - id de la categoría a evaluar
+	\end{itemize}
+	
+	\item Config\\
+	
+	En esta tabla almacenaremos los parámetros de las configuraciones.
+	
+	\begin{itemize}
+		\item parameter - nombre del parámetro
+		\item value - valor del parámetro
+	\end{itemize}
+	
+	\item Ejercicios de evaluación\\
+	
+	En esta tabla almacenaremos los distintos ejercicios de evaluación.
+	
+	\begin{itemize}
+		\item evaluation id - id del ejercicio de evaluación
+		\item exercise name - nombre del ejercicio de evaluación
+		\item beginning - fecha de inicio
+		\item first phase end - fin del periodo de definición de los criterios de evaluación
+		\item second phase end - fin del periodo de desarrollo del ejercicio
+		\item third phase end - fin del periodo de evaluación entre alumnos
+		\item fourth phase end - fin de la fase final de supervisión
+		\item description - descripción del ejercicio de evaluación
+	\end{itemize}
+	
+	\item Entregables\\
+	
+	En esta tabla almacenaremos las categorías a evaluar en cada ejercicio.
+	
+	\begin{itemize}
+		\item ent id - id de la categoría a evaluar
+		\item ent entregale - nombre de la categoría a evaluar
+		\item ent descripción - descripción de la categoría a evaluar
+		\item generic specific - define si la categoría a evaluar es genérica o especifica
+	\end{itemize}
+	
+	\item Evaluaciones\\
+	
+	En esta tabla almacenaremos datos de la edición una vez haya sido evaluada.
+	
+	\begin{itemize}
+		\item eva id - id de la evaluación
+		\item eva user - id del autor de la edición
+		\item eva revisor - id del evaluador de la edición
+		\item eva revision - id de la edición
+		\item eva time - tiempo empleado en la evaluación
+	\end{itemize}
+	
+	\item Evaluaciones entregables\\
+	
+	En esta tabla almacenaremos los datos de la evaluación.
+	
+	\begin{itemize}
+		\item eva id - id de la evaluación
+		\item ent id - id de la categoría evaluada
+		\item ee nota - nota de la edición en una categoría
+		\item ee comentario - comentarios sobre la valoración de la edición
+	\end{itemize}
+	
+	\item Metaevaluaciones\\
+	
+	En esta tabla almacenaremos las metaevaluaciones realizadas.
+	
+	\begin{itemize}
+		\item mev id - id de la metaevaluación
+		\item mevaluador id - id del meta-evaluador
+		\item evaluación id - id de la evaluación
+		\item calificación - valoración de la evaluación
+		\item comentario - comentarios sobre la valoración de la evaluación
+	\end{itemize}
+	
+	\item Preasignaciones\\
+	
+	En esta tabla almacenaremos las preasignaciones realizadas.
+	
+	\begin{itemize}
+		\item preasignación id - id de la preasignación
+		\item edit id - id de la edición
+		\item revisor id - id del evaluador de la edición
+		\item ejercicio de evaluación - id del ejercicio de evaluación
+	\end{itemize}
+	
+	\item Ráfagas\\
+	
+	En esta tabla almacenaremos las ráfagas de ediciones generadas.
+	
+	\begin{itemize}
+		\item raf start - id de la edición donde empieza la ráfaga
+		\item raf end - id de la edición donde termina la ráfaga
+		\item raf timestamp - fecha y hora de la edición final
+		\item raf size - tamaño de la ráfaga
+	\end{itemize}
+	
+	\item Replies\\
+	
+	En esta tabla almacenaremos las re-evaluaciones solicitadas.
+	
+	\begin{itemize}
+		\item rep id - id del reply
+		\item rep read - id de la evaluación antigua
+		\item rep new - id de la nueva evaluación
+	\end{itemize}
+	
+	\item Rol assignations\\
+	
+	En esta tabla almacenaremos las asignaciones de roles.
+	
+	\begin{itemize}
+		\item user id - id del usuario
+		\item rol id - id del rol
+	\end{itemize}
+	
+	\item Roles\\
+	
+	En esta tabla almacenaremos los roles existentes.
+	
+	\begin{itemize}
+		\item rol id - id del rol
+		\item name - nombre del rol
+		\item evaluar - permisos para la sección de evaluar
+		\item feedback - permisos para la sección de feedback
+		\item metaevaluar - permisos para la sección de metaevaluar
+		\item metaevaluar lista - permisos para la sección de la lista de metaevaluaciones
+		\item alumnos - permisos para la sección de la lista de alumnos
+		\item parámetros - permisos para la sección de parámetros
+	\end{itemize}
+	
+\end{itemize}
+
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{db2girada.jpg}
 	\caption{Diagrama de la base de datos de AMW 2.0.}
 \end{figure}
 
-\newpage
+\clearpage
 
 \section{Modelo de Casos de Uso}
 
@@ -468,68 +682,101 @@ En las siguientes imágenes podemos ver los modelos de comportamiento:
 
 \section{Modelo de Interfaz de Usuario}
 
-En esta sección se adjuntan capturas de pantalla de la interfaz del sistema:
-\newline
+En esta sección se detalla la navegación entre pantallas adjuntando imágenes de la interfaz del sistema, la principal forma de navegación es a través del menú superior.\\
+
+A continuación se muestra la pantalla de inicio de sesión, en la cual es usuario debe introducir sus datos para acceder al sistema.\\
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{sc_login.jpg}
 	\caption{Pantalla de login.}
 \end{figure}
+\clearpage
 
-\begin{figure}
+Una vez iniciada sesión aparece la pantalla de inicio, donde aparecerán las evaluaciones disponibles para el usuario en casi de que hubiese, en cualquier momento podemos volver a esta pantalla haciendo clic en el botón "Assess" del menú superior.\\
+
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{sc_revision.jpg}
 	\caption{Pantalla de inicio del usuario (sin la sala de debug, eso es debido a que el modo de desarrollo esta activado).}
 \end{figure}
+\clearpage
 
-\begin{figure}
+En caso de no haber evaluaciones disponibles para el usuario aparecerá el siguiente mensaje en la pagina principal.\\
+
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{sc_no_revision.jpg}
 	\caption{Pantalla de usuario sin revisiones.}
 \end{figure}
+\clearpage
 
-\begin{figure}
+A partir de este punto usaremos capturas de pantalla con el perfil de profesor / administrador, ya que es el rol que tiene permisos para acceder a todas las secciones del sistema, los estudiantes tendrían los permisos básicos mostrados previamente.\\
+
+A continuación se muestra la pantalla de metaevaluaciones, que estará disponible a trabes del botón "Metaevaluations" en el menú superior, para el profesor / administrador y para todos aquellos roles que el profesor / administrador lo haya habilitado.\\
+
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{sc_metaevaluar.jpg}
 	\caption{Pantalla de metaevaluaciones.}
 \end{figure}
+\clearpage
 
-\begin{figure}
+Si hacemos clic en el apartado del menú "All metaevaluations" podremos ver la lista completa de todas las metaevaluaciones realizadas existentes en el sistema, como podemos ver a continuacion.\\
+
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{sc_metaevaluar_lista.jpg}
 	\caption{Pantalla de listado de metaevaluaciones.}
 \end{figure}
+\clearpage
 
-\begin{figure}
+Si hacemos clic en el apartado del menú "Students" podremos ver la lista completa de todos los estudiantes existentes en el sistema, y a través de los enlaces "Report", "Metaevaluations resume" y "CSV" podremos ver información detallada sobre las evaluaciones de los alumnos, las metaevaluaciones realizadas y generas un CSV (Coma Separated Values) respectivamente.\\
+
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{sc_student_list.jpg}
 	\caption{Pantalla de listado de alumnos.}
 \end{figure}
+\clearpage
 
-\begin{figure}
+Al hacer clic en el botón "Parameters" en el menú superior podremos acceder a configuraciones del sistema como vemos a continuacion.\\
+
+Al final de la lista de parámetros encontraremos los botones "Administration of evaluation exercises", "Administration of roles" y "Help", funciones añadidas en esta nueva versión de AssessMediaWiki, cuyas interfaces veremos a continuacion.
+
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{sc_parametros1.jpg}
 	\includegraphics[width=0.9\textwidth]{sc_parametros2.jpg}
 	\caption{Pantalla de parámetros.}
 \end{figure}
+\clearpage
 
-\begin{figure}
+A continuación veremos la interfaz de administración de roles, accesible desde el botón "Administration of roles" al final del listado de parámetros, a través de esta interfaz podremos crear nuevos roles, eliminar roles obsoletos, administrar los permisos de los roles existentes, asignar roles a los usuarios y ver que usuarios tienen roles asignados.\\
+
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{sc_roles1.jpg}
 	\includegraphics[width=0.9\textwidth]{sc_roles2.jpg}
 	\caption{Pantalla de configuración de roles.}
 \end{figure}
+\clearpage
 
-\begin{figure}
+A continuación veremos la interfaz de administración de ejercicios de evaluación, accesible desde el botón "Administration of evaluation exercises" al final del listado de parámetros, a través de esta interfaz podremos crear nuevos ejercicios de evaluación, eliminar ejercicios de evaluación, administrar los parámetros de los ejercicios de evaluación existentes, modificar las categorías a evaluar en los ejercicios de evaluación correspondientes.\\
+
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{sc_ee1.jpg}
 	\includegraphics[width=0.9\textwidth]{sc_ee2.jpg}
 	\caption{Pantalla de configuración de ejercicios de evaluación.}
 \end{figure}
+\clearpage
 
-\begin{figure}
+A continuación veremos la interfaz de ayuda extra, accesible desde el botón "Help" al final del listado de parámetros,  en esta nueva interfaz se mostrara información al usuario en caso de que necesite recordar el uso de alguna característica del sistema.\\
+
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{sc_extra_help.jpg}
 	\caption{Pantalla de ayuda extra.}
 \end{figure}
+\clearpage

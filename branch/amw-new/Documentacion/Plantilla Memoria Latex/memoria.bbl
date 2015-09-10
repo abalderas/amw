@@ -40,22 +40,45 @@
 {Tortoise SVN}.
 \newblock \url{http://tortoisesvn.net/}.
 
-\bibitem[Balderas et~al., 2012]{Balderas:2012}
-Balderas, A., Palomo-Duarte, M., Dodero, J.~M., and Rube, I.~R. (2012).
-\newblock {Qualitative assessment of wiki-based learning processes}.
+\bibitem[Antonio~Balderas, 2012]{Balderas:2012}
+Antonio~Balderas, Manuel Palomo-Duarte, J. M. D. I. R.-R. (2012).
+\newblock Qualitative assessment of wiki-based learning processes.
 
 \bibitem[Ibarra~Sáiz, 2012]{Evalcomix}
-Ibarra~Sáiz, M.S.; Rodríguez~Gómez, G. D. B. J. C. S. D. C. H.-J. O. G.~C.
-  (2012).
-\newblock {Mejoras en la Portabilidad de la Integración de EvalCOMIX en Moodle
-  2.X.}
+Ibarra~Sáiz, M.S., R. G. G. D. B. J. C. S. D. C. H.-J. O. G.~C. (2012).
+\newblock Mejoras en la portabilidad de la integración de {EvalCOMIX} en
+  {Moodle 2.X.}
 \newblock \url{http://evalcomix.uca.es/}.
 \newblock \\ Simposio Pluridisciplinar sobre Diseño y Evaluación de
   contenidos digitales y educativos. Alicante.
+
+\bibitem[Juan Ortega-Valiente, 2012]{Ortega}
+Juan Ortega-Valiente, A. J.~R. (2012).
+\newblock Estado del arte de la implatación y uso de plataformas wiki en
+  universidades europeas.
+\newblock
+  \url{https://scholar.google.com/citations?view_op=view_citation&hl=en&user=E_diuqEAAAAJ&citation_for_view=E_diuqEAAAAJ:roLk4NBRz8UC}.
+\newblock \\ Jornadas de la Enseñanza Universitaria de la Informática
+  (JENUI).
 
 \bibitem[Miguel~Ángel Conde, ]{Conde}
 Miguel~Ángel Conde, Ángel Hérnandez-García, F. J. G.-P. y. M. L. S.-E.
 \newblock {Exploring Student Interactions: Learning Analytics Tools for Student
   Tracking}.
+
+\bibitem[Mohamad AL-Samdi, 2011]{Mohamad}
+Mohamad AL-Samdi, Margit~Höfler, C.~G. (2011).
+\newblock Enhancing wikis with visualization tools to support groups production
+  function and to maintain task and social awareness.
+\newblock
+  \url{http://www.researchgate.net/publication/236258867_Enhancing_Wikis_with_Visualization_Tools_to_Support_Groups_Production_Function_and_to_Maintain_Task_and_Social_Awareness}.
+\newblock \\ Proceedings of ICBL 2011, 4th International Conference on
+  Interactive Computer-aided .
+
+\bibitem[R.~Stuart~Geiger, ]{Stuart}
+R.~Stuart~Geiger, A.~H.
+\newblock Using edit sessions to measure participation in wikipedia.
+\newblock
+  \url{http://www-users.cs.umn.edu/~halfak/publications/Using_Edit_Sessions_to_Measure_Participation_in_Wikipedia/geiger13using-preprint.pdf}.
 
 \end{thebibliography}
